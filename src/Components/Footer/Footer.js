@@ -44,7 +44,7 @@ const Footer = () => {
         Get the latest updates happening on Kelekshen
       </Typography>
       <div className={classes.inputContainer}>
-        <OutlinedInput className={classes.input} />
+        <OutlinedInput className={classes.input} placeholder="Your - Email" />
         <Button variant="contained" color="secondary">
           Subscribe
         </Button>
