@@ -1,11 +1,14 @@
-import './App.css';
-import Routes from './Routes';
+import { Container } from "@material-ui/core";
+import "./App.css";
+import Navbar from "./Components/Navbar/Navbar";
+import Routes from "./Routes";
 
 function App() {
   return (
-    <>
-      <Routes/>
-    </>
+    <Container maxWidth="xl" disableGutters>
+      <Navbar />
+      <Routes />
+    </Container>
   );
 }
 
