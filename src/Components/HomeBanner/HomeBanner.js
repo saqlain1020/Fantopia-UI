@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     cursor: "default",
     marginTop: 10,
+    [theme.breakpoints.down('xs')]:{
+        width: "90%",
+    }
   },
   btnSelected: {
     color: theme.palette.secondary.dark,
