@@ -39,7 +39,8 @@ const Theme = createMuiTheme({
     white: "white",
     black: "black",
     veryLightBg: "rgb(253,253,253)",
-    lightBlack: "rgba(0,0,0,0.8)"
+    lightBlack: "rgba(0,0,0,0.8)",
+    veryLightBlack: "rgba(0,0,0,0.4)"
   },
 });
 
