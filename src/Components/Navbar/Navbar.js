@@ -65,19 +65,19 @@ const Navbar = () => {
         />
       </div>
       <div className={classes.linksContainer}>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Explore</Typography>
         </Link>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>My Items</Typography>
         </Link>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Activity</Typography>
         </Link>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Charts</Typography>
         </Link>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Community</Typography>
         </Link>
       </div>
