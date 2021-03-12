@@ -3,3 +3,24 @@
   margin: 0px;
   border: 0px;
 }
+body {
+  background-color: rgb(253, 253, 253);
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flexAlign {
+  display: flex;
+  align-items: center;
+}
+.MuiTabs-indicator {
+  height: 4px !important;
+}
+.MuiTab-wrapper {
+  text-transform: none;
+  font-weight: 700;
+  height: 80px;
+  font-size: 16px;
+}

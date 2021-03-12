@@ -4,9 +4,11 @@ const Theme = createMuiTheme({
   palette: {
     primary: {
       main: "#34DFF7",
+      dark: "#4f8dff",
     },
     secondary: {
       main: "#5664d0",
+      vibrant: "#615dfa",
     },
   },
   typography: {
@@ -34,6 +36,9 @@ const Theme = createMuiTheme({
   },
   customColors: {
     bgGrey: "#ebeaf0",
+    white: "white",
+    black: "black",
+    veryLightBg: "rgb(253,253,253)"
   },
 });
 

@@ -9,11 +9,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: "center",
     backgroundSize: "cover",
     height: 650,
-    color: "white",
+    color: theme.customColors.white,
     position: "relative",
   },
   btnsContainer: {
-    border: "1px solid white",
+    border: `1px solid ${theme.customColors.white}`,
     borderRadius: 10,
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnSelected: {
     color: theme.palette.secondary.dark,
-    background: "white",
+    background: theme.customColors.white,
     fontWeight: "700",
     height: 60,
     display: "flex",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-out",
   },
   btn: {
-    color: "white",
+    color: theme.customColors.white,
     background: "transparent",
     fontWeight: "700",
     height: 60,

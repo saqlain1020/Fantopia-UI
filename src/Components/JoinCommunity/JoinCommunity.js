@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight: 700,
     textAlign: "center",
+    color: theme.customColors.white,
   },
   grid: {
     width: 300,
@@ -18,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     paddingTop: 10,
     paddingBottom: 10,
+    background: theme.customColors.white,
+    color: theme.customColors.black
   },
   iconContainer: {
     display: "flex",
@@ -28,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   text: {
     fontWeight: 700,
     marginLeft: 5,
+    color: theme.customColors.black,
   },
 }));
 
