@@ -1,5 +1,6 @@
 import {  Container, makeStyles } from '@material-ui/core'
 import React from 'react'
+import { Route } from 'react-router'
 import AccountBanner from 'src/Components/AccountBanner/AccountBanner'
 import AccountLeftBar from 'src/Components/AccountLeftBar/AccountLeftBar'
 
@@ -23,7 +24,13 @@ const Account = () => {
                 <div style={{marginTop:50,}}>
                     <AccountLeftBar/>
                 </div>
-                <div></div>
+                <div>
+                    <Route path="/Account/items">Items</Route>
+                    <Route path="/Account/profile">Profile</Route>
+                </div>
+                {/* <Route path="/Account/asd">
+                    <h1>hellow</h1>
+                </Route> */}
             </Container>
         </div>
     )

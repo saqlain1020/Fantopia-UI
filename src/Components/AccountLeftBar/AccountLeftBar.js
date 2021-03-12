@@ -1,9 +1,16 @@
-import { Button, Divider, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  Button,
+  Divider,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 import React from "react";
 import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
 import RemoveOutlinedIcon from "@material-ui/icons/RemoveOutlined";
 import StorefrontOutlinedIcon from "@material-ui/icons/StorefrontOutlined";
 import AddOutlinedIcon from "@material-ui/icons/AddOutlined";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,23 +33,26 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
     fontWeight: 500,
   },
-  btn:{
-      color: theme.customColors.white,
-    borderRadius:20,
-    paddingTop:15,
-    paddingBottom:15,
-    fontSize:16,
-    fontWeight:600,
-    boxShadow:"none"
-  }
+  btn: {
+    color: theme.customColors.white,
+    borderRadius: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    fontSize: 16,
+    fontWeight: 600,
+    boxShadow: "none",
+  },
 }));
 
-const AccountLeftBar = () => {
+const AccountLeftBar = (props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <div style={{ padding: 25, minHeight: 100 }}>
+      <div
+        style={{ padding: 25, minHeight: 100 }}
+        onClick={() => props.history.push("/Account/profile")}
+      >
         <div style={{ display: "flex" }}>
           <AccountCircleOutlinedIcon className={classes.icon} />
           <div>
@@ -52,7 +62,11 @@ const AccountLeftBar = () => {
               </Typography>
 
               <Typography variant="h6" className={classes.heading}>
-                <RemoveOutlinedIcon />
+                {props.location.pathname === "/Account/profile" ? (
+                  <RemoveOutlinedIcon />
+                ) : (
+                  <AddOutlinedIcon />
+                )}
               </Typography>
             </div>
             <Typography className={classes.para}>
@@ -63,7 +77,10 @@ const AccountLeftBar = () => {
         </div>
       </div>
       <Divider />
-      <div style={{ padding: 25, minHeight: 100 }}>
+      <div
+        style={{ padding: 25, minHeight: 100 }}
+        onClick={() => props.history.push("/Account/items")}
+      >
         <div style={{ display: "flex" }}>
           <StorefrontOutlinedIcon className={classes.icon} />
           <div>
@@ -71,9 +88,12 @@ const AccountLeftBar = () => {
               <Typography variant="h6" className={classes.heading}>
                 My Items
               </Typography>
-
               <Typography variant="h6" className={classes.heading}>
-                <AddOutlinedIcon />
+                {props.location.pathname === "/Account/items" ? (
+                  <RemoveOutlinedIcon />
+                ) : (
+                  <AddOutlinedIcon />
+                )}
               </Typography>
             </div>
             <Typography className={classes.para}>
@@ -83,11 +103,18 @@ const AccountLeftBar = () => {
         </div>
       </div>
       <Divider />
-      <div style={{padding:30,}}>
-        <Button className={classes.btn} fullWidth variant="contained" color="primary">Save Changes!</Button>
+      <div style={{ padding: 30 }}>
+        <Button
+          className={classes.btn}
+          fullWidth
+          variant="contained"
+          color="primary"
+        >
+          Save Changes!
+        </Button>
       </div>
     </div>
   );
 };
 
-export default AccountLeftBar;
+export default withRouter(AccountLeftBar);
