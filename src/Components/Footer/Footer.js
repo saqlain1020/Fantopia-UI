@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.customColors.bgGrey,
     paddingBottom: 70,
-    color: theme.customColors.black,
+    color: theme.customColors.lightBlack,
   },
   inputContainer: {
     display: "flex",
