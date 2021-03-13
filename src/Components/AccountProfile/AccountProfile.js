@@ -5,6 +5,7 @@ import SmallHexPng from "src/Assets/Images/smallhex.png";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
 import WallpaperOutlinedIcon from "@material-ui/icons/WallpaperOutlined";
 import AccountProfileForm from "../AccountProfileForm/AccountProfileForm";
+import AccountChangePassword from "../AccountChangePassword/AccountChangePassword";
 
 const useStyles = makeStyles((theme) => ({
   topHeading: {
@@ -159,7 +160,11 @@ const AccountProfile = () => {
             <AccountProfileForm/>
         </Grid>
       </Grid>
-      
+      <Typography className={classes.topHeading}>Account</Typography>
+      <Typography variant="h4" className={classes.heading}>
+        Change Password
+      </Typography>
+      <AccountChangePassword/>
     </div>
   );
 };
