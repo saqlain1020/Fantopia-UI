@@ -1,5 +1,6 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
+import { withRouter } from "react-router";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = () => {
+const Profile = (props) => {
   const classes = useStyles();
 
   return (
@@ -26,6 +27,7 @@ const Profile = () => {
         paddingRight: 8,
         borderRadius: 5,
       }}
+      onClick={() => props.history.push("/Account")}
     >
       <Typography className={classes.text}>20 KELEK</Typography>
       <div style={{ position: "relative", width: 45, height: 50 }}>
@@ -76,4 +78,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default withRouter(Profile);

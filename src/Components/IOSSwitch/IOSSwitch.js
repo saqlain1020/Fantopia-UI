@@ -6,6 +6,7 @@ const IOSSwitch = withStyles((theme) => ({
     height: 26,
     padding: 0,
     margin: theme.spacing(1),
+    overflow:"visible",
   },
   switchBase: {
     padding: 1,
@@ -29,6 +30,7 @@ const IOSSwitch = withStyles((theme) => ({
     height: 22,
   },
   track: {
+    height:"100%",
     borderRadius: 26 / 2,
     border: `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: theme.palette.grey[50],

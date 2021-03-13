@@ -5,6 +5,7 @@ const Theme = createMuiTheme({
     primary: {
       main: "#34DFF7",
       dark: "#4f8dff",
+      vibrant: "#1abcff"
     },
     secondary: {
       main: "#5664d0",
@@ -33,6 +34,17 @@ const Theme = createMuiTheme({
         backgroundColor: "green",
       },
     },
+    MuiOutlinedInput:{
+      root:{
+        "& fieldset":{
+          borderRadius: "15px",
+          borderColor: "rgba(0, 0, 0, 0.23) !important",
+          color: "red !important",
+        },
+        fontWeight:800,
+      },
+      
+    }
   },
   customColors: {
     bgGrey: "#ebeaf0",

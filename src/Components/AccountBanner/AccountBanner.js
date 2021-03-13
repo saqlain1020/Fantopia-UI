@@ -1,4 +1,4 @@
-import { FormControlLabel, makeStyles, Typography } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import BannerImg from "src/Assets/Images/acchubbanner.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";

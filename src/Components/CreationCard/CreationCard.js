@@ -9,6 +9,8 @@ import React from "react";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import HeartIcon from "src/Assets/Icons/heart.png";
 import HexGoldIcon from "src/Assets/Images/hexGold.png";
+import PropTypes from 'prop-types'
+import HexGiftIcon from 'src/Assets/Images/hexgift.png'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +25,19 @@ const useStyles = makeStyles((theme) => ({
   img: {
     background: theme.palette.secondary.vibrant,
     height: 180,
+  },
+  imgGift:{
+    background: theme.palette.secondary.vibrant,
+    height: 180,
+    "&:after":{
+      content: '""',
+      position:"absolute",
+      width:"100%",
+      height:"100%",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition:"center",
+      backgroundImage: `url(${HexGiftIcon})`
+    }
   },
   dollarText: {
     fontWeight: 600,
@@ -45,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
   },
   titleText: {
     fontWeight: 600,
+    "& span":{
+      color: theme.palette.primary.main,
+      fontWeight:700,
+    }
   },
   titleType: {
     display: "flex",
@@ -100,28 +119,54 @@ const useStyles = makeStyles((theme) => ({
       backgroundPosition: "center",
     },
   },
+  createBtn:{
+    color: theme.customColors.white,
+    width:"90%",
+    marginLeft:"5%",
+    marginRight:"5%",
+    borderRadius:15,
+    fontWeight:600,
+    fontSize:18,
+    marginTop:10,
+    marginBottom:10,
+    boxShadow:"none",
+  },
+  editBtn:{
+    color: theme.customColors.veryLightBlack,
+    width:"90%",
+    marginLeft:"5%",
+    marginRight:"5%",
+    borderRadius:15,
+    fontWeight:600,
+    fontSize:18,
+    marginTop:10,
+    marginBottom:10,
+    boxShadow:"none",
+  }
 }));
 
-const CreationCard = () => {
+const CreationCard = (props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div style={{ position: "relative" }}>
-        <div className={classes.img} />
+        <div className={props.gift?classes.imgGift:classes.img} />
         <Typography className={classes.dollarText}>
           <span className={classes.dollar}>$</span> 12.00
         </Typography>
       </div>
       <div style={{ padding: "10px 20px" }}>
         <Grid container>
-          <Grid item xs={6}>
+          <Grid item xs={7}>
             <Typography className={classes.titleText}>Twitch</Typography>
             <Typography className={classes.titleType}>
               <FiberManualRecordOutlinedIcon className={classes.dotIcon} /> Art
             </Typography>
+            {props.highestBid && <Typography style={{fontSize:14,}} className={classes.titleText}>Highest bid <span>0.01 BNB</span></Typography>}
+            
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <div
               style={{
                 display: "flex",
@@ -139,46 +184,61 @@ const CreationCard = () => {
         </Grid>
       </div>
       <Divider />
+      {!props.create && !props.edit && 
       <Grid container style={{ marginTop: 10 }}>
-        <Grid item xs={8}>
-          <div className={classes.hexContainer}>
-            <div
-              className={classes.hexClip}
-              style={{ backgroundColor: "#615dfa" }}
-            ></div>
-            <div
-              className={classes.hexClip}
-              style={{
-                backgroundColor: "#1cb5e0",
-                transform: "translateX(-10px) rotate(90deg)",
-              }}
-            ></div>
-            <div
-              className={classes.hexClip}
-              style={{
-                backgroundColor: "#4f8dff",
-                transform: "translateX(-20px) rotate(90deg)",
-              }}
-            ></div>
-            <div
-              className={classes.hexClipGold}
-              style={{
-                transform: "translateX(-30px) rotate(90deg) scale(1.1)",
-                zIndex: -1,
-                backgroundImage: `url(${HexGoldIcon})`,
-              }}
-            ></div>
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography align="center" className={classes.ratingValue}>
-            1 of 1<br />
-            <img alt="like" src={HeartIcon} />
-          </Typography>
-        </Grid>
+      <Grid item xs={8}>
+        <div className={classes.hexContainer}>
+          <div
+            className={classes.hexClip}
+            style={{ backgroundColor: "#615dfa", zIndex: 1 }}
+            
+          ></div>
+          <div
+            className={classes.hexClip}
+            style={{
+              backgroundColor: "#1cb5e0",
+              transform: "translateX(-10px) rotate(90deg)",
+              zIndex:2,
+            }}
+          ></div>
+          <div
+            className={classes.hexClip}
+            style={{
+              backgroundColor: "#4f8dff",
+              transform: "translateX(-20px) rotate(90deg)",
+              zIndex:3
+            }}
+          ></div>
+          <div
+            className={classes.hexClipGold}
+            style={{
+              transform: "translateX(-30px) rotate(90deg) scale(1.1)",
+              zIndex: 1,
+              backgroundImage: `url(${HexGoldIcon})`,
+            }}
+          ></div>
+        </div>
       </Grid>
+      <Grid item xs={4}>
+        <Typography align="center" className={classes.ratingValue}>
+          1 of 1<br />
+          <img alt="like" src={HeartIcon} />
+        </Typography>
+      </Grid>
+    </Grid>
+  
+      }
+      {props.create && !props.edit && <Button variant="contained" color="primary" className={classes.createBtn}>Create New Item!</Button>}
+      {props.edit && !props.create && <Button variant="outlined" color="default" className={classes.editBtn}>Edit Item</Button>}
     </div>
   );
 };
 
 export default CreationCard;
+
+CreationCard.propTypes = {
+  highestBid: PropTypes.number,
+  gift: PropTypes.bool,
+  create: PropTypes.bool,
+  edit: PropTypes.bool
+}
