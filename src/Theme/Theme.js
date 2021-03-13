@@ -5,7 +5,7 @@ const Theme = createMuiTheme({
     primary: {
       main: "#34DFF7",
       dark: "#4f8dff",
-      vibrant: "#1abcff"
+      vibrant: "#1abcff",
     },
     secondary: {
       main: "#5664d0",
@@ -19,20 +19,20 @@ const Theme = createMuiTheme({
     },
   },
   overrides: {
-    MuiTab:{
-      wrapper:{
-        flexDirection:"row !important",
-        "& span":{
-          marginLeft:5,
-        }
-      }
+    MuiTab: {
+      wrapper: {
+        flexDirection: "row !important",
+        "& span": {
+          marginLeft: 5,
+        },
+      },
     },
     MuiButton: {
       root: {
         textTransform: "none",
       },
-      containedPrimary:{
-        boxShadow:"none",
+      containedPrimary: {
+        boxShadow: "none",
       },
       containedSecondary: {
         fontSize: 20,
@@ -45,17 +45,19 @@ const Theme = createMuiTheme({
         backgroundColor: "green",
       },
     },
-    MuiOutlinedInput:{
-      root:{
-        "& fieldset":{
+    MuiOutlinedInput: {
+      root: {
+        "& fieldset": {
           borderRadius: "15px",
           borderColor: "rgba(0, 0, 0, 0.23) !important",
           color: "red !important",
         },
-        fontWeight:800,
+        fontWeight: 800,
       },
-      
-    }
+    },
+  },
+  customShadows: {
+    light: "0px 0px 20px rgba(0,0,0,0.06)",
   },
   customColors: {
     bgGrey: "#ebeaf0",
@@ -63,7 +65,7 @@ const Theme = createMuiTheme({
     black: "black",
     veryLightBg: "rgb(253,253,253)",
     lightBlack: "rgba(0,0,0,0.8)",
-    veryLightBlack: "rgba(0,0,0,0.4)"
+    veryLightBlack: "rgba(0,0,0,0.4)",
   },
 });
 
