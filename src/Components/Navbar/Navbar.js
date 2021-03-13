@@ -68,7 +68,7 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Explore</Typography>
         </Link>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/ProfileStore" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>My Items</Typography>
         </Link>
         <Link to="/" style={{ textDecoration: "none" }}>

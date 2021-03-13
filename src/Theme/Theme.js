@@ -19,9 +19,20 @@ const Theme = createMuiTheme({
     },
   },
   overrides: {
+    MuiTab:{
+      wrapper:{
+        flexDirection:"row !important",
+        "& span":{
+          marginLeft:5,
+        }
+      }
+    },
     MuiButton: {
       root: {
         textTransform: "none",
+      },
+      containedPrimary:{
+        boxShadow:"none",
       },
       containedSecondary: {
         fontSize: 20,

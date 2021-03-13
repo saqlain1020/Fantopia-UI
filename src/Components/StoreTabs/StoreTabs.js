@@ -1,60 +1,50 @@
-import {
-  Container,
-  makeStyles,
-  Tab,
-  Tabs,
-  Typography,
-} from "@material-ui/core";
 import React from "react";
+import { makeStyles, Tab, Tabs } from "@material-ui/core";
 import CreationCard from "../CreationCard/CreationCard";
 
 const useStyles = makeStyles((theme) => ({
-  mainHeading: {
-    fontWeight: 700,
-    color: theme.palette.secondary.dark,
-    marginTop: 10,
+  root: {
+    marginTop: 50,
   },
   tabs: {
     marginBottom: 20,
     background: theme.customColors.white,
-    "& .MuiTabs-flexContainer":{
-      justifyContent: "center",
-    }
+    maxWidth: 1150,
+    marginRight: "auto",
+    marginLeft: "auto",
+    borderRadius: 10,
   },
   grid: {
     width: "100%",
     maxWidth: 1500,
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit,minmax(270px,1fr))",
-    marginBottom:10,
+    marginBottom: 10,
   },
 }));
 
-const HomeTopCreations = () => {
+const StoreTabs = () => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(1);
 
   return (
-    <Container maxWidth="xl">
-      <Typography variant="h4" className={classes.mainHeading}>
-        Top Ranked Creations
-      </Typography>
+    <div className={classes.root}>
       <Tabs
         value={tab}
         onChange={(e, v) => setTab(v)}
         className={classes.tabs}
         indicatorColor="primary"
         textColor="inherit"
-        // centered
         variant="scrollable"
         scrollButtons="auto"
-        
       >
-        <Tab label="Best Seller" />
-        <Tab label="Recently Added" />
-        <Tab label="Most Viewed" />
-        <Tab label="Lowest Price" />
-        <Tab label="Highest Price" />
+        <Tab icon="On Sale" />
+        <Tab icon="Collection" />
+        <Tab icon="Created" />
+        <Tab icon="Liked" />
+        <Tab icon="Activity" />
+        <Tab icon="Following" label={<span>41</span>} />
+        <Tab icon="Followers" label={<span>921</span>} />
       </Tabs>
       <div className="flex">
         <div className={classes.grid}>
@@ -70,8 +60,8 @@ const HomeTopCreations = () => {
           <CreationCard />
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 
-export default HomeTopCreations;
+export default StoreTabs;
