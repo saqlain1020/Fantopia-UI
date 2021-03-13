@@ -11,6 +11,7 @@ import HeartIcon from "src/Assets/Icons/heart.png";
 import HexGoldIcon from "src/Assets/Images/hexGold.png";
 import PropTypes from 'prop-types'
 import HexGiftIcon from 'src/Assets/Images/hexgift.png'
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -149,7 +150,7 @@ const CreationCard = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={()=>props.history.push("/Product")}>
       <div style={{ position: "relative" }}>
         <div className={props.gift?classes.imgGift:classes.img} />
         <Typography className={classes.dollarText}>
@@ -234,7 +235,7 @@ const CreationCard = (props) => {
   );
 };
 
-export default CreationCard;
+export default withRouter(CreationCard);
 
 CreationCard.propTypes = {
   highestBid: PropTypes.number,

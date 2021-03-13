@@ -2,6 +2,8 @@ import React from "react";
 import { Divider, makeStyles, Tab, Typography } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "20px 10px",
   },
+  pagination:{
+    fontWeight:700,
+    color: theme.customColors.lightBlack,
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop:20,
+  }
 }));
 
 const commentData = [
@@ -124,6 +134,7 @@ const ProductInfoTabs = () => {
             <Divider />
           </div>
         ))}
+        <Typography className={classes.pagination}><ChevronLeftIcon/>Displaying 1 of 20 of 20,000 <ChevronRightIcon/></Typography>
       </div>
     </div>
   );

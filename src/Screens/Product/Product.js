@@ -7,13 +7,14 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "grid",
     marginTop: 20,
+    marginBottom:20,
     gridTemplateColumns:
       "minmax(10px,1fr) minmax(min-content,1400px) minmax(10px,1fr)",
   },
   grid: {
     display: "grid",
     gridTemplateColumns: "1fr 380px",
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       gridTemplateColumns: "1fr",
     },
   },
