@@ -36,17 +36,29 @@ const useStyles = makeStyles((theme) => ({
     "& input": {
       borderWidth: "0px !important",
     },
+    [theme.breakpoints.down('sm')]:{
+    width: 100,
+
+    }
   },
   linksContainer: {
     width: "100%",
     display: "flex",
     justifyContent: "space-evenly",
+    [theme.breakpoints.down('sm')]:{
+      display:"none"
+    }
   },
   links: {
     color: "white",
     fontSize: 18,
     fontWeight: 600,
   },
+  createBtn:{
+    [theme.breakpoints.down('sm')]:{
+      display:"none"
+    }
+  }
 }));
 
 const Navbar = () => {
@@ -82,7 +94,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" className={classes.createBtn}>
           Create
         </Button>
       </div>
