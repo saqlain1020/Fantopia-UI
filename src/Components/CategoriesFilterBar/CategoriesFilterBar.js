@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
     padding: "10px 10px",
   },
+  input: {
+    "& fieldset": {
+      "& legend": {
+        visibility: "initial",
+      },
+    },
+  },
 }));
 
 const CategoriesFilterBar = () => {
@@ -61,6 +68,7 @@ const CategoriesFilterBar = () => {
           <OutlinedInput
             label="from"
             startAdornment={<AttachMoneyIcon className={classes.icon} />}
+            className={classes.input}
           />
         </Grid>
         <Grid item xs={6}>
@@ -68,6 +76,7 @@ const CategoriesFilterBar = () => {
             fullWidth
             label="to"
             startAdornment={<AttachMoneyIcon className={classes.icon} />}
+            className={classes.input}
           />
         </Grid>
         <Grid item xs={12}>

@@ -54,7 +54,7 @@ const Theme = createMuiTheme({
           borderRadius: "15px",
           borderColor: "rgba(0, 0, 0, 0.23) !important",
           "& legend":{
-            visibility:"initial"
+            // visibility:"initial"
           }
         },
         fontWeight: 800,
