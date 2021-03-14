@@ -44,13 +44,18 @@ const Theme = createMuiTheme({
       colorPrimary: {
         backgroundColor: "green",
       },
+      colorSecondary:{
+        backgroundColor: "rgba(0,0,0,0.3)",
+      }
     },
     MuiOutlinedInput: {
       root: {
         "& fieldset": {
           borderRadius: "15px",
           borderColor: "rgba(0, 0, 0, 0.23) !important",
-          color: "red !important",
+          "& legend":{
+            visibility:"initial"
+          }
         },
         fontWeight: 800,
       },

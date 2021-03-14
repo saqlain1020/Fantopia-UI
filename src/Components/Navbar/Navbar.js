@@ -8,7 +8,7 @@ import {
 import React from "react";
 import Logo from "src/Assets/Images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import Profile from "./Components/Profile";
 
@@ -36,38 +36,42 @@ const useStyles = makeStyles((theme) => ({
     "& input": {
       borderWidth: "0px !important",
     },
-    [theme.breakpoints.down('sm')]:{
-    width: 100,
-
-    }
+    [theme.breakpoints.down("sm")]: {
+      width: 100,
+    },
   },
   linksContainer: {
     width: "100%",
     display: "flex",
     justifyContent: "space-evenly",
-    [theme.breakpoints.down('sm')]:{
-      display:"none"
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   links: {
     color: "white",
     fontSize: 18,
     fontWeight: 600,
   },
-  createBtn:{
-    [theme.breakpoints.down('sm')]:{
-      display:"none"
-    }
-  }
+  createBtn: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <div>
-        <img src={Logo} width="50px" alt="logo" />
+        <img
+          src={Logo}
+          width="50px"
+          alt="logo"
+          onClick={() => props.history.push("/")}
+        />
       </div>
       <div>
         <OutlinedInput
@@ -77,7 +81,7 @@ const Navbar = () => {
         />
       </div>
       <div className={classes.linksContainer}>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/Categories" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Explore</Typography>
         </Link>
         <Link to="/ProfileStore" style={{ textDecoration: "none" }}>
@@ -94,7 +98,11 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Button variant="contained" color="secondary" className={classes.createBtn}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.createBtn}
+        >
           Create
         </Button>
       </div>
@@ -110,4 +118,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);
