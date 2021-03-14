@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: 650,
     color: theme.customColors.white,
     position: "relative",
-    marginBottom:20,
+    marginBottom:30,
   },
   btnsContainer: {
     border: `1px solid ${theme.customColors.white}`,

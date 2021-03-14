@@ -26,7 +26,7 @@ const HomeBinancePromo = () => {
   return (
     <Container maxWidth="md" className={classes.root}>
       <center>
-        <img alt="binance" src={BinanceImg} />
+        <img alt="binance" width="300px" src={BinanceImg} />
       </center>
       <Typography variant="h4" className={classes.heading}>
         Kelekshen runs on Binance Smart Chain
