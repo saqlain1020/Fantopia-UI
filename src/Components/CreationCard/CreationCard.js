@@ -244,6 +244,7 @@ const CreationCard = (props) => {
           variant="contained"
           color="primary"
           className={classes.createBtn}
+          onClick={() => props.history.push("/CreateItem")}
         >
           Create New Item!
         </Button>
