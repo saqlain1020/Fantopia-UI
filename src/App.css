@@ -15,6 +15,9 @@ body {
   display: flex;
   align-items: center;
 }
+.acmeFont{
+  font-family: AcmeFont, sans-serif !important;
+}
 .MuiTabs-indicator {
   height: 4px !important;
 }
@@ -23,4 +26,8 @@ body {
   font-weight: 700;
   height: 80px;
   font-size: 16px;
+}
+@font-face{
+  font-family: AcmeFont;
+  src: url('./Assets/Fonts/acmefontregular.ttf');
 }

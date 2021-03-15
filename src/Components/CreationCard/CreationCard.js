@@ -12,6 +12,8 @@ import HexGoldIcon from "src/Assets/Images/hexGold.png";
 import PropTypes from "prop-types";
 import HexGiftIcon from "src/Assets/Images/hexgift.png";
 import { withRouter } from "react-router";
+import ModalManager from "../ModalManager/ModalManager";
+import EditItem from "src/Modals/EditItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -148,14 +150,15 @@ const useStyles = makeStyles((theme) => ({
 
 const CreationCard = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <div
       className={classes.root}
-      onClick={() => props.history.push("/Product")}
+      
     >
       <div style={{ position: "relative" }}>
-        <div className={props.gift ? classes.imgGift : classes.img} />
+        <div className={props.gift ? classes.imgGift : classes.img} onClick={() => props.history.push("/Product")}/>
         <Typography className={classes.dollarText}>
           <span className={classes.dollar}>$</span> 12.00
         </Typography>
@@ -246,10 +249,18 @@ const CreationCard = (props) => {
         </Button>
       )}
       {props.edit && !props.create && (
-        <Button variant="outlined" color="default" className={classes.editBtn}>
+        <Button
+          variant="outlined"
+          color="default"
+          className={classes.editBtn}
+          onClick={() => setOpen(true)}
+        >
           Edit Item
         </Button>
       )}
+      <ModalManager open={open} close={() => setOpen(false)}>
+        <EditItem />
+      </ModalManager>
     </div>
   );
 };
