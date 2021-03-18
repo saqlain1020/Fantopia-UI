@@ -61,10 +61,10 @@ const UserName = ({ badgeColor, name, ...props }) => {
               background: "#615DFA",
               position: "absolute",
               width: "36px",
-              height: "39px",
-              margin: 5,
-              top: 0,
-              left: 0,
+              height: "38px",
+              margin: 4,
+              top: 2,
+              left: 1,
               clipPath:
                 "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
               transform: "rotate(90deg)",
@@ -94,14 +94,16 @@ const UserName = ({ badgeColor, name, ...props }) => {
           </Typography>
         </div>
       </Badge>
-      <div style={{ marginLeft: 5 }}>
-        <Typography variant="h6" className={classes.name}>
-          <b>{name ? name : "User Name"}</b>
-        </Typography>
-        <Typography className={classes.value}>
-          <b>143 BNB</b>
-        </Typography>
-      </div>
+      {!props.noName && (
+        <div style={{ marginLeft: 5 }}>
+          <Typography variant="h6" className={classes.name}>
+            <b>{name ? name : "User Name"}</b>
+          </Typography>
+          <Typography className={classes.value}>
+            <b>143 BNB</b>
+          </Typography>
+        </div>
+      )}
     </div>
   );
 };

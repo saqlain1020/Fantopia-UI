@@ -69,7 +69,7 @@ const EditItem = () => {
         <TextField
           InputProps={{
             endAdornment: (
-              <Select variant="standard" className={classes.select}>
+              <Select variant="standard" defaultValue='' className={classes.select}>
                 <MenuItem value="bnb">BNB</MenuItem>
               </Select>
             ),

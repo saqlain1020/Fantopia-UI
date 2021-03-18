@@ -28,7 +28,7 @@ const ModalManager = ({ open, close, ...props }) => {
     <Dialog
       open={open}
       onClose={close}
-      maxWidth={1100}
+      maxWidth={"xl"}
       BackdropProps={{
         style: {
           backgroundColor: "rgba(0, 0, 0, 0.7)",

@@ -13,6 +13,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import SmileAddIco from "src/Assets/Icons/smileadd.png";
 import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,6 +77,23 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down('sm')]:{
           width:"100%",
       }
+  },
+  dropArea:{
+    width: "70%",
+    marginLeft:"auto",
+    marginRight:"auto",
+    flexFlow:"column",
+    justifyContent: "center",
+    color: theme.customColors.veryLightBlack,
+    height: 120,
+    marginTop:10,
+    marginBottom:10,
+    borderRadius:15,
+    boxShadow: theme.customShadows.medium,
+  },
+  dropHeading:{
+    color: theme.palette.primary.main,
+    fontWeight:600,
   }
 }));
 
@@ -115,7 +133,12 @@ const CreateSingleItem = () => {
           </div>
         </div>
         <Divider />
-        <div>Dropzone</div>
+        <div className={`flex ${classes.dropArea}`}>
+          
+          <ImageOutlinedIcon/>
+          <Typography variant="h6" className={classes.dropHeading}>Choose File</Typography>
+          <Typography style={{fontSize:12,fontWeight:600,}}>PNG,GIF,WEBP,MP4 or MP3, Max 30mb</Typography>
+        </div>
         <CustomButton variant="contained" color="primary" className={classes.createBtn}>Create Item</CustomButton>
       </div>
       <div className={classes.right}>
@@ -127,7 +150,7 @@ const CreateSingleItem = () => {
             <TextField variant="outlined" label="Item Name" fullWidth />
           </Grid>
           <Grid item xs={12}>
-            <TextField select variant="outlined" label="Category" fullWidth>
+            <TextField select variant="outlined" defaultValue='' label="Category" fullWidth>
               <MenuItem value="comicbook">Comic Book</MenuItem>
             </TextField>
           </Grid>
@@ -136,7 +159,7 @@ const CreateSingleItem = () => {
               fullWidth
               InputProps={{
                 endAdornment: (
-                  <Select variant="standard" className={classes.select}>
+                  <Select variant="standard" defaultValue="bnb" className={classes.select}>
                     <MenuItem value="bnb">BNB</MenuItem>
                   </Select>
                 ),
