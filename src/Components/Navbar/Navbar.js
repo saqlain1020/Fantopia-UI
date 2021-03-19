@@ -90,7 +90,7 @@ const Navbar = (props) => {
         <Link to="/Activity" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Activity</Typography>
         </Link>
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/Charts" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Charts</Typography>
         </Link>
         <Link to="/" style={{ textDecoration: "none" }}>

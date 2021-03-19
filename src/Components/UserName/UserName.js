@@ -113,4 +113,5 @@ export default UserName;
 UserName.propTypes = {
   badgeColor: PropTypes.oneOf(["green", "red", "default"]),
   name: PropTypes.string,
+  noName: PropTypes.bool,
 };

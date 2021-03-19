@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import Account from "./Screens/Account/Account";
 import Activity from "./Screens/Activity/Activity";
 import Categories from "./Screens/Categories/Categories";
+import Charts from "./Screens/Charts/Charts";
 import CreateItem from "./Screens/CreateItem/CreateItem";
 import Home from "./Screens/Home/Home";
 import Product from "./Screens/Product/Product";
@@ -18,6 +19,7 @@ const Routes = () => {
       <Route path="/Categories" component={Categories} />
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />
+      <Route path="/Charts" component={Charts} />
     </Switch>
   );
 };

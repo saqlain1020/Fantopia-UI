@@ -60,6 +60,13 @@ const Theme = createMuiTheme({
         fontWeight: 800,
       },
     },
+    MuiTableCell:{
+      head:{
+        fontSize:16,
+        color: "rgba(0,0,0,0.3)",
+        fontWeight:600,
+      }
+    }
   },
   customShadows: {
     light: "0px 0px 20px rgba(0,0,0,0.06)",

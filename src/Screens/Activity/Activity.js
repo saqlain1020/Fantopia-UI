@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: 20,
+    color: theme.customColors.lightBlack,
   },
   filter: {
     color: theme.customColors.lightBlack,
