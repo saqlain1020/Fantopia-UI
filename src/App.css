@@ -15,7 +15,7 @@ body {
   display: flex;
   align-items: center;
 }
-.acmeFont{
+.acmeFont {
   font-family: AcmeFont, sans-serif !important;
 }
 .MuiTabs-indicator {
@@ -27,7 +27,20 @@ body {
   height: 80px;
   font-size: 16px;
 }
-@font-face{
+@font-face {
   font-family: AcmeFont;
-  src: url('./Assets/Fonts/acmefontregular.ttf');
+  src: url("./Assets/Fonts/acmefontregular.ttf");
+}
+
+.Activity_loading {
+  animation: loading 500ms linear infinite alternate;
+}
+
+@keyframes loading {
+  0% {
+    transform: scaleY(1.2);
+  }
+  100% {
+    transform: scaleY(0.8);
+  }
 }

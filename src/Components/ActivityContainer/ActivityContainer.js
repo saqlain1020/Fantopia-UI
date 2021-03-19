@@ -2,6 +2,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import ActivityActivity from "../ActivityActivity/ActivityActivity";
 import data from "./data";
+import LoadingImg from 'src/Assets/Icons/activityloading.png'
 
 const ActivityContainer = () => {
   return (
@@ -11,6 +12,11 @@ const ActivityContainer = () => {
           <ActivityActivity {...item} />
         </Grid>
       ))}
+      <Grid item xs={12}>
+        <center>
+        <img src={LoadingImg} className="Activity_loading" alt=""/>
+        </center>
+      </Grid>
     </Grid>
   );
 };
