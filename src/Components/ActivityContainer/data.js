@@ -1,11 +1,11 @@
 import LikeIco from "src/Assets/Icons/Like.png";
-import SadIco from "src/Assets/Icons/Sad.png";
-import HappyIco from "src/Assets/Icons/Happy.png";
-import FunnyIco from "src/Assets/Icons/Funny.png";
-import WowIco from "src/Assets/Icons/Wow.png";
 import LoveIco from "src/Assets/Icons/Love.png";
-import AngryIco from "src/Assets/Icons/Angry.png";
-import DislikeIco from "src/Assets/Icons/Dislike.png";
+// import SadIco from "src/Assets/Icons/Sad.png";
+// import HappyIco from "src/Assets/Icons/Happy.png";
+// import FunnyIco from "src/Assets/Icons/Funny.png";
+// import WowIco from "src/Assets/Icons/Wow.png";
+// import AngryIco from "src/Assets/Icons/Angry.png";
+// import DislikeIco from "src/Assets/Icons/Dislike.png";
 
 const data = [
   {
