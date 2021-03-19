@@ -11,6 +11,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import { Link, withRouter } from "react-router-dom";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import Profile from "./Components/Profile";
+import ModalManager from "../ModalManager/ModalManager";
+import ConnectWallet from "src/Modals/ConnectWallet/ConnectWallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <div className={classes.root}>
@@ -102,6 +105,7 @@ const Navbar = (props) => {
           variant="contained"
           color="secondary"
           className={classes.createBtn}
+          onClick={() => setOpen(true)}
         >
           Create
         </Button>
@@ -114,6 +118,9 @@ const Navbar = (props) => {
       <div>
         <Profile />
       </div>
+      <ModalManager open={open} close={() => setOpen(false)}>
+        <ConnectWallet />
+      </ModalManager>
     </div>
   );
 };

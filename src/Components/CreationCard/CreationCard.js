@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import HexGiftIcon from "src/Assets/Images/hexgift.png";
 import { withRouter } from "react-router";
 import ModalManager from "../ModalManager/ModalManager";
-import EditItem from "src/Modals/EditItem";
+import EditItem from "src/Modals/EditItem/EditItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
