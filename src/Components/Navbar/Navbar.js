@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   makeStyles,
   OutlinedInput,
@@ -9,10 +8,10 @@ import React from "react";
 import Logo from "src/Assets/Images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link, withRouter } from "react-router-dom";
-import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import Profile from "./Components/Profile";
 import ModalManager from "../ModalManager/ModalManager";
 import ConnectWallet from "src/Modals/ConnectWallet/ConnectWallet";
+import Notifications from "../Notifications/Notifications";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,11 +109,7 @@ const Navbar = (props) => {
           Create
         </Button>
       </div>
-      <div>
-        <Badge variant="dot" color="primary">
-          <NotificationsNoneOutlinedIcon style={{ color: "white" }} />
-        </Badge>
-      </div>
+      <Notifications/>
       <div>
         <Profile />
       </div>
