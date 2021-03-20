@@ -58,6 +58,8 @@ const Noti = ({ variant, userName, reaction }) => {
       case "dislike":
         setIco(DislikeIco);
         break;
+      default:
+        setIco(LikeIco);
     }
   }, [reaction]);
 
@@ -91,10 +93,15 @@ const Noti = ({ variant, userName, reaction }) => {
         <Typography>2 minutes ago</Typography>
       </div>
       <div className="flex">
-        <ChatOutlinedIcon
-          style={{ padding: "0px 20px", color: "rgba(0,0,0,0.2)" }}
-        />
-        {/* <ThumbUpAltOutlinedIcon/> */}
+        {variant === "reaction" ? (
+          <ThumbUpAltOutlinedIcon
+            style={{ padding: "0px 20px", color: "rgba(0,0,0,0.2)" }}
+          />
+        ) : (
+          <ChatOutlinedIcon
+            style={{ padding: "0px 20px", color: "rgba(0,0,0,0.2)" }}
+          />
+        )}
       </div>
     </div>
   );
