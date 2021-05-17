@@ -15,7 +15,8 @@ import data from "./data";
 const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: theme.customShadows.light,
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
+
   },
   bg: {
     background: theme.palette.secondary.vibrant,
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     width:150
   },
   soldText: {
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.dark,
     width: "max-content",
     color: "white",
     padding: "5px 10px",
@@ -31,6 +32,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
   },
+  th:{
+    color: theme.palette.secondary.main
+  },
+  td:{
+    color: "white"
+  }
 }));
 
 const ChartsTable = () => {
@@ -41,33 +48,33 @@ const ChartsTable = () => {
       <TableContainer className={classes.root}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell align="center">Rank</TableCell>
-              <TableCell align="center">Item</TableCell>
-              <TableCell align="center">Name</TableCell>
-              <TableCell align="center"># of Editions</TableCell>
-              <TableCell align="center">Avg Resale</TableCell>
-              <TableCell align="center">Orig. Price</TableCell>
-              <TableCell align="center">Appreciation</TableCell>
-              <TableCell align="center">Gross Sales</TableCell>
+            <TableRow >
+              <TableCell className={classes.th} align="center">Rank</TableCell>
+              <TableCell className={classes.th} align="center">Item</TableCell>
+              <TableCell className={classes.th} align="center">Name</TableCell>
+              <TableCell className={classes.th} align="center"># of Editions</TableCell>
+              <TableCell className={classes.th} align="center">Avg Resale</TableCell>
+              <TableCell className={classes.th} align="center">Orig. Price</TableCell>
+              <TableCell className={classes.th} align="center">Appreciation</TableCell>
+              <TableCell className={classes.th} align="center">Gross Sales</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.map((item, index) => (
               <TableRow>
-                <TableCell align="center">{item.rank}</TableCell>
+                <TableCell className={classes.td} align="center">{item.rank}</TableCell>
                 <TableCell className={classes.bg} />
-                <TableCell>{item.name}</TableCell>
-                <TableCell align="center">
+                <TableCell className={classes.td}>{item.name}</TableCell>
+                <TableCell className={classes.td} align="center">
                   <div>{item.editions}</div>
                   {!item.inStock && (
                     <div className={classes.soldText}>Sold out</div>
                   )}
                 </TableCell>
-                <TableCell align="center">{item.resale}</TableCell>
-                <TableCell align="center">{item.price}</TableCell>
-                <TableCell align="center">{item.appreciation}</TableCell>
-                <TableCell align="center">{item.sales}</TableCell>
+                <TableCell className={classes.td} align="center">{item.resale}</TableCell>
+                <TableCell className={classes.td} align="center">{item.price}</TableCell>
+                <TableCell className={classes.td} align="center">{item.appreciation}</TableCell>
+                <TableCell className={classes.td} align="center">{item.sales}</TableCell>
               </TableRow>
             ))}
           </TableBody>

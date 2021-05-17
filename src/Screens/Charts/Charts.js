@@ -4,14 +4,14 @@ import ChartsTable from "src/Components/ChartsTable/ChartsTable";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
     padding: "30px 10px",
   },
   subHeading: {
-    color: theme.customColors.veryLightBlack,
+    color: theme.palette.secondary.dark,
     fontWeight: 600,
     lineHeight: 1,
-    marginBottom:20,
+    marginBottom: 20,
   },
 }));
 
