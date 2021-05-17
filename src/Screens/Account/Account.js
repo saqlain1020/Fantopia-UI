@@ -8,7 +8,7 @@ import AccountProfile from 'src/Components/AccountProfile/AccountProfile'
 
 const useStyles = makeStyles(theme=>({
     root:{
-        background: theme.customColors.veryLightBg
+        // background: theme.customColors.veryLightBg
     },
     grid:{
         display:"grid",

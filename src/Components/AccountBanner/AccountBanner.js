@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     maxWidth: "100%",
+    borderRadius:20,
   },
   mainHeading: {
     fontWeight: 700,

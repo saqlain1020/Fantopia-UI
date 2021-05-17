@@ -244,7 +244,7 @@ const CreationCard = (props) => {
       {props.create && !props.edit && (
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           className={classes.createBtn}
           onClick={() => props.history.push("/CreateItem")}
         >
@@ -254,7 +254,7 @@ const CreationCard = (props) => {
       {props.edit && !props.create && (
         <Button
           variant="outlined"
-          color="default"
+          color="secondary"
           className={classes.editBtn}
           onClick={() => setOpen(true)}
         >

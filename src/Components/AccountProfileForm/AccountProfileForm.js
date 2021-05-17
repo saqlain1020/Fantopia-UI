@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 0px 20px rgba(0,0,0,0.06)",
     margin: 5,
     borderRadius: 10,
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     padding: 20,
     color: theme.customColors.lightBlack,
   },
@@ -50,7 +50,7 @@ const AccountProfileForm = () => {
           <TextField
             fullWidth
             variant="outlined"
-            label="Display Name"
+            placeholder="Display Name"
             color="secondary"
           />
         </Grid>
@@ -58,7 +58,7 @@ const AccountProfileForm = () => {
           <TextField
             fullWidth
             variant="outlined"
-            label="URL"
+            placeholder="URL"
             color="secondary"
           />
         </Grid>
@@ -66,7 +66,7 @@ const AccountProfileForm = () => {
           <TextField
             fullWidth
             variant="outlined"
-            label="Bio"
+            placeholder="Bio"
             color="secondary"
             multiline
             rows={5}
@@ -78,7 +78,7 @@ const AccountProfileForm = () => {
               <TextField
                 fullWidth
                 variant="outlined"
-                label="Public Email"
+                placeholder="Public Email"
                 color="secondary"
               />
             </Grid>
@@ -86,7 +86,7 @@ const AccountProfileForm = () => {
               <TextField
                 fullWidth
                 variant="outlined"
-                label="Public Website"
+                placeholder="Public Website"
                 color="secondary"
               />
             </Grid>

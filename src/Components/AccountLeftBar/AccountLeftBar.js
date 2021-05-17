@@ -13,12 +13,12 @@ import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     borderRadius: 5,
     boxShadow: "0px 0px 20px rgba(0,0,0,0.06)",
   },
   icon: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     width: 30,
     height: 30,
     marginRight: 10,
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontWeight: 700,
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
   },
   para: {
     color: theme.customColors.veryLightBlack,
@@ -106,8 +106,8 @@ const AccountLeftBar = (props) => {
         <Button
           className={classes.btn}
           fullWidth
-          variant="contained"
-          color="primary"
+          variant="outlined"
+          color="secondary"
         >
           Save Changes!
         </Button>

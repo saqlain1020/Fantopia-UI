@@ -42,7 +42,7 @@ const [tab,setTab] = React.useState(1);
         value={tab}
         onChange={(e, v) => setTab(v)}
         className={classes.tabs}
-        indicatorColor="primary"
+        indicatorColor="secondary"
         textColor="inherit"
         centered
       >

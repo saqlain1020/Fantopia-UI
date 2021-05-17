@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     marginTop: 20,
   },
+  tokenTextfield:{
+    "& input":{
+
+      color:theme.palette.secondary.main,
+    }
+  }
 }));
 
 const EditItem = () => {
@@ -75,8 +81,8 @@ const EditItem = () => {
             ),
           }}
           variant="outlined"
-          label="Change Price"
-          placeholder="Enter new price"
+          placeholder="Change Price"
+          
         />
       </center>
       <Typography
@@ -98,7 +104,6 @@ const EditItem = () => {
       <center>
         <TextField
           variant="outlined"
-          label="Quantity"
           placeholder="Enter quantity to transfer"
           style={{ marginBottom: 10 }}
         />
@@ -107,7 +112,6 @@ const EditItem = () => {
       <TextField
         fullWidth
         variant="outlined"
-        label="Reciever"
         placeholder="Paste recieving address here"
         style={{ marginBottom: 10 }}
       />
@@ -133,11 +137,11 @@ const EditItem = () => {
           </b>
         </Typography>
       </center>
-      <TextField fullWidth label="Enter amount of tokens to be burned" />
+      <TextField fullWidth color="secondary" className={classes.tokenTextfield} placeholder="Enter amount of tokens to be burned" />
       <center>
         <CustomButton
-          variant="contained"
-          color="primary"
+          variant="outlined"
+          color="secondary"
           className={`acmeFont ${classes.btn}`}
           loading={loading}
           onClick={()=>setLoading(true)}

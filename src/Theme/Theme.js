@@ -79,16 +79,24 @@ const Theme = createMuiTheme({
     },
     MuiOutlinedInput: {
       root: {
+        color: "#24E3AD",
         "& fieldset": {
           // borderRadius: "15px",
-          borderRadius: "360px",
-          // borderColor: "rgba(0, 0, 0, 0.23) !important",
-          "& legend": {
+          borderRadius: "360px",          
+          borderColor: "#24E3AD !important",
+          "& legend span": {
             // visibility:"initial"
+            // color: "#24E3AD !important"
           },
         },
         fontWeight: 800,
       },
+      multiline:{
+        "& fieldset":{
+          borderRadius: "20px",          
+        }
+      }
+      
     },
     MuiTableCell: {
       head: {
@@ -105,7 +113,7 @@ const Theme = createMuiTheme({
   },
   customShadows: {
     light: "0px 0px 20px rgba(255,255,255,.06)",
-    medium: "0px 0px 30px rgba(0,0,0,0.1)",
+    medium: "0px 0px 30px rgba(255,255,255,0.1)",
   },
   customColors: {
     bgGrey: "#ebeaf0",

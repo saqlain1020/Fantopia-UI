@@ -13,13 +13,13 @@ import CustomButton from "../CustomButton/CustomButton";
 import SmileAddIco from "src/Assets/Icons/smileadd.png";
 import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 20,
     borderRadius: 15,
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     padding: 16,
     boxShadow: theme.customShadows.light,
     width: "80%",
@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme) => ({
   },
   left: {
     borderRight: `1px solid ${theme.customColors.veryLightBlack}`,
-    [theme.breakpoints.down('sm')]:{
-        borderRight: "none",
-    }
+    [theme.breakpoints.down("sm")]: {
+      borderRight: "none",
+    },
   },
   right: {
     padding: 20,
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   select: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     fontWeight: 700,
     "&::before": {
       display: "none",
@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 5,
     height: 70,
     fontWeight: 600,
+    fontSize: 12,
     "& div": {
       display: "flex",
       flexFlow: "column",
@@ -67,34 +68,34 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
-  createBtn:{
-      color: theme.customColors.white,
-      borderRadius:15,
-      width:"calc(100% - 20px)",
-      marginRight:"auto",
-      height:60,
-      fontSize:18,
-      [theme.breakpoints.down('sm')]:{
-          width:"100%",
-      }
+  createBtn: {
+    color: theme.customColors.white,
+    borderRadius: 15,
+    width: "calc(100% - 20px)",
+    marginRight: "auto",
+    height: 60,
+    fontSize: 18,
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
-  dropArea:{
+  dropArea: {
     width: "70%",
-    marginLeft:"auto",
-    marginRight:"auto",
-    flexFlow:"column",
+    marginLeft: "auto",
+    marginRight: "auto",
+    flexFlow: "column",
     justifyContent: "center",
     color: theme.customColors.veryLightBlack,
     height: 120,
-    marginTop:10,
-    marginBottom:10,
-    borderRadius:15,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 15,
     boxShadow: theme.customShadows.medium,
   },
-  dropHeading:{
-    color: theme.palette.primary.main,
-    fontWeight:600,
-  }
+  dropHeading: {
+    color: theme.palette.secondary.main,
+    fontWeight: 600,
+  },
 }));
 
 const CreateSingleItem = () => {
@@ -121,7 +122,7 @@ const CreateSingleItem = () => {
           <div className={classes.switches}>
             <Typography variant="h6">Royalty (Sug: 5-30%)</Typography>
             <TextField
-              style={{ width: 70, }}
+              style={{ width: 70 }}
               variant="outlined"
               InputProps={{
                 endAdornment: <Typography>%</Typography>,
@@ -134,12 +135,21 @@ const CreateSingleItem = () => {
         </div>
         <Divider />
         <div className={`flex ${classes.dropArea}`}>
-          
-          <ImageOutlinedIcon/>
-          <Typography variant="h6" className={classes.dropHeading}>Choose File</Typography>
-          <Typography style={{fontSize:12,fontWeight:600,}}>PNG,GIF,WEBP,MP4 or MP3, Max 30mb</Typography>
+          <ImageOutlinedIcon />
+          <Typography variant="h6" className={classes.dropHeading}>
+            Choose File
+          </Typography>
+          <Typography style={{ fontSize: 12, fontWeight: 600 }}>
+            PNG,GIF,WEBP,MP4 or MP3, Max 30mb
+          </Typography>
         </div>
-        <CustomButton variant="contained" color="primary" className={classes.createBtn}>Create Item</CustomButton>
+        <CustomButton
+          variant="contained"
+          color="secondary"
+          className={classes.createBtn}
+        >
+          Create Item
+        </CustomButton>
       </div>
       <div className={classes.right}>
         <Typography variant="h5" style={{ marginBottom: 20 }}>
@@ -147,10 +157,23 @@ const CreateSingleItem = () => {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="Item Name" fullWidth />
+            <TextField
+              variant="outlined"
+              color="secondary"
+              placeholder="Item Name"
+              fullWidth
+            />
           </Grid>
           <Grid item xs={12}>
-            <TextField select variant="outlined" defaultValue='' label="Category" fullWidth>
+            <TextField
+              select
+              variant="outlined"
+              defaultValue="disabled"
+              fullWidth
+            >
+              <MenuItem value="disabled" disabled>
+                Category
+              </MenuItem>
               <MenuItem value="comicbook">Comic Book</MenuItem>
             </TextField>
           </Grid>
@@ -159,13 +182,17 @@ const CreateSingleItem = () => {
               fullWidth
               InputProps={{
                 endAdornment: (
-                  <Select variant="standard" defaultValue="bnb" className={classes.select}>
+                  <Select
+                    variant="standard"
+                    color="secondary"
+                    defaultValue="bnb"
+                    className={classes.select}
+                  >
                     <MenuItem value="bnb">BNB</MenuItem>
                   </Select>
                 ),
               }}
               variant="outlined"
-              label="Instant Sale Price"
               placeholder="Enter price for one piece"
             />
             <Typography>
@@ -175,7 +202,7 @@ const CreateSingleItem = () => {
           <Grid item xs={12} sm={12} md={5} className="flex">
             <CustomButton
               variant="contained"
-              color="primary"
+              color="secondary"
               className={classes.btns}
             >
               <div>
@@ -184,21 +211,20 @@ const CreateSingleItem = () => {
               </div>
             </CustomButton>
             <CustomButton
-              variant="contained"
-              color="primary"
+              variant="outlined"
+              color="secondary"
               className={classes.btns}
             >
               <div>
                 <img src={Logo} width="30px" alt="" />
-                <span>Kelekshen</span>
+                <span>Fantopia</span>
               </div>
             </CustomButton>
           </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              label="Properties"
-              placeholder="i.e. size (Optional)"
+              placeholder="properties i.e. size (Optional)"
               fullWidth
             />
           </Grid>
@@ -207,14 +233,14 @@ const CreateSingleItem = () => {
               multiline
               rows={5}
               variant="outlined"
-              label="Items Description"
+              placeholder="Items Description"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              label="Digital key, code to redeem or link to a file for buyer"
+              placeholder="Digital key, code to redeem or link to a file for buyer"
               fullWidth
             />
           </Grid>

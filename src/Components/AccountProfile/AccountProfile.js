@@ -6,6 +6,7 @@ import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined"
 import WallpaperOutlinedIcon from "@material-ui/icons/WallpaperOutlined";
 import AccountProfileForm from "../AccountProfileForm/AccountProfileForm";
 import AccountChangePassword from "../AccountChangePassword/AccountChangePassword";
+import UserName from "../UserName/UserName";
 
 const useStyles = makeStyles((theme) => ({
   topHeading: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: `linear-gradient(180deg, #45437f 50%,${theme.customColors.white} 50%)`,
+    background: `linear-gradient(180deg, ${theme.palette.secondary.main} 50%,${theme.palette.primary.dark} 50%)`,
     boxShadow: "0px 0px 20px rgba(0,0,0,0.06)",
     height: 140,
   },
@@ -33,13 +34,13 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column",
     justifyContent: "center",
     alignItems: "center",
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     boxShadow: "0px 0px 20px rgba(0,0,0,0.06)",
     height: 140,
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
   },
   userIcon: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     marginBottom: 17,
   },
   changeText: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
   },
   imageIcon: {
-    color: theme.customColors.veryLightBlack,
+    color:theme.palette.secondary.main,
     marginBottom: 17,
   },
 }));
@@ -70,69 +71,12 @@ const AccountProfile = () => {
             <div
               style={{
                 position: "relative",
-                width: 45,
-                height: 50,
-                transform: "scale(1.8)",
+                width: 40,
+                height: 40,
+                transform: "scale(2.2)",
               }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  width: "37px",
-                  height: "38px",
-                  margin: 5,
-                  top: 0,
-                  left: 0,
-                  clipPath:
-                    "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-                  transform: "rotate(90deg) scale(1.5)",
-                  background: "white",
-                  zIndex: 0,
-                }}
-              ></div>
-              <img
-                alt=""
-                src={HexPng}
-                width="45px"
-                style={{ position: "absolute", top: 0, left: 0 }}
-              />
-
-              <div
-                style={{
-                  background: "#615DFA",
-                  position: "absolute",
-                  width: "37px",
-                  height: "38px",
-                  margin: 5,
-                  top: 0,
-                  left: 0,
-                  clipPath:
-                    "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-                  transform: "rotate(90deg)",
-                }}
-              ></div>
-              <img
-                alt=""
-                src={SmallHexPng}
-                width="28px"
-                style={{
-                  position: "absolute",
-                  left: "53%",
-                  transform: "translateY(25px)",
-                }}
-              />
-              <Typography
-                style={{
-                  position: "absolute",
-                  fontSize: 12,
-                  color: "white",
-                  left: "70%",
-                  top: "62%",
-                  fontWeight: 600,
-                }}
-              >
-                23
-              </Typography>
+              <UserName noName />
             </div>
           </div>
         </Grid>
