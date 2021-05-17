@@ -11,11 +11,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   value: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
   checkbox: {
     width: 20,
     height: 20,
+    color: "white",
   },
   icon: {
     transform: "translateY(5px)",
@@ -33,11 +34,10 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
         <div className="flexAlign">
           {type === "checkbox" && (
             <Checkbox
-              color="primary"
+              color="secondary"
               checked={checked}
               onChange={(e, v) => setChecked(v)}
               className={classes.checkbox}
-              checkedIcon={<img alt="checkbox" width="20px" src={CheckboxIco} />}
             />
           )}
           {type === "radio" && (
@@ -46,7 +46,7 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
               onClick={() => {
                 setChecked(!checked);
               }}
-              color="primary"
+              color="secondary"
               className={classes.checkbox}
             />
           )}

@@ -12,22 +12,27 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 15,
-    background: theme.customColors.white,
+    // background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     padding: 20,
     boxShadow: theme.customShadows.light,
-    color: theme.customColors.lightBlack,
+    color: "white",
+  },
+  heading:{
+    color: theme.palette.secondary.main,
   },
   icon: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
   },
   btn: {
     color: theme.customColors.white,
-    borderRadius: 15,
     fontWeight: 700,
     padding: "10px 10px",
   },
   input: {
+    color:theme.palette.secondary.main,
     "& fieldset": {
+      borderColor:`${theme.palette.secondary.main} !important`,
       "& legend": {
         visibility: "initial",
       },
@@ -40,7 +45,7 @@ const CategoriesFilterBar = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6" style={{ marginBottom: 10 }}>
+      <Typography variant="h6" className={classes.heading} style={{ marginBottom: 10 }}>
         <b>Categories</b>
       </Typography>
       <FilterName value="1207" name="Art" />
@@ -60,7 +65,7 @@ const CategoriesFilterBar = () => {
       <FilterName value="1207" name="Collectibles" />
       <FilterName value="1207" name="Code" />
       <FilterName value="1207" name="Antiques" items={["Maps", "Rare Books"]} />
-      <Typography variant="h6" style={{ marginTop: 10 }}>
+      <Typography variant="h6" className={classes.heading} style={{ marginTop: 10 }}>
         <b>Price Range</b>
       </Typography>
       <Grid container spacing={2}>
@@ -83,14 +88,14 @@ const CategoriesFilterBar = () => {
           <Button
             fullWidth
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.btn}
           >
             Apply Price Filter!
           </Button>
         </Grid>
       </Grid>
-      <Typography variant="h6" style={{ marginTop: 10 }}>
+      <Typography variant="h6" className={classes.heading} style={{ marginTop: 10 }}>
         <b>Sort By</b>
       </Typography>
       <FilterName name="Recently added" type="radio" />

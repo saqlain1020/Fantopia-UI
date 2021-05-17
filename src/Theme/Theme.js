@@ -5,7 +5,7 @@ const Theme = createMuiTheme({
     primary: {
       // main: "#34DFF7",
       main: "#0C162F",
-      dark: "#4f8dff",
+      dark: "#060B17",
       vibrant: "#1abcff",
     },
     secondary: {
@@ -58,9 +58,8 @@ const Theme = createMuiTheme({
         boxShadow: "none",
       },
       containedSecondary: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 600,
-        padding: "1px 15px",
         paddingLeft: 25,
         paddingRight: 25,
       },
