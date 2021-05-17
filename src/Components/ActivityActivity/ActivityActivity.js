@@ -6,7 +6,7 @@ import LikeIco from "src/Assets/Icons/Like.png";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 20,
-    boxShadow: theme.customShadows.light,
+    boxShadow: theme.customShadows.light,    
     borderRadius: 15,
     display: "flex",
     color: theme.customColors.lightBlack,
@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontWeight: 600,
     "& span": {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       fontWeight: 400,
     },
   },
   time: {
-    color: theme.customColors.veryLightBlack,
+    color: theme.palette.secondary.dark,
     fontWeight: 600,
     lineHeight: 1,
   },

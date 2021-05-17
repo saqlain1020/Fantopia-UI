@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
   },
   reactsDiv: {
-    background: theme.customColors.white,
+    // background: theme.customColors.white,
     padding: 20,
     boxShadow: theme.customShadows.light,
     borderRadius: 15,

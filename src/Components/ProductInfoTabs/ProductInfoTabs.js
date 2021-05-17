@@ -4,13 +4,15 @@ import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import UserName from "../UserName/UserName";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: 15,
-    background: theme.customColors.white,
+    // background: theme.customColors.white,
     boxShadow: theme.customShadows.light,
     padding: 20,
+    color:"white"    ,
   },
   tabsContainer: {
     display: "grid",
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabActive: {
     borderBottom: "none !important",
-    background: `${theme.customColors.white} !important`,
+    background: `${theme.palette.secondary.main} !important`,
   },
   comment: {
     display: "flex",
@@ -85,49 +87,8 @@ const ProductInfoTabs = () => {
         {commentData.map((item, index) => (
           <div key={index}>
             <div className={classes.comment}>
-              <div style={{ position: "relative", width: 45, height: 50 }}>
-                <img
-                  alt=""
-                  src={HexPng}
-                  width="45px"
-                  style={{ position: "absolute", top: 0, left: 0 }}
-                />
-                <div
-                  style={{
-                    background: "#615DFA",
-                    position: "absolute",
-                    width: "37px",
-                    height: "38px",
-                    margin: 5,
-                    top: 0,
-                    left: 0,
-                    clipPath:
-                      "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-                    transform: "rotate(90deg)",
-                  }}
-                ></div>
-                <img
-                  alt=""
-                  src={SmallHexPng}
-                  width="28px"
-                  style={{
-                    position: "absolute",
-                    left: "53%",
-                    transform: "translateY(25px)",
-                  }}
-                />
-                <Typography
-                  style={{
-                    position: "absolute",
-                    fontSize: 12,
-                    color: "white",
-                    left: "70%",
-                    top: "62%",
-                    fontWeight: 600,
-                  }}
-                >
-                  {item.rating}
-                </Typography>
+              <div style={{ position: "relative", width: 45, height: 45 }}>
+                <UserName noName level={item.rating}/>                
               </div>
               <Typography style={{ marginLeft: 20 }}>{item.msg}</Typography>
             </div>

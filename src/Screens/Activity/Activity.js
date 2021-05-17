@@ -7,14 +7,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: 20,
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
   },
   filter: {
     color: theme.customColors.lightBlack,
     fontWeight: 600,
   },
   filterSelected: {
-    color: theme.customColors.veryLightBlack,
+    color: theme.palette.secondary.main,
     fontWeight: 600,
   },
 }));

@@ -10,14 +10,16 @@ import Twitch from "src/Assets/Icons/Twitch.png";
 import Twitter from "src/Assets/Icons/Twitter.png";
 import Youtube from "src/Assets/Icons/Youtube.png";
 import Instagram from "src/Assets/Icons/Instagram.png";
+import UserName from "../UserName/UserName";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     borderRadius: 15,
     padding: 16,
     boxShadow: theme.customShadows.light,
-    color: theme.customColors.lightBlack,
+    // color: theme.palette.secondary.main,
+    color: "white",
   },
   mainHeading: {
     fontWeight: 700,
@@ -58,6 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
   btnOutlined: {
     borderRadius: 10,
+    color: theme.palette.secondary.dark,
+    borderColor: theme.palette.secondary.dark,
     padding: "5px 0px",
     fontWeight: 700,
     width: 120,
@@ -69,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
     justifyItems: "center",
   },
   ownByText: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     fontWeight: 700,
     textAlign: "center",
   },
@@ -79,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   goldValue: {
-    color: "white",
+    color: theme.palette.primary.main,
     position: "absolute",
     fontWeight: 700,
     top: 10,
@@ -89,23 +93,29 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
   },
-  categories:{
-      fontWeight:700,
-      color: theme.customColors.veryLightBlack,
-      marginTop:10,
-      marginBottom:20,
-      paddingLeft:10,
-      "& span":{
-          color: theme.palette.primary.main,
-          paddingLeft:10,
-      }
+  categories: {
+    fontWeight: 700,
+    color: theme.customColors.veryLightBlack,
+    marginTop: 10,
+    marginBottom: 20,
+    paddingLeft: 10,
+    "& span": {
+      color: theme.palette.primary.main,
+      paddingLeft: 10,
+    },
   },
-  idText:{
-      
-      fontWeight:700,
-      "& span":{
-        color: theme.customColors.veryLightBlack,
-      }
+  idText: {
+    fontWeight: 700,
+    "& span": {
+      color: theme.customColors.veryLightBlack,
+    },
+  },
+  goldWrapper:{
+    width:40,
+    height:40,
+    background:"gold",
+    borderRadius:360,
+    border: `2px solid ${theme.palette.secondary.main}`
   }
 }));
 
@@ -138,8 +148,8 @@ const ProductInfoBar = () => {
         <Grid item xs={6}>
           <Button
             fullWidth
-            variant="contained"
-            color="primary"
+            variant="outlined"
+            color="secondary"
             className={classes.btn}
           >
             Buy Now
@@ -189,8 +199,7 @@ const ProductInfoBar = () => {
       </Typography>
       <ProfileName />
       <div className="flex" style={{ marginTop: 10 }}>
-        <div style={{ position: "relative", margin: 10, marginRight: 10 }}>
-          <img src={GoldHexPng} width="40px" alt=""/>
+        <div style={{ position: "relative", margin: 10, marginRight: 10 }} className={classes.goldWrapper}>
           <Typography className={classes.goldValue}>+9</Typography>
         </div>
         <Typography
@@ -202,27 +211,28 @@ const ProductInfoBar = () => {
         </Typography>
       </div>
       <div>
-      <Typography variant="h6" align="center">
-            <b>Share link to this page</b>
-          </Typography>
-          <div className={classes.shareGrid}>
-            <img width="35px" src={Facebook} alt="Facebook" />
-            <img width="35px" src={Twitter} alt="Twitter" />
-            <img width="35px" src={Instagram} alt="Instagram" />
-            <img width="35px" src={Twitch} alt="Twitch" />
-            <img width="35px" src={Youtube} alt="Youtube" />
-            <img width="35px" src={Patreon} alt="Patreon" />
-            <img width="35px" src={Discord} alt="Discord" />
-          </div>
+        <Typography variant="h6" align="center">
+          <b>Share link to this page</b>
+        </Typography>
+        <div className={classes.shareGrid}>
+          <img width="35px" src={Facebook} alt="Facebook" />
+          <img width="35px" src={Twitter} alt="Twitter" />
+          <img width="35px" src={Instagram} alt="Instagram" />
+          <img width="35px" src={Twitch} alt="Twitch" />
+          <img width="35px" src={Youtube} alt="Youtube" />
+          <img width="35px" src={Patreon} alt="Patreon" />
+          <img width="35px" src={Discord} alt="Discord" />
+        </div>
       </div>
       <Typography className={classes.categories}>
-          Categories: <span>Art, Gaming</span>
+        Categories: <span>Art, Gaming</span>
       </Typography>
       <Typography className={classes.idText}>
-          <b>Contact Address: </b> <span>0xb5e5993512385aca01ec292DeF80f3C906d4314e</span>
+        <b>Contact Address: </b>{" "}
+        <span>0xb5e5993512385aca01ec292DeF80f3C906d4314e</span>
       </Typography>
       <Typography className={classes.idText}>
-          <b>Token ID: </b> <span>11500010251</span>
+        <b>Token ID: </b> <span>11500010251</span>
       </Typography>
     </div>
   );
@@ -236,48 +246,7 @@ const ProfileName = () => {
       <div
         style={{ position: "relative", width: 45, height: 50, marginRight: 15 }}
       >
-        <img
-          alt=""
-          src={HexPng}
-          width="45px"
-          style={{ position: "absolute", top: 0, left: 0 }}
-        />
-        <div
-          style={{
-            background: "#615DFA",
-            position: "absolute",
-            width: "37px",
-            height: "38px",
-            margin: 5,
-            top: 0,
-            left: 0,
-            clipPath:
-              "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-            transform: "rotate(90deg)",
-          }}
-        ></div>
-        <img
-          alt=""
-          src={SmallHexPng}
-          width="28px"
-          style={{
-            position: "absolute",
-            left: "53%",
-            transform: "translateY(25px)",
-          }}
-        />
-        <Typography
-          style={{
-            position: "absolute",
-            fontSize: 12,
-            color: "white",
-            left: "70%",
-            top: "62%",
-            fontWeight: 600,
-          }}
-        >
-          23
-        </Typography>
+       <UserName noName/>
       </div>
       <div>
         <Typography style={{ lineHeight: 1 }}>

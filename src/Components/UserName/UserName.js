@@ -68,7 +68,7 @@ const UserName = ({ badgeColor, name, ...props }) => {
           className={classes.avatarText}
           
           >
-            23
+            {props?.level || 23}
           </Typography>
         </div>
       </Badge>

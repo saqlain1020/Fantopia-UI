@@ -8,10 +8,12 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     marginBottom: 20,
-    background: theme.customColors.white,
+    background: theme.palette.primary.dark,
     maxWidth: 1150,
+    color: theme.palette.secondary.main,
     marginRight: "auto",
     marginLeft: "auto",
+    
     borderRadius: 10,
   },
   grid: {
@@ -33,7 +35,7 @@ const StoreTabs = () => {
         value={tab}
         onChange={(e, v) => setTab(v)}
         className={classes.tabs}
-        indicatorColor="primary"
+        indicatorColor="secondary"
         textColor="inherit"
         variant="scrollable"
         scrollButtons="auto"

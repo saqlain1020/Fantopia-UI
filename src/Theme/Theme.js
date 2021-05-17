@@ -104,7 +104,7 @@ const Theme = createMuiTheme({
     },
   },
   customShadows: {
-    light: "0px 0px 20px rgba(0,0,0,0.06)",
+    light: "0px 0px 20px rgba(255,255,255,.06)",
     medium: "0px 0px 30px rgba(0,0,0,0.1)",
   },
   customColors: {

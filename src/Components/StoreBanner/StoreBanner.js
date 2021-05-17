@@ -10,10 +10,11 @@ import Twitch from "src/Assets/Icons/Twitch.png";
 import Twitter from "src/Assets/Icons/Twitter.png";
 import Youtube from "src/Assets/Icons/Youtube.png";
 import Instagram from "src/Assets/Icons/Instagram.png";
+import UserName from "../UserName/UserName";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.dark,
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: "1fr min-content 1fr",
     paddingTop: 10,
     paddingBottom: 10,
-    background: theme.customColors.white,
+    background: theme.palette.primary.main,
     [theme.breakpoints.down("sm")]: {
       gridTemplateColumns: "1fr",
       paddingTop: 50,
@@ -122,63 +123,7 @@ const StoreBanner = () => {
             transform: "scale(3)",
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              width: "37px",
-              height: "38px",
-              margin: 5,
-              top: 0,
-              left: 0,
-              clipPath:
-                "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-              transform: "rotate(90deg) scale(1.5)",
-              zIndex: 0,
-            }}
-          ></div>
-          <img
-            alt=""
-            src={HexPng}
-            width="50px"
-            style={{ position: "absolute", top: 0, left: 0 }}
-          />
-
-          <div
-            style={{
-              background: "#615DFA",
-              position: "absolute",
-              width: "38px",
-              height: "38px",
-              margin: 5,
-              top: 3,
-              left: 1,
-              clipPath:
-                "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-              transform: "rotate(90deg)",
-            }}
-          ></div>
-          <img
-            alt=""
-            src={SmallHexPng}
-            width="20px"
-            style={{
-              position: "absolute",
-              left: "73%",
-              transform: "translateY(30px)",
-            }}
-          />
-          <Typography
-            style={{
-              position: "absolute",
-              fontSize: 10,
-              color: "white",
-              left: "85%",
-              top: "68%",
-              fontWeight: 600,
-            }}
-          >
-            23
-          </Typography>
+          <UserName noName />
         </div>
       </div>
       <div className={classes.grid}>
@@ -230,12 +175,12 @@ const StoreBanner = () => {
               0xb5e5993512385aca01ec292DeF80f3C906d4314e
             </span>{" "}
             &nbsp;
-            <img alt="copy" src={CopyIcon} onClick={handleCopy} />
+            <img alt="copy" src={CopyIcon} style={{filter:"invert(1)"}} onClick={handleCopy} />
           </Typography>
           <Button
             className={classes.followBtn}
             variant="contained"
-            color="primary"
+            color="secondary"
           >
             Follow+
           </Button>
