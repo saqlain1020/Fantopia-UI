@@ -29,7 +29,7 @@ const HomeBinancePromo = () => {
         <img alt="binance" width="300px" src={BinanceImg} style={{filter: "invert(0.3)"}}/>
       </center>
       <Typography variant="h4" className={classes.heading}>
-        Kelekshen runs on Binance Smart Chain
+        Fantopia runs on Binance Smart Chain
       </Typography>
       <Typography className={classes.para}>
         This means fast low cost transaction fees on their world leading
