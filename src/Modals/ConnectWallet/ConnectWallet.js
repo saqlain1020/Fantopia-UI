@@ -6,7 +6,7 @@ import wallets from "./wallets";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.dark,
   },
   grid: {
     marginTop: 10,
@@ -15,20 +15,22 @@ const useStyles = makeStyles((theme) => ({
   walletBtn: {
     justifyContent: "space-between",
     padding: "8px 20px",
-    background: "rgb(239, 244, 245)",
+    // background: theme.palette.secondary.dark,
+    border: `1px solid ${theme.palette.secondary.main}`,
+    boxSizing: "border-box",
     borderRadius: 15,
     cursor: "pointer",
     "&:hover": {
-      background: "rgba(239, 244, 245,0.5)",
+      background: theme.palette.secondary.dark,
     },
   },
   title: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     fontWeight: 700,
     fontSize: 16,
   },
   learnText: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.dark,
     marginTop: 20,
     cursor: "pointer",
     fontWeight: 700,

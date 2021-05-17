@@ -3,13 +3,14 @@ import { createMuiTheme } from "@material-ui/core";
 const Theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#34DFF7",
+      // main: "#34DFF7",
+      main: "#0C162F",
       dark: "#4f8dff",
       vibrant: "#1abcff",
     },
     secondary: {
-      main: "#5664d0",
-      vibrant: "#615dfa",
+      main: "#24E3AD",
+      vibrant: "#24E3AD",
     },
   },
   typography: {
@@ -27,9 +28,28 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiAvatar: {
+      root: {
+        border: "2px solid #24E3AD",
+        boxSizing: "border-box",
+        position: "relative",
+        "&:after": {
+          content: "''",
+          border: "3px solid white",
+          borderRadius: 360,
+          boxSizing: "border-box",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          height: "100%",
+          width: "100%",
+        },
+      },
+    },
     MuiButton: {
       root: {
         textTransform: "none",
+        borderRadius: 360,
       },
       containedPrimary: {
         boxShadow: "none",
@@ -38,35 +58,43 @@ const Theme = createMuiTheme({
         fontSize: 20,
         fontWeight: 600,
         padding: "1px 15px",
+        paddingLeft: 25,
+        paddingRight: 25,
+      },
+      outlinedSecondary: {
+        paddingLeft: 25,
+        paddingRight: 25,
+        fontSize: 18,
       },
     },
     MuiBadge: {
       colorPrimary: {
-        backgroundColor: "green",
+        backgroundColor: "#24E3AD",
       },
-      colorSecondary:{
+      colorSecondary: {
         backgroundColor: "rgba(0,0,0,0.3)",
-      }
+      },
     },
     MuiOutlinedInput: {
       root: {
         "& fieldset": {
-          borderRadius: "15px",
-          borderColor: "rgba(0, 0, 0, 0.23) !important",
-          "& legend":{
+          // borderRadius: "15px",
+          borderRadius: "360px",
+          // borderColor: "rgba(0, 0, 0, 0.23) !important",
+          "& legend": {
             // visibility:"initial"
-          }
+          },
         },
         fontWeight: 800,
       },
     },
-    MuiTableCell:{
-      head:{
-        fontSize:16,
+    MuiTableCell: {
+      head: {
+        fontSize: 16,
         color: "rgba(0,0,0,0.3)",
-        fontWeight:600,
-      }
-    }
+        fontWeight: 600,
+      },
+    },
   },
   customShadows: {
     light: "0px 0px 20px rgba(0,0,0,0.06)",
@@ -75,7 +103,8 @@ const Theme = createMuiTheme({
   customColors: {
     bgGrey: "#ebeaf0",
     white: "white",
-    black: "black",
+    // black: "black",
+    black: "#24E3AD",
     veryLightBg: "rgb(253,253,253)",
     lightBlack: "rgba(0,0,0,0.8)",
     veryLightBlack: "rgba(0,0,0,0.4)",

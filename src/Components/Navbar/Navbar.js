@@ -27,15 +27,18 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 10,
   },
   search: {
-    color: theme.palette.secondary.main,
-    background: theme.customColors.bgGrey,
+    color: "white",
+    // background: theme.customColors.bgGrey,
     width: 350,
     height: 40,
+    borderColor: "red !important",
     "& fieldset": {
-      borderWidth: "0px !important",
+      // borderWidth: "0px !important",
+      borderColor: `${theme.palette.secondary.main} !important`,
     },
     "& input": {
-      borderWidth: "0px !important",
+      // borderWidth: "0px !important",
+      // borderColor:"red !important",
     },
     [theme.breakpoints.down("sm")]: {
       width: 100,
@@ -101,7 +104,7 @@ const Navbar = (props) => {
       </div>
       <div>
         <Button
-          variant="contained"
+          variant="outlined"
           color="secondary"
           className={classes.createBtn}
           onClick={() => setOpen(true)}
@@ -109,7 +112,7 @@ const Navbar = (props) => {
           Create
         </Button>
       </div>
-      <Notifications/>
+      <Notifications />
       <div>
         <Profile />
       </div>

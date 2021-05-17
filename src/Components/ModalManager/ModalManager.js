@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 20,
     overflow: "auto",
   },
+  paper: {
+    background: theme.palette.primary.main,
+  },
   closeIcon: {
     position: "absolute",
     right: 0,
@@ -40,6 +43,7 @@ const ModalManager = ({ open, close, ...props }) => {
           overflow: "visible",
           borderRadius: 15,
         },
+        className: classes.paper,
       }}
     >
       <CloseIcon

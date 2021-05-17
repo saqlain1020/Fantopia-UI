@@ -12,7 +12,8 @@ import Noti from "./Noti";
 const useStyles = makeStyles((theme) => ({
   notiContainer: {
     padding: "16px 20px",
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
+    background: theme.palette.primary.main
   },
   headingContainer: {
     display: "flex",
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   allNotiBtn: {
     color: "white",
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.dark,
     padding: "15px 0px",
     cursor: "pointer",
   },
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
       width: "5px",
     },
     "&::-webkit-scrollbar-thumb": {
-      backgroundColor: theme.customColors.veryLightBlack,
+      backgroundColor: theme.palette.secondary.dark,
       borderRadius: "360px",
     },
   },

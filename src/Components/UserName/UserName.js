@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, makeStyles, Typography } from "@material-ui/core";
+import { Avatar, Badge, makeStyles, Typography } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 import PropTypes from "prop-types";
@@ -18,6 +18,19 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.5,
     fontSize: 14,
   },
+  avatarText:{
+    position: "absolute",
+    fontSize: 11,
+    color: theme.palette.primary.main,
+    background: theme.palette.secondary.main,
+    width:15,
+    height:15,
+    textAlign:"center",
+    borderRadius:360,
+    left: "70%",
+    top: "62%",
+    fontWeight: 600,
+  }
 }));
 
 const UserName = ({ badgeColor, name, ...props }) => {
@@ -28,7 +41,7 @@ const UserName = ({ badgeColor, name, ...props }) => {
       <Badge
         overlap="circle"
         anchorOrigin={{
-          vertical: "top",
+          vertical: "10px",
           horizontal: "left",
         }}
         variant="dot"
@@ -45,50 +58,15 @@ const UserName = ({ badgeColor, name, ...props }) => {
         <div
           style={{
             position: "relative",
-            width: 45,
-            height: 50,
+            width: 40,
+            height: 40,
             marginRight: 15,
           }}
         >
-          <img
-            alt=""
-            src={HexPng}
-            width="45px"
-            style={{ position: "absolute", top: 0, left: 0 }}
-          />
-          <div
-            style={{
-              background: "#615DFA",
-              position: "absolute",
-              width: "36px",
-              height: "38px",
-              margin: 4,
-              top: 2,
-              left: 1,
-              clipPath:
-                "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-              transform: "rotate(90deg)",
-            }}
-          ></div>
-          <img
-            alt=""
-            src={SmallHexPng}
-            width="28px"
-            style={{
-              position: "absolute",
-              left: "53%",
-              transform: "translateY(25px)",
-            }}
-          />
+          <Avatar style={{ width: "100%", height: "100%" }} />
           <Typography
-            style={{
-              position: "absolute",
-              fontSize: 12,
-              color: "white",
-              left: "70%",
-              top: "62%",
-              fontWeight: 600,
-            }}
+          className={classes.avatarText}
+          
           >
             23
           </Typography>

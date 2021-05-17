@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: "min-content 1fr min-content",
   },
   mainTitle: {
-    color: theme.customColors.lightBlack,
+    // color: theme.customColors.lightBlack,
+    color: "white",
     "& span": {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.main,
       fontWeight: "600",
     },
   },
