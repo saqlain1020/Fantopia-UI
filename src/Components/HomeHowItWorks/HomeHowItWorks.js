@@ -3,29 +3,32 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.customColors.bgGrey,
+    // background: theme.palette.primary.light,
+    background: "rgba(0,0,0,0.5)",
     paddingTop: 20,
     paddingBottom: 20,
-    color: theme.customColors.black,
+    color: theme.palette.secondary.main,
   },
   mainHeading: {
     fontWeight: 700,
     textAlign: "center",
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
   },
   mainPara: {
+    color: theme.palette.secondary.main,
     textAlign: "center",
     fontWeight: 500,
     lineHeight: 1,
     marginTop: 10,
   },
   howHeading: {
-    color: theme.customColors.lightBlack,
+    color: theme.palette.secondary.main,
     fontWeight: 700,
     paddingLeft: 20,
     textAlign: "center",
   },
   subParas: {
+    color: theme.palette.secondary.main,
     fontWeight: 500,
     lineHeight: 1,
   },

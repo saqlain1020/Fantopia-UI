@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontWeight: 700,
     textAlign: "center",
-    color: theme.customColors.white,
+    color: theme.palette.secondary.main,
   },
   grid: {
     width: 300,
@@ -19,8 +19,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     paddingTop: 10,
     paddingBottom: 10,
-    background: theme.customColors.white,
-    color: theme.customColors.black
+    background: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
+    boxShadow: "0px 1px 10px rgba(255,255,255,.2)"
   },
   iconContainer: {
     display: "flex",

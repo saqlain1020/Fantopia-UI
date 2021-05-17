@@ -10,13 +10,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
   },
   panel: {
-    color: theme.customColors.white,
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.main,
     padding: "10px 15px",
     minHeight: 300,
+    color: theme.palette.primary.main
   },
   panelHeading: {
     fontWeight: 700,
+    color: theme.palette.primary.main
   },
   discover: {
     display: "flex",

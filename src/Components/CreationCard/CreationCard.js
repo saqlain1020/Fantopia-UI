@@ -17,7 +17,7 @@ import EditItem from "src/Modals/EditItem/EditItem";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    border: "1px solid rgba(0,0,0,0.1)",
+    border: `1px solid ${theme.palette.secondary.main}`,
     paddingTop: 10,
     paddingBottom: 5,
     margin: 5,
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     height: 180,
   },
   imgGift: {
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.dark,
     height: 180,
     "&:after": {
       content: '""',
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: "-20px",
     right: "20px",
-    color: theme.customColors.black,
+    color: theme.palette.primary.main,
     background: theme.customColors.white,
     borderRadius: 360,
     padding: "5px 10px",
@@ -63,8 +63,9 @@ const useStyles = makeStyles((theme) => ({
   },
   titleText: {
     fontWeight: 600,
+    color: theme.palette.secondary.main,
     "& span": {
-      color: theme.palette.primary.main,
+      color: theme.palette.secondary.dark,
       fontWeight: 700,
     },
   },
@@ -73,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     fontWeight: 600,
     transform: "translateY(-3px)",
+    color: theme.palette.secondary.main,
   },
   bidBtn: {
     background: theme.palette.secondary.vibrant,
@@ -135,7 +137,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "none",
   },
   editBtn: {
-    color: theme.customColors.veryLightBlack,
+    // color: theme.customColors.veryLightBlack,
     width: "90%",
     marginLeft: "5%",
     marginRight: "5%",

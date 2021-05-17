@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     marginBottom: 20,
-    background: theme.customColors.white,
+    // background: theme.customColors.white,
+    // color: theme.palette.secondary.main,
+    color: "white",
     "& .MuiTabs-flexContainer":{
       justifyContent: "center",
     }
@@ -43,7 +45,7 @@ const HomeTopCreations = () => {
         value={tab}
         onChange={(e, v) => setTab(v)}
         className={classes.tabs}
-        indicatorColor="primary"
+        indicatorColor="secondary"
         textColor="inherit"
         // centered
         variant="scrollable"

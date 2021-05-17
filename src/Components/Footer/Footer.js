@@ -10,7 +10,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: theme.customColors.bgGrey,
+    // background: theme.customColors.bgGrey,
     paddingBottom: 70,
     color: theme.customColors.lightBlack,
   },
@@ -23,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
   },
   input: {
-    background: "rgba(255,255,255,0.3)",
+    // background: "rgba(255,255,255,0.3)",
     height: 40,
     width: 300,
-
+    color: theme.palette.secondary.main,
     "& fieldset": {
-      borderWidth: "0px !important",
+      // borderWidth: "0px !important",
+      borderColor: `${theme.palette.secondary.main} !important`,
     },
     "& input": {
-      borderWidth: "0px !important",
+      // borderWidth: "0px !important",
     },
   },
 }));

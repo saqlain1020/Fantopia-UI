@@ -21,6 +21,9 @@ const Theme = createMuiTheme({
   },
   overrides: {
     MuiTab: {
+      root: {
+        background: "transparent",
+      },
       wrapper: {
         flexDirection: "row !important",
         "& span": {
@@ -95,6 +98,11 @@ const Theme = createMuiTheme({
         fontWeight: 600,
       },
     },
+    MuiDivider: {
+      root: {
+        backgroundColor: "rgba(36,227,173,0.3)",
+      },
+    },
   },
   customShadows: {
     light: "0px 0px 20px rgba(0,0,0,0.06)",
@@ -106,8 +114,8 @@ const Theme = createMuiTheme({
     // black: "black",
     black: "#24E3AD",
     veryLightBg: "rgb(253,253,253)",
-    lightBlack: "rgba(0,0,0,0.8)",
-    veryLightBlack: "rgba(0,0,0,0.4)",
+    lightBlack: "rgba(255,255,255,0.8)",
+    veryLightBlack: "rgba(255,255,255,0.4)",
   },
 });
 
