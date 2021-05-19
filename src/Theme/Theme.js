@@ -14,7 +14,8 @@ const Theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: "'Rajdhani', sans-serif",
+    // fontFamily: "'Rajdhani', sans-serif",
+    fontFamily: "'KoHo', sans-serif",
     h1: {
       fontFamily: "'Montserrat', sans-serif",
     },

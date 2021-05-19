@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import BannerImg from "src/Assets/Images/acchubbanner.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
@@ -16,11 +16,14 @@ const useStyles = makeStyles((theme) => ({
   image: {
     maxWidth: "100%",
     borderRadius:20,
+    objectFit:"cover",
+      filter: "brightness(0.5)"
   },
   mainHeading: {
     fontWeight: 700,
     position: "absolute",
-    left: "17%",
+    textShadow: "2px 2px 10px black",
+    left: "5%",
     top: "25%",
     [theme.breakpoints.down("xs")]: {
       fontSize: "16px",
@@ -28,7 +31,8 @@ const useStyles = makeStyles((theme) => ({
   },
   subHeading: {
     position: "absolute",
-    left: "17%",
+    textShadow: "2px 2px 10px black",
+    left: "5%",
     top: "45%",
     [theme.breakpoints.down("xs")]: {
       top: "50%",
@@ -51,9 +55,9 @@ const AccountBanner = () => {
   const [switchValue, setSwitch] = React.useState(true);
 
   return (
-    <div className={classes.root}>
-      <div style={{ position: "relative" }}>
-        <img alt="account hub" className={classes.image} src={BannerImg} />
+    <Container maxWidth="lg" className={classes.root}>
+      <div style={{ position: "relative",width:"100%" }}>
+        <img alt="account hub" width="100%" height="200px" className={classes.image} src={BannerImg} />
         <Typography variant="h4" className={classes.mainHeading}>
           Account Hub
         </Typography>
@@ -67,7 +71,7 @@ const AccountBanner = () => {
           />
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

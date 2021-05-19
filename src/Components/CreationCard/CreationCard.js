@@ -28,10 +28,16 @@ const useStyles = makeStyles((theme) => ({
   img: {
     background: theme.palette.secondary.vibrant,
     height: 180,
+    marginLeft:8,
+    marginRight:8,
+    borderRadius:10,
   },
   imgGift: {
     background: theme.palette.secondary.dark,
     height: 180,
+    marginLeft:8,
+    marginRight:8,
+    borderRadius:10,
     "&:after": {
       content: '""',
       position: "absolute",
@@ -45,13 +51,15 @@ const useStyles = makeStyles((theme) => ({
   dollarText: {
     fontWeight: 600,
     position: "absolute",
-    bottom: "-20px",
-    right: "20px",
+    top: "0px",
+    right: "8px",
     color: theme.palette.primary.main,
     background: theme.customColors.white,
-    borderRadius: 360,
+    borderRadius: 0,
+    borderBottomLeftRadius: 10,
+    borderTopRightRadius: 10,
     padding: "5px 10px",
-    boxShadow: "0px 1px 5px rgba(0,0,0,0.07)",
+    boxShadow: "0px 2px 5px rgba(0,0,0,0.5)"
   },
   dollar: {
     color: theme.palette.primary.main,
@@ -78,14 +86,14 @@ const useStyles = makeStyles((theme) => ({
   },
   bidBtn: {
     background: theme.palette.secondary.vibrant,
-    borderRadius: "360px",
+    borderRadius: 5,
     padding: 0,
     fontWeight: 700,
-    width: 50,
+    width: 70,
     minWidth: 0,
   },
   valueText: {
-    color: theme.palette.primary.main,
+    color: theme.palette.secondary.main,
     fontWeight: 700,
   },
   ratingValue: {
@@ -98,15 +106,16 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 10,
   },
   hexClip: {
-    clipPath: "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-    transform: "rotate(90deg) ",
+    // clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
+    borderRadius:360,
     width: 30,
     height: 30,
   },
   hexClipGold: {
-    clipPath: "polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%)",
-    transform: "rotate(90deg)",
+    // clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
+    borderRadius:360,
     width: 30,
+    background: theme.palette.secondary.main,
     height: 30,
     position: "relative",
     overflow: "hidden",
@@ -118,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
       top: "-50%",
       left: "-50%",
       zIndex: -1,
-      background: `url(${HexGoldIcon})`,
+      // background: `url(${HexGoldIcon})`,
       transform: "rotate(30deg)",
       backgroundSize: "45%",
       backgroundPosition: "center",
@@ -187,7 +196,7 @@ const CreationCard = (props) => {
                 display: "flex",
                 flexFlow: "column",
                 alignItems: "flex-end",
-                marginTop: 10,
+                // marginTop: 10,
               }}
             >
               <Typography className={classes.valueText}>0.02 BNB</Typography>
@@ -211,7 +220,7 @@ const CreationCard = (props) => {
                 className={classes.hexClip}
                 style={{
                   backgroundColor: "#1cb5e0",
-                  transform: "translateX(-10px) rotate(90deg)",
+                  transform: "translateX(-10px)",
                   zIndex: 2,
                 }}
               ></div>
@@ -219,16 +228,16 @@ const CreationCard = (props) => {
                 className={classes.hexClip}
                 style={{
                   backgroundColor: "#4f8dff",
-                  transform: "translateX(-20px) rotate(90deg)",
+                  transform: "translateX(-20px)",
                   zIndex: 3,
                 }}
               ></div>
               <div
                 className={classes.hexClipGold}
                 style={{
-                  transform: "translateX(-30px) rotate(90deg) scale(1.1)",
+                  transform: "translateX(-30px) scale(1.1)",
                   zIndex: 1,
-                  backgroundImage: `url(${HexGoldIcon})`,
+                  // backgroundImage: `url(${HexGoldIcon})`,
                 }}
               ></div>
             </div>

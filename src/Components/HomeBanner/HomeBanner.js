@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom:30,
   },
   btnsContainer: {
-    border: `1px solid ${theme.palette.primary.main}`,
+    border: `1px solid ${theme.palette.secondary.main}`,
     borderRadius: 360,
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-out",
   },
   btn: {
-    color: theme.palette.primary.main,
+    color: "white",
     background: "transparent",
     fontWeight: "700",
     height: 60,
@@ -65,7 +65,7 @@ const HomeBanner = () => {
         WELCOME TO
       </Typography>
       <Typography align="center" variant="h1">
-        kə-ˈlek-shən
+        Fantopia
       </Typography>
       <Typography align="center" variant="h6" style={{ marginTop: 20 }}>
         Buy, sell and trade authentic digital assets
