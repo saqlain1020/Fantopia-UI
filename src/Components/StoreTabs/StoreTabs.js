@@ -4,7 +4,6 @@ import CreationCard from "../CreationCard/CreationCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: 50,
   },
   tabs: {
     marginBottom: 20,

@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex2x.png";
 import SmallHexPng from "src/Assets/Images/smallhex2x.png";
 import CopyIcon from "src/Assets/Icons/copy.png";
@@ -13,27 +13,18 @@ import Instagram from "src/Assets/Icons/Instagram.png";
 import UserName from "../UserName/UserName";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    background: theme.palette.primary.dark,
+    borderRadius: 20,
+    overflow:"hidden",
+    paddingBottom:20,
+  },
   bg: {
     background: theme.palette.secondary.dark,
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
     height: 250,
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "1fr min-content 1fr",
-    paddingTop: 10,
-    paddingBottom: 10,
-    background: theme.palette.primary.main,
-    [theme.breakpoints.down("sm")]: {
-      gridTemplateColumns: "1fr",
-      paddingTop: 50,
-    },
-  },
-  leftGrid: {
-    display: "flex",
-    justifyContent: "space-evenly",
   },
   value: {
     textAlign: "center",
@@ -46,11 +37,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
   },
   itemValueDiv: {
-    borderRight: "1px solid rgba(0,0,0,0.1)",
-    width: "100%",
-    height: "min-content",
-    marginTop: "auto",
-    marginBottom: "auto",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   idValue: {
     whiteSpace: "pre",
@@ -59,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
     fontWeight: 600,
     paddingBottom: 30,
+    fontSize:12,
     justifyContent: "center",
   },
   followBtn: {
@@ -79,10 +69,15 @@ const useStyles = makeStyles((theme) => ({
   },
   rightGrid: {
     display: "flex",
+    marginTop:10,
     justifyContent: "space-evenly",
     maxWidth: 500,
     marginLeft: "auto",
     marginRight: "auto",
+    "& img":{
+      width:30,
+      height:30,
+    }
   },
 }));
 
@@ -113,60 +108,25 @@ const StoreBanner = () => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <div className={classes.bg}>
         <div
           style={{
             position: "relative",
             width: 45,
-            height: 50,
+            height: 45,
             transform: "scale(3)",
           }}
         >
           <UserName noName />
         </div>
       </div>
-      <div className={classes.grid}>
-        <div className={classes.leftGrid}>
-          <div className={classes.itemValueDiv}>
-            <Typography variant="h4" className={classes.value}>
-              130
-            </Typography>
-            <Typography className={classes.valueDetail}>
-              Items Created
-            </Typography>
-          </div>
-          <div className={classes.itemValueDiv}>
-            <Typography variant="h4" className={classes.value}>
-              82
-            </Typography>
-            <Typography className={classes.valueDetail}>
-              Items in Collection
-            </Typography>
-          </div>
-          <div className={classes.itemValueDiv}>
-            <Typography variant="h4" className={classes.value}>
-              50
-            </Typography>
-            <Typography className={classes.valueDetail}>
-              Items For Sale
-            </Typography>
-          </div>
-          <div className={classes.itemValueDiv}>
-            <Typography variant="h4" className={classes.value}>
-              5.7K
-            </Typography>
-            <Typography className={classes.valueDetail}>Views</Typography>
-          </div>
-        </div>
-        <div
-          style={{
-            paddingLeft: 10,
-            paddingRight: 10,
-            paddingTop: 50,
-            position: "relative",
-          }}
-        >
+      <Grid
+        container
+        spacing={2}
+        style={{ paddingLeft: 30, paddingRight: 30, marginTop: 50 }}
+      >
+        <Grid item xs={12}>
           <Typography variant="h4" className={classes.value}>
             Marina Valentine
           </Typography>
@@ -175,8 +135,15 @@ const StoreBanner = () => {
               0xb5e5993512385aca01ec292DeF80f3C906d4314e
             </span>{" "}
             &nbsp;
-            <img alt="copy" src={CopyIcon} style={{filter:"invert(1)"}} onClick={handleCopy} />
+            <img
+              alt="copy"
+              src={CopyIcon}
+              style={{ filter: "invert(1)" }}
+              onClick={handleCopy}
+            />
           </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Button
             className={classes.followBtn}
             variant="contained"
@@ -184,15 +151,37 @@ const StoreBanner = () => {
           >
             Follow+
           </Button>
-        </div>
-        <div
-          style={{
-            height: "min-content",
-            marginTop: "auto",
-            marginBottom: "auto",
-          }}
-        >
+        </Grid>
+        <Grid item xs={12} className={classes.itemValueDiv}>
+          <Typography className={classes.valueDetail}>Items Created</Typography>
           <Typography variant="h4" className={classes.value}>
+            130
+          </Typography>
+        </Grid>
+        <Grid item xs={12} className={classes.itemValueDiv}>
+          <Typography className={classes.valueDetail}>
+            Items in Collection
+          </Typography>
+          <Typography variant="h4" className={classes.value}>
+            82
+          </Typography>
+        </Grid>
+        <Grid item xs={12} className={classes.itemValueDiv}>
+          <Typography className={classes.valueDetail}>
+            Items For Sale
+          </Typography>
+          <Typography variant="h4" className={classes.value}>
+            50
+          </Typography>
+        </Grid>
+        <Grid item xs={12} className={classes.itemValueDiv}>
+          <Typography className={classes.valueDetail}>Views</Typography>
+          <Typography variant="h4" className={classes.value}>
+            5.7K
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+        <Typography variant="h6" className={classes.value}>
             Share link to this page
           </Typography>
           <div className={classes.rightGrid}>
@@ -204,8 +193,8 @@ const StoreBanner = () => {
             <img src={Patreon} alt="Patreon" />
             <img src={Discord} alt="Discord" />
           </div>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     </div>
   );
 };

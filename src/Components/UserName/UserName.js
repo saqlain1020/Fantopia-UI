@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatarText:{
     position: "absolute",
-    fontSize: 11,
+    fontSize: 10,
     color: theme.palette.primary.main,
     background: theme.palette.secondary.main,
     width:15,
