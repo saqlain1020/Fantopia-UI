@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     overflow: "hidden",
     height: "max-content",
+    transition: "all 200ms ease-in-out",
+    boxShadow: "0px 0px 0px rgba(255,255,255,0)",
+    "&:hover":{
+      transform: "translateY(-10px)",
+      boxShadow: "0px 10px 25px rgba(255,255,255,0.2)"
+    }
   },
   img: {
     background: theme.palette.secondary.vibrant,
