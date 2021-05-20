@@ -2,6 +2,7 @@ import {
   Button,
   Container,
   Grid,
+  IconButton,
   makeStyles,
   OutlinedInput,
   Typography,
@@ -11,6 +12,7 @@ import React from "react";
 const useStyles = makeStyles((theme) => ({
   root: {
     // background: theme.customColors.bgGrey,
+    paddingTop: 70,
     paddingBottom: 70,
     color: theme.customColors.lightBlack,
   },
@@ -35,66 +37,100 @@ const useStyles = makeStyles((theme) => ({
       // borderWidth: "0px !important",
     },
   },
+  socialIconsContainer: {
+    marginTop: 20,
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-evenly",
+    "& button": {
+      color: "white",
+    },
+  },
 }));
 
 const Footer = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <Typography align="center" style={{ fontWeight: 700, fontSize: 20 }}>
-        Get the latest updates happening on Kelekshen
-      </Typography>
-      <div className={classes.inputContainer}>
-        <OutlinedInput className={classes.input} placeholder="Your - Email" />
-        <Button variant="contained" color="secondary">
-          Subscribe
-        </Button>
-      </div>
-      <Container style={{ marginTop: 50 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <Typography align="center">
-                <b>Kelekshen</b>
-              </Typography>
-              <Typography align="center">Marketplace</Typography>
-              <Typography align="center">How it works</Typography>
-              <Typography align="center">FAQ</Typography>
-              <Typography align="center">Support</Typography>
-              <Typography align="center">Get verified</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <Typography align="center">
-                <b>Community</b>
-              </Typography>
-              <Typography align="center">Governance Token</Typography>
-              <Typography align="center">Telegram</Typography>
-              <Typography align="center">Discord</Typography>
-              <Typography align="center">Medium</Typography>
-              <Typography align="center">Instagram</Typography>
-              <Typography align="center">Twitter</Typography>
-              <Typography align="center">Youtube</Typography>
-            </div>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <div>
-              <Typography align="center">
-                <b>Governance</b>
-              </Typography>
-              <Typography align="center">Terms of Service</Typography>
-              <Typography align="center">Privacy Policy</Typography>
-              <Typography align="center">Report Content</Typography>
-              <Typography align="center">Suggest Features</Typography>
-              <Typography align="center">Voting</Typography>
-              <Typography align="center">Join Us</Typography>
-            </div>
+    <Container maxWidth="lg" className={classes.root}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Grid container spacing={10}>
+            <Grid item>
+              <div>
+                <Typography>
+                  <b>Fantopia</b>
+                </Typography>
+                <Typography>Marketplace</Typography>
+                <Typography>How it works</Typography>
+                <Typography>FAQ</Typography>
+                <Typography>Support</Typography>
+                <Typography>Get verified</Typography>
+              </div>
+            </Grid>
+
+            <Grid item>
+              <div>
+                <Typography>
+                  <b>Governance</b>
+                </Typography>
+                <Typography>Terms of Service</Typography>
+                <Typography>Privacy Policy</Typography>
+                <Typography>Report Content</Typography>
+                <Typography>Suggest Features</Typography>
+                <Typography>Voting</Typography>
+                <Typography>Join Us</Typography>
+              </div>
+            </Grid>
+            <Grid item>
+              <div>
+                <Typography>
+                  <b>Community</b>
+                </Typography>
+                <Typography>Governance Token</Typography>
+                <Typography>Telegram</Typography>
+                <Typography>Discord</Typography>
+                <Typography>Medium</Typography>
+                <Typography>Instagram</Typography>
+                <Typography>Twitter</Typography>
+                <Typography>Youtube</Typography>
+              </div>
+            </Grid>
           </Grid>
         </Grid>
-      </Container>
-    </div>
+        <Grid item xs={12} sm={6}>
+          <Typography align="center" style={{ fontWeight: 700, fontSize: 20 }}>
+            Get the latest updates from Fantopia
+          </Typography>
+          <div className={classes.inputContainer}>
+            <OutlinedInput
+              className={classes.input}
+              placeholder="Your - Email"
+            />
+            <Button variant="contained" color="secondary">
+              Subscribe
+            </Button>
+          </div>
+          <div className={classes.socialIconsContainer}>
+            <IconButton>
+              <i className="fab fa-facebook-f"></i>
+            </IconButton>
+            <IconButton>
+              <i className="fab fa-twitter"></i>
+            </IconButton>
+            <IconButton>
+              <i className="fab fa-instagram"></i>
+            </IconButton>
+            <IconButton>
+              <i className="fab fa-linkedin-in"></i>
+            </IconButton>
+            <IconButton>
+              <i className="fab fa-telegram-plane"></i>
+            </IconButton>
+          </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
