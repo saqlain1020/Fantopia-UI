@@ -6,7 +6,7 @@ import LoadingImg from 'src/Assets/Icons/activityloading.png'
 
 const ActivityContainer = () => {
   return (
-    <Grid container spacing={3} style={{ marginTop: 20, marginBottom: 20 }}>
+    <Grid container spacing={1} style={{ marginTop: 20, marginBottom: 20 }}>
       {data.map((item, index) => (
         <Grid item xs={12} key={index}>
           <ActivityActivity {...item} />

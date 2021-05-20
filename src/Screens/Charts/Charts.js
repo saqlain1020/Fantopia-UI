@@ -21,7 +21,7 @@ const Charts = () => {
   return (
     <div className={classes.root}>
       <Typography variant="h4" align="center" className="acmeFont">
-        Kelekshen Charts
+        Fantopia Charts
       </Typography>
       <Typography align="center" variant="h5" className={classes.subHeading}>
         Top selling items

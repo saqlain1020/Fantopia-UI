@@ -206,7 +206,7 @@ const CreateSingleItem = () => {
               className={classes.btns}
             >
               <div>
-                <img src={SmileAddIco} width="30px" alt="" />
+                <img src={SmileAddIco} width="20px" alt="" />
                 <span>Create BEP-721</span>
               </div>
             </CustomButton>

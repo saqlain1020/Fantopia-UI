@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.customShadows.light,
     borderRadius: 15,
     display: "flex",
-    color: theme.customColors.lightBlack,
+    color: theme.customColors.lightBlack,    
   },
   box: {
     width: 60,

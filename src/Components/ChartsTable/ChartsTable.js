@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
   },
   bg: {
     background: theme.palette.secondary.vibrant,
-    height:100,
-    width:150
+    height:100,    
+    width:150,
+    borderRadius:15,
   },
   soldText: {
     background: theme.palette.secondary.dark,
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main
   },
   td:{
-    color: "white"
+    color: "white",
   }
 }));
 
@@ -63,7 +64,7 @@ const ChartsTable = () => {
             {data.map((item, index) => (
               <TableRow>
                 <TableCell className={classes.td} align="center">{item.rank}</TableCell>
-                <TableCell className={classes.bg} />
+                <TableCell ><div className={classes.bg} /></TableCell>
                 <TableCell className={classes.td}>{item.name}</TableCell>
                 <TableCell className={classes.td} align="center">
                   <div>{item.editions}</div>
