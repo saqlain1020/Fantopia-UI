@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 10,
   },
   search: {
-    color: "white",
+    color: theme.customColors.white,
     // background: theme.customColors.bgGrey,
     width: 350,
     height: 40,
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   links: {
-    color: "white",
+    color: theme.customColors.white,
     fontSize: 18,
     fontWeight: 600,
   },

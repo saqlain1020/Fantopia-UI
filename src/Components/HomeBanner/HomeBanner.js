@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-out",
   },
   btn: {
-    color: "white",
+    color: theme.customColors.white,
     background: "transparent",
     fontWeight: "700",
     height: 60,

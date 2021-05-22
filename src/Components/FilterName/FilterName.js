@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   checkbox: {
     width: 20,
     height: 20,
-    color: "white",
+    color: theme.customColors.white,
   },
   icon: {
     transform: "translateY(5px)",

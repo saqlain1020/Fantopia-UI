@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     gap: 10,
   },
   allNotiBtn: {
-    color: "white",
+    color: theme.customColors.white,
     background: theme.palette.secondary.dark,
     padding: "15px 0px",
     cursor: "pointer",

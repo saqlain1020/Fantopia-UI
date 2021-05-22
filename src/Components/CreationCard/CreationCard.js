@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.secondary.main}`,
     paddingTop: 10,
     paddingBottom: 5,
-    margin: 5,
+    margin: 7,
     borderRadius: 10,
     overflow: "hidden",
     height: "max-content",

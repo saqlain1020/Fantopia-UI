@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-evenly",
     "& button": {
-      color: "white",
+      color: theme.customColors.white,
     },
   },
 }));

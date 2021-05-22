@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
@@ -55,6 +55,19 @@ const useStyles = makeStyles((theme) => ({
     color:theme.palette.secondary.main,
     marginBottom: 17,
   },
+  btn: {
+    color: theme.customColors.white,
+    borderRadius: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginTop:20,
+    fontSize: 16,
+    fontWeight: 600,
+    boxShadow: "none",
+    width:200,
+    marginLeft:"auto",
+    display:"block"
+  },
 }));
 
 const AccountProfile = () => {
@@ -102,6 +115,15 @@ const AccountProfile = () => {
         </Grid>
         <Grid item xs={12}>
             <AccountProfileForm/>
+        </Grid>
+        <Grid item xs={12}>
+        <Button
+          className={classes.btn}    
+          variant="outlined"
+          color="secondary"
+        >
+          Save Changes!
+        </Button>
         </Grid>
       </Grid>
       <Typography className={classes.topHeading}>Account</Typography>

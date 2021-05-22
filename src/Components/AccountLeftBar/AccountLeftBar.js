@@ -32,15 +32,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
     fontWeight: 500,
   },
-  btn: {
-    color: theme.customColors.white,
-    borderRadius: 20,
-    paddingTop: 15,
-    paddingBottom: 15,
-    fontSize: 16,
-    fontWeight: 600,
-    boxShadow: "none",
-  },
+ 
 }));
 
 const AccountLeftBar = (props) => {
@@ -101,17 +93,7 @@ const AccountLeftBar = (props) => {
           </div>
         </div>
       </div>
-      <Divider />
-      <div style={{ padding: 30 }}>
-        <Button
-          className={classes.btn}
-          fullWidth
-          variant="outlined"
-          color="secondary"
-        >
-          Save Changes!
-        </Button>
-      </div>
+      <Divider />      
     </div>
   );
 };
