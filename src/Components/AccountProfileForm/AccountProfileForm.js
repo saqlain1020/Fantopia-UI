@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   twitterBtn: {
     boxShadow: "none",
-    color: "white",
+    color: theme.customColors.white,
     borderRadius: 15,
     padding: "15px 35px",
     background: theme.palette.primary.vibrant,

@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
@@ -7,6 +7,7 @@ import WallpaperOutlinedIcon from "@material-ui/icons/WallpaperOutlined";
 import AccountProfileForm from "../AccountProfileForm/AccountProfileForm";
 import AccountChangePassword from "../AccountChangePassword/AccountChangePassword";
 import UserName from "../UserName/UserName";
+import StorefrontOutlinedIcon from "@material-ui/icons/StorefrontOutlined";
 
 const useStyles = makeStyles((theme) => ({
   topHeading: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     background: `linear-gradient(180deg, ${theme.palette.secondary.main} 50%,${theme.palette.primary.dark} 50%)`,
     boxShadow: "0px 0px 20px rgba(0,0,0,0.06)",
-    height: 140,
+    height: 200,
   },
   profile2: {
     margin: 5,
@@ -52,21 +53,52 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
   },
   imageIcon: {
-    color:theme.palette.secondary.main,
+    color: theme.palette.secondary.main,
     marginBottom: 17,
+  },
+  btn: {
+    color: theme.customColors.white,
+    borderRadius: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginTop: 20,
+    fontSize: 16,
+    fontWeight: 600,
+    boxShadow: "none",
+    width: 200,
+    marginLeft: "auto",
+    display: "block",
+  },
+  headingDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 }));
 
-const AccountProfile = () => {
+const AccountProfile = ({ history }) => {
   const classes = useStyles();
   return (
     <div style={{ marginTop: 50 }}>
-      <Typography className={classes.topHeading}>My Profile</Typography>
-      <Typography variant="h4" className={classes.heading}>
-        Profile Info
-      </Typography>
+      <div className={classes.headingDiv}>
+        <div>
+          <Typography className={classes.topHeading}>My Profile</Typography>
+          <Typography variant="h4" className={classes.heading}>
+            Profile Info
+          </Typography>
+        </div>
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => history.push("/Account/items")}
+          >
+            <StorefrontOutlinedIcon />
+          </Button>
+        </div>
+      </div>
       <Grid container>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={12}>
           <div className={classes.profile1}>
             <div
               style={{
@@ -80,7 +112,7 @@ const AccountProfile = () => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={6}>
           <div className={classes.profile2}>
             <PersonOutlineOutlinedIcon className={classes.userIcon} />
             <Typography className={classes.changeText}>
@@ -91,7 +123,7 @@ const AccountProfile = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={6}>
           <div className={classes.profile2}>
             <WallpaperOutlinedIcon className={classes.imageIcon} />
             <Typography className={classes.changeText}>Change Cover</Typography>
@@ -101,14 +133,19 @@ const AccountProfile = () => {
           </div>
         </Grid>
         <Grid item xs={12}>
-            <AccountProfileForm/>
+          <AccountProfileForm />
+        </Grid>
+        <Grid item xs={12}>
+          <Button className={classes.btn} variant="outlined" color="secondary">
+            Save Changes!
+          </Button>
         </Grid>
       </Grid>
       <Typography className={classes.topHeading}>Account</Typography>
       <Typography variant="h4" className={classes.heading}>
         Change Password
       </Typography>
-      <AccountChangePassword/>
+      <AccountChangePassword />
     </div>
   );
 };

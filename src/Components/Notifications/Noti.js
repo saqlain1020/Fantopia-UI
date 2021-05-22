@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   mainTitle: {
     // color: theme.customColors.lightBlack,
-    color: "white",
+    color: theme.customColors.white,
     "& span": {
       color: theme.palette.secondary.main,
       fontWeight: "600",

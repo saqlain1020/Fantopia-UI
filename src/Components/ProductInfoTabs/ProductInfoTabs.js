@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     // background: theme.customColors.white,
     boxShadow: theme.customShadows.light,
     padding: 20,
-    color:"white"    ,
+    color:theme.customColors.white,
   },
   tabsContainer: {
     display: "grid",

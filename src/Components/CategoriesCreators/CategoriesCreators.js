@@ -6,6 +6,7 @@ import CategoriesFilterBar from "../CategoriesFilterBar/CategoriesFilterBar";
 import CreationCard from "../CreationCard/CreationCard";
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import FilterBar from "../FilterBar/FilterBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,13 +24,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   productsGrid: {
-    display: "grid",
-    marginTop: 20,
-    gridTemplateColumns: "350px 1fr",
-    gap:10,
-    [theme.breakpoints.down("xs")]: {
-      gridTemplateColumns: "1fr",
-    },
+    
   },
 }));
 
@@ -89,8 +84,9 @@ const CategoriesCreators = () => {
         ))}
       </Grid>
       <div className={classes.productsGrid}>
-        <CategoriesFilterBar />
-        <Grid container>
+        {/* <CategoriesFilterBar /> */}
+        <FilterBar/>
+        <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4} lg={3}>
             <CreationCard />
           </Grid>

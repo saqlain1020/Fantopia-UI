@@ -2,6 +2,8 @@ import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import Bg from "src/Assets/Images/landing-bg.jpg";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     height: 650,
     color: theme.customColors.white,
     position: "relative",
-    marginBottom:30,
+    marginBottom: 30,
   },
   btnsContainer: {
     border: `1px solid ${theme.palette.secondary.main}`,
@@ -23,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     cursor: "default",
     marginTop: 10,
-    [theme.breakpoints.down('xs')]:{
-        width: "90%",
-    }
+    [theme.breakpoints.down("xs")]: {
+      width: "90%",
+    },
   },
   btnSelected: {
     color: theme.palette.secondary.main,
@@ -38,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-out",
   },
   btn: {
-    color: "white",
+    color: theme.customColors.white,
     background: "transparent",
     fontWeight: "700",
     height: 60,
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     position: "absolute",
-    bottom: "-30px",
+    bottom: "10px",
   },
 }));
 
@@ -60,42 +62,49 @@ const HomeBanner = () => {
   const [selection, setSelection] = React.useState(1);
 
   return (
-    <div className={classes.root}>
-      <Typography align="center" variant="h5" style={{ paddingTop: 20 }}>
-        WELCOME TO
-      </Typography>
-      <Typography align="center" variant="h1">
-        Fantopia
-      </Typography>
-      <Typography align="center" variant="h6" style={{ marginTop: 20 }}>
-        Buy, sell and trade authentic digital assets
-        <br />
-        that can be owned securely with blockchain
-      </Typography>
-      <center>
-        <div className={classes.btnsContainer}>
-          <div>
-            <Typography
-              className={selection === 1 ? classes.btnSelected : classes.btn}
-              onClick={() => setSelection(1)}
-            >
-              Create
-            </Typography>
+    <Carousel>
+      <div className={classes.root}>
+        <Typography align="center" variant="h5" style={{ paddingTop: 20 }}>
+          WELCOME TO
+        </Typography>
+        <Typography align="center" variant="h1">
+          Fantopia
+        </Typography>
+        <Typography align="center" variant="h6" style={{ marginTop: 20 }}>
+          Buy, sell and trade authentic digital assets
+          <br />
+          that can be owned securely with blockchain
+        </Typography>
+        <center>
+          <div className={classes.btnsContainer}>
+            <div>
+              <Typography
+                className={selection === 1 ? classes.btnSelected : classes.btn}
+                onClick={() => setSelection(1)}
+              >
+                Create
+              </Typography>
+            </div>
+            <div>
+              <Typography
+                className={selection === 2 ? classes.btnSelected : classes.btn}
+                onClick={() => setSelection(2)}
+              >
+                Collect
+              </Typography>
+            </div>
           </div>
-          <div>
-            <Typography
-              className={selection === 2 ? classes.btnSelected : classes.btn}
-              onClick={() => setSelection(2)}
-            >
-              Collect
-            </Typography>
-          </div>
+        </center>
+        <div className={classes.joinCommunity}>
+          <JoinCommunity />
         </div>
-      </center>
-      <div className={classes.joinCommunity}>
-        <JoinCommunity />
       </div>
-    </div>
+      <div>
+        <Typography variant="h1">
+          Slide 2
+        </Typography>
+      </div>
+    </Carousel>
   );
 };
 

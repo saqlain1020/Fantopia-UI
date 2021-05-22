@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     height: 35,
+    "& img":{
+      width:"30px !important",
+    }
   },
   text: {
     fontWeight: 700,
@@ -47,11 +50,11 @@ const JoinCommunity = () => {
           className={classes.iconContainer}
           style={{ borderRight: "1px solid rgba(0,0,0,0.1)" }}
         >
-          <img alt="discord" src={DiscordIco} width="30px" />
+          <img alt="discord" src={DiscordIco} />
           <Typography className={classes.text}>Discord</Typography>
         </div>
         <div className={classes.iconContainer}>
-          <img alt="telegram" src={TelegramIco} width="30px" />
+          <img alt="telegram" src={TelegramIco} />
           <Typography className={classes.text}>Telegram</Typography>
         </div>
       </Paper>

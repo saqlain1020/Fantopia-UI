@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.dark,
     padding: 20,
     boxShadow: theme.customShadows.light,
-    color: "white",
+    color: theme.customColors.white,
   },
   heading:{
     color: theme.palette.secondary.main,
