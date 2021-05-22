@@ -39,7 +39,7 @@ const Profile = (props) => {
         // paddingRight: 8,
         // borderRadius: 5,
       }}
-      onClick={() => props.history.push("/Account")}
+      onClick={() => props.history.push("/Account/profile")}
     >
       <Typography className={classes.text}>20 KELEK</Typography>
       <Badge
