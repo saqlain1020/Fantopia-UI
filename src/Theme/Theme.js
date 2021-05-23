@@ -5,6 +5,7 @@ const Theme = createMuiTheme({
     primary: {
       // main: "#34DFF7",
       main: "#0C162F",
+      mainWhite: "#0C162F",
       dark: "#060B17",
       vibrant: "#1abcff",
     },
@@ -119,6 +120,8 @@ const Theme = createMuiTheme({
   customColors: {
     bgGrey: "#ebeaf0",
     white: "white",
+    whiteBtn: "white",
+    whiteTable: "white",
     // black: "black",
     black: "#24E3AD",
     veryLightBg: "rgb(253,253,253)",

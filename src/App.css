@@ -4,8 +4,8 @@
   border: 0px;
 }
 body {
-  /* background-color: #EBEEF5; */
-  background-color: #0C162F;
+  background-color: #EBEEF5;
+  /* background-color: #0C162F; */
 }
 .flex {
   display: flex;

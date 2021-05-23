@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
   },
   createBtn: {
+    color: theme.palette.secondary.main,
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },

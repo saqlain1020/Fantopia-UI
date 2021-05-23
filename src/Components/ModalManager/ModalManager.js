@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
   paper: {
-    background: theme.palette.primary.main,
+    background: theme.palette.primary.mainWhite,
   },
   closeIcon: {
     position: "absolute",
