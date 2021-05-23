@@ -41,7 +41,7 @@ const Profile = (props) => {
       }}
       onClick={() => props.history.push("/Account/profile")}
     >
-      <Typography className={classes.text}>20 KELEK</Typography>
+      <Typography className={classes.text}>0x4865...</Typography>
       <Badge
         variant="dot"
         color="primary"
@@ -57,7 +57,7 @@ const Profile = (props) => {
           className={classes.avatarText}
             
           >
-            23
+            ✓
           </Typography>
         </div>
       </Badge>

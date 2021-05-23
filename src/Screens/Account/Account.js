@@ -25,7 +25,7 @@ const Account = () => {
 
   return (
     <div className={classes.root}>
-      <AccountBanner />
+      {/* <AccountBanner /> */}
       {/* <Container maxWidth="lg" className={classes.grid}> */}
       <Container maxWidth="lg">
         <div style={{ paddingLeft: 10, paddingBottom: 20 }}>
