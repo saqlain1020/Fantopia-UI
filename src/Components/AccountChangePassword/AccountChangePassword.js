@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   changeBtn:{
     fontSize:18,
     fontWeight:700,
-    color: theme.customColors.white,
+    color: theme.customColors.whiteBtn,
     boxShadow:"none",
     borderRadius:15,
     paddingTop:10,

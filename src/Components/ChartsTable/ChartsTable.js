@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   soldText: {
     background: theme.palette.secondary.dark,
     width: "max-content",
-    color: theme.customColors.white,
+    color: theme.customColors.whiteTable,
     padding: "5px 10px",
     borderRadius: 5,
     marginLeft: "auto",
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main
   },
   td:{
-    color: theme.customColors.white,
+    color: theme.customColors.whiteTable,
   }
 }));
 

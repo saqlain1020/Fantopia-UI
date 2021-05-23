@@ -5,12 +5,15 @@ const LightTheme = createMuiTheme({
     primary: {
       // main: "#34DFF7",
       main: "#0C162F",
-      dark: "#060B17",
+      mainWhite: "#EBEEF5",
+      
+      dark: "#f9fafb",
       vibrant: "#1abcff",
     },
     secondary: {
       main: "#24E3AD",
       vibrant: "#24E3AD",
+      
     },
   },
   typography: {
@@ -68,6 +71,7 @@ const LightTheme = createMuiTheme({
         paddingLeft: 25,
         paddingRight: 25,
         fontSize: 18,
+        color: "#222"
       },
     },
     MuiBadge: {
@@ -113,12 +117,14 @@ const LightTheme = createMuiTheme({
     },
   },
   customShadows: {
-    light: "0px 0px 20px rgba(255,255,255,.06)",
-    medium: "0px 0px 30px rgba(255,255,255,0.1)",
+    light: "0px 0px 20px rgba(0,0,0,.06)",
+    medium: "0px 0px 30px rgba(0,0,0,0.1)",
   },
   customColors: {
     bgGrey: "#ebeaf0",
-    white: "black",
+    white: "white",
+    whiteTable: "black",
+    whiteBtn: "#222",
     // black: "black",
     black: "#24E3AD",
     veryLightBg: "rgb(253,253,253)",

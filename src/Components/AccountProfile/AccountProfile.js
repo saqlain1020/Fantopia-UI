@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 17,
   },
   btn: {
-    color: theme.customColors.white,
+    color: theme.customColors.whiteBtn,
     borderRadius: 20,
     paddingTop: 15,
     paddingBottom: 15,

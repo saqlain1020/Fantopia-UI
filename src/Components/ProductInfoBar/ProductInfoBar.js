@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 16,
     boxShadow: theme.customShadows.light,
     // color: theme.palette.secondary.main,
-    color: theme.customColors.white,
+    color: theme.customColors.whiteBtn,
   },
   mainHeading: {
     fontWeight: 700,
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   btn: {
-    color: theme.customColors.white,
+    color: theme.customColors.whiteBtn,
     fontWeight: 600,
     fontSize: 24,
     borderRadius: 15,
