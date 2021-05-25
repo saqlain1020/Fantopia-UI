@@ -6,11 +6,16 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 // import reportWebVitals from './reportWebVitals';
 import Theme from "src/Theme/LightTheme.js";
+import DarkTheme from "src/Theme/Theme.js";
+
+let item = localStorage.getItem("theme");
+if (item === "light") item = true;
+else item = false;
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={item ? Theme : DarkTheme}>              
         <App />
       </ThemeProvider>
     </BrowserRouter>
