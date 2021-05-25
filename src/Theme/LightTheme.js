@@ -27,6 +27,7 @@ const LightTheme = createMuiTheme({
     MuiTab: {
       root: {
         background: "transparent",
+        color: "black !important",
       },
       wrapper: {
         flexDirection: "row !important",
