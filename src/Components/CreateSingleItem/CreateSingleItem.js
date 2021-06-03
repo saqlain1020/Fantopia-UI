@@ -21,8 +21,9 @@ import Collection from "src/Modals/Collection/Collection";
 import CollectionSteps from "./../../Modals/CollectionSteps/CollectionSteps";
 import { useWalletModal } from "@react-dapp/wallet";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
-import TimelapseOutlinedIcon from '@material-ui/icons/TimelapseOutlined';
-import AllInclusiveOutlinedIcon from '@material-ui/icons/AllInclusiveOutlined';
+import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
+import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,8 +128,8 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column",
     border: `1px solid ${theme.palette.secondary.main}`,
     borderRadius: 10,
-    padding:"15px 0px",
-    width:"100%"
+    padding: "15px 0px",
+    width: "100%",
   },
   saleBtns: {
     display: "flex",
@@ -137,8 +138,8 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "column",
     border: `1px solid ${theme.customColors.lightBlack}`,
     borderRadius: 10,
-    padding:"15px 0px",
-    width:"100%"
+    padding: "15px 0px",
+    width: "100%",
   },
 }));
 
@@ -306,7 +307,14 @@ const CreateSingleItem = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <TextField
+            <Autocomplete
+              options={["Song Joong-ki", "Lee Min-ho"]}
+              getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField  {...params} color="secondary" placeholder="Choose collection" variant="outlined" />
+              )}
+            />
+            {/* <TextField
               select
               variant="outlined"
               defaultValue="disabled"
@@ -317,7 +325,7 @@ const CreateSingleItem = () => {
               </MenuItem>
               <MenuItem value="comicbook">Song Joong-ki</MenuItem>
               <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
-            </TextField>
+            </TextField> */}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField

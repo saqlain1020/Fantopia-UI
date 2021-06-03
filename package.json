@@ -6,6 +6,7 @@
     "@binance-chain/bsc-connector": "^1.0.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
     "@react-dapp/wallet": "^1.0.0",
     "@reduxjs/toolkit": "^1.5.1",
     "@web3-react/core": "^6.1.9",
