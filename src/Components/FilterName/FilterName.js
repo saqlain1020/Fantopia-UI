@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    color: theme.customColors.whiteBtn,
   },
   value: {
     color: theme.palette.secondary.main,
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   checkbox: {
     width: 20,
     height: 20,
-    color: theme.customColors.white,
+    color: theme.customColors.whiteBtn,
   },
   icon: {
     transform: "translateY(5px)",

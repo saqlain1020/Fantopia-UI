@@ -24,7 +24,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   productsGrid: {
-    
+    display: "grid",
+    marginTop: 20,
+    gridTemplateColumns: "350px 1fr",
+    gap:10,
+    [theme.breakpoints.down("xs")]: {
+      gridTemplateColumns: "1fr",
+    },
   },
 }));
 
@@ -84,9 +90,9 @@ const CategoriesCreators = () => {
         ))}
       </Grid> */}
       <div className={classes.productsGrid}>
-        {/* <CategoriesFilterBar /> */}
-        <FilterBar/>
-        <Grid container spacing={2}>
+        <CategoriesFilterBar />
+        {/* <FilterBar/> */}
+        <Grid container >
           <Grid item xs={12} sm={12} md={4} lg={3}>
             <CreationCard />
           </Grid>

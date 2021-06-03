@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.dark,
     height: 180,
     marginLeft: 8,
+    objectFit:"cover",
     marginRight: 8,
     borderRadius: 10,
     "&:after": {
@@ -241,7 +242,7 @@ const CreationCard = (props) => {
                 className={classes.hexClipGold}
                 style={{
                   transform: "translateX(-30px) scale(1.1)",
-                  zIndex: 1,
+                  zIndex: 4,
                   // backgroundImage: `url(${HexGoldIcon})`,
                 }}
               ></div>

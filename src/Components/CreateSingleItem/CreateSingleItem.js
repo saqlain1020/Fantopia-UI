@@ -18,6 +18,10 @@ import { useDeployERC721 } from "../../Hooks/useContract";
 import { useCreateCollectionModal } from "../../Hooks/useModal";
 import { readFile } from "../../Utils";
 import { useWalletModal } from "@react-dapp/wallet";
+import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
+import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
+import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,6 +119,26 @@ const useStyles = makeStyles((theme) => ({
     clip: "rect(0,0,0,0)",
     border: "0",
   },
+  saleBtnsActive: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexFlow: "column",
+    border: `1px solid ${theme.palette.secondary.main}`,
+    borderRadius: 10,
+    padding: "15px 0px",
+    width: "100%",
+  },
+  saleBtns: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexFlow: "column",
+    border: `1px solid ${theme.customColors.lightBlack}`,
+    borderRadius: 10,
+    padding: "15px 0px",
+    width: "100%",
+  },
 }));
 
 const CreateSingleItem = () => {
@@ -144,6 +168,44 @@ const CreateSingleItem = () => {
             <Typography variant="h6">Put on Sale</Typography>
             <IOSSwitch />
           </div>
+          <Grid container spacing={1}>
+            <Grid item xs={4}>
+              <div className={classes.saleBtnsActive}>
+                <LocalOfferOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Fixed
+                    <br />
+                    price
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.saleBtns}>
+                <TimelapseOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Timed
+                    <br />
+                    auction
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.saleBtns}>
+                <AllInclusiveOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Unlimited
+                    <br />
+                    auction
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+          </Grid>
           <div className={classes.switches}>
             <Typography variant="h6">Instant Sale</Typography>
             <IOSSwitch />
@@ -243,7 +305,14 @@ const CreateSingleItem = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
-            <TextField
+            <Autocomplete
+              options={["Song Joong-ki", "Lee Min-ho"]}
+              getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField  {...params} color="secondary" placeholder="Choose collection" variant="outlined" />
+              )}
+            />
+            {/* <TextField
               select
               variant="outlined"
               defaultValue="disabled"
@@ -254,7 +323,7 @@ const CreateSingleItem = () => {
               </MenuItem>
               <MenuItem value="comicbook">Song Joong-ki</MenuItem>
               <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
-            </TextField>
+            </TextField> */}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
