@@ -26,24 +26,24 @@ const useStyles = makeStyles((theme) => ({
     height: "max-content",
     transition: "all 200ms ease-in-out",
     boxShadow: "0px 0px 0px rgba(255,255,255,0)",
-    "&:hover":{
+    "&:hover": {
       transform: "translateY(-10px)",
-      boxShadow: "0px 10px 25px rgba(255,255,255,0.2)"
-    }
+      boxShadow: "0px 10px 25px rgba(255,255,255,0.2)",
+    },
   },
   img: {
     background: theme.palette.secondary.vibrant,
     height: 180,
-    marginLeft:8,
-    marginRight:8,
-    borderRadius:10,
+    marginLeft: 8,
+    marginRight: 8,
+    borderRadius: 10,
   },
   imgGift: {
     background: theme.palette.secondary.dark,
     height: 180,
-    marginLeft:8,
-    marginRight:8,
-    borderRadius:10,
+    marginLeft: 8,
+    marginRight: 8,
+    borderRadius: 10,
     "&:after": {
       content: '""',
       position: "absolute",
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomLeftRadius: 10,
     borderTopRightRadius: 10,
     padding: "5px 10px",
-    boxShadow: "0px 2px 5px rgba(0,0,0,0.5)"
+    boxShadow: "0px 2px 5px rgba(0,0,0,0.5)",
   },
   dollar: {
     color: theme.palette.primary.main,
@@ -113,13 +113,13 @@ const useStyles = makeStyles((theme) => ({
   },
   hexClip: {
     // clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
-    borderRadius:360,
+    borderRadius: 360,
     width: 30,
     height: 30,
   },
   hexClipGold: {
     // clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)",
-    borderRadius:360,
+    borderRadius: 360,
     width: 30,
     background: theme.palette.secondary.main,
     height: 30,
@@ -168,14 +168,14 @@ const useStyles = makeStyles((theme) => ({
 const CreationCard = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-
   return (
-    <div
-      className={classes.root}
-      
-    >
+    <div className={classes.root}>
       <div style={{ position: "relative" }}>
-        <div className={props.gift ? classes.imgGift : classes.img} onClick={() => props.history.push("/Product")}/>
+        <img
+          className={props.gift ? classes.imgGift : classes.img}
+          src={props.media}
+          onClick={() => props.history.push("/Product")}
+        />
         <Typography className={classes.dollarText}>
           <span className={classes.dollar}>$</span> 12.00
         </Typography>

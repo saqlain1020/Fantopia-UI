@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Divider,
   Grid,
@@ -14,9 +14,12 @@ import SmileAddIco from "src/Assets/Icons/smileadd.png";
 import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
+import { useDeployERC721 } from "../../Hooks/useContract";
+import { readFile } from "../../Utils";
 import ModalManager from "../ModalManager/ModalManager";
 import Collection from "src/Modals/Collection/Collection";
 import CollectionSteps from "./../../Modals/CollectionSteps/CollectionSteps";
+import { useWalletModal } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,22 +97,49 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 10,
     borderRadius: 15,
     boxShadow: theme.customShadows.medium,
+    cursor: "pointer",
   },
   dropHeading: {
     color: theme.palette.secondary.main,
     fontWeight: 600,
   },
+  chooseFileLabel: {
+    cursor: "pointer",
+  },
+  // https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
+  fileInput: {
+    position: "absolute",
+    width: "1px",
+    height: "1px",
+    padding: "0",
+    margin: "-1px",
+    overflow: "hidden",
+    clip: "rect(0,0,0,0)",
+    border: "0",
+  },
 }));
 
 const CreateSingleItem = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const { open, setOpen } = useWalletModal();
+  const { isDeploying, deploy } = useDeployERC721();
+  const [file, setFile] = useState(undefined);
+  const [selectedFile, setSelectedFile] = useState(undefined);
   const [open2, setOpen2] = React.useState(false);
+
+  const handleFilePick = async (e) => {
+    const filename = e.target.files[0];
+    if (filename) {
+      setSelectedFile(URL.createObjectURL(filename));
+      const bytes = await readFile(filename);
+      setFile(bytes);
+    }
+  };
 
   return (
     <div className={classes.root}>
       <div className={classes.left}>
-        <CreationCard />
+        <CreationCard media={selectedFile} />
         <Divider />
         <div style={{ padding: 10 }}>
           <div className={classes.switches}>
@@ -139,20 +169,29 @@ const CreateSingleItem = () => {
           </div>
         </div>
         <Divider />
-        <div className={`flex ${classes.dropArea}`}>
-          <ImageOutlinedIcon />
-          <Typography variant="h6" className={classes.dropHeading}>
-            Choose File
-          </Typography>
-          <Typography style={{ fontSize: 12, fontWeight: 600 }}>
-            PNG,GIF,WEBP,MP4 or MP3, Max 30mb
-          </Typography>
-        </div>
+        <label for="file-upload" className={classes.chooseFileLabel}>
+          <div className={`flex ${classes.dropArea}`}>
+            <ImageOutlinedIcon />
+            <Typography variant="h6" className={classes.dropHeading}>
+              <input
+                className={classes.fileInput}
+                id="file-upload"
+                type="file"
+                name="file"
+                onChange={handleFilePick}
+              />
+              Choose File
+            </Typography>
+            <Typography style={{ fontSize: 12, fontWeight: 600 }}>
+              PNG,GIF,WEBP,MP4 or MP3, Max 30mb
+            </Typography>
+          </div>
+        </label>
         <CustomButton
           variant="contained"
           color="secondary"
           className={classes.createBtn}
-          onClick={() => setOpen(true)}
+          onClick={() => deploy("Hello", "HE", 10000)}
         >
           Create Item
         </CustomButton>
@@ -183,7 +222,7 @@ const CreateSingleItem = () => {
               <MenuItem value="comicbook">Comic Book</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               InputProps={{
@@ -204,6 +243,20 @@ const CreateSingleItem = () => {
             <Typography>
               Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
             </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={7}>
+            <TextField
+              select
+              variant="outlined"
+              defaultValue="disabled"
+              fullWidth
+            >
+              <MenuItem value="disabled" disabled>
+                Choose Celebrity Collection
+              </MenuItem>
+              <MenuItem value="comicbook">Song Joong-ki</MenuItem>
+              <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
+            </TextField>
           </Grid>
           <Grid item xs={12} sm={12} md={5} className="flex">
             <CustomButton

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateItem = () => {
   const classes = useStyles();
-const [tab,setTab] = React.useState(1);
+const [tab,setTab] = React.useState(0);
 
   return (
     <div className={classes.root}>

@@ -64,7 +64,7 @@ const CategoriesCreators = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h4">
+      {/* <Typography variant="h4">
         <b>Top Ranked Creator and Collectors</b>
       </Typography>
       <Typography variant="h5">
@@ -82,7 +82,7 @@ const CategoriesCreators = () => {
             <UserName name={item.name} badgeColor={item.badge} />
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
       <div className={classes.productsGrid}>
         {/* <CategoriesFilterBar /> */}
         <FilterBar/>
