@@ -18,6 +18,7 @@ import { useDeployERC721 } from "../../Hooks/useContract";
 import { readFile } from "../../Utils";
 import ModalManager from "../ModalManager/ModalManager";
 import Collection from "src/Modals/Collection/Collection";
+import { useWalletModal } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateSingleItem = () => {
   const classes = useStyles();
+  const { open, setOpen } = useWalletModal();
   const { isDeploying, deploy } = useDeployERC721();
   const [file, setFile] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState(undefined);
@@ -218,7 +220,7 @@ const CreateSingleItem = () => {
               <MenuItem value="comicbook">Comic Book</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12}>
             <TextField
               fullWidth
               InputProps={{
@@ -239,6 +241,20 @@ const CreateSingleItem = () => {
             <Typography>
               Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
             </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md={7}>
+            <TextField
+              select
+              variant="outlined"
+              defaultValue="disabled"
+              fullWidth
+            >
+              <MenuItem value="disabled" disabled>
+                Choose Celebrity Collection
+              </MenuItem>
+              <MenuItem value="comicbook">Song Joong-ki</MenuItem>
+              <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
+            </TextField>
           </Grid>
           <Grid item xs={12} sm={12} md={5} className="flex">
             <CustomButton
