@@ -13,18 +13,23 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.lightBlack,
     maxWidth: 350,
   },
-  btn:{
-      borderRadius:360
-  }
+  btn: {
+    borderRadius: 360,
+  },
 }));
 
-const Collection = () => {
+const Collection = ({ openSteps }) => {
   const classes = useStyles();
   const [image, setImage] = React.useState(null);
 
+  const handleCreate = (e) => {
+    e.preventDefault();
+    openSteps();
+  };
+
   return (
     <div className={classes.root}>
-      <form>
+      <form onSubmit={handleCreate}>
         <Typography variant="h5" style={{ marginBottom: 20 }}>
           <b>Collection</b>
         </Typography>
@@ -90,7 +95,13 @@ const Collection = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Button color="secondary" variant="contained" type="submit" fullWidth className={classes.btn}>
+            <Button
+              color="secondary"
+              variant="contained"
+              type="submit"
+              fullWidth
+              className={classes.btn}
+            >
               Create Collection
             </Button>
           </Grid>
