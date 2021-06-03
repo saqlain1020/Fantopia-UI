@@ -9,9 +9,8 @@ import Logo from "src/Assets/Images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { Link, withRouter } from "react-router-dom";
 import Profile from "./Components/Profile";
-import ModalManager from "../ModalManager/ModalManager";
-import ConnectWallet from "src/Modals/ConnectWallet/ConnectWallet";
 import Notifications from "../Notifications/Notifications";
+import { useWalletModal, useWeb3 } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-
+  const { open, setOpen } = useWalletModal();
+  const { account } = useWeb3();
+  console.log("Account: ", account);
   return (
     <div className={classes.root}>
       <div>
@@ -90,15 +90,15 @@ const Navbar = (props) => {
         <Link to="/Categories" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Explore</Typography>
         </Link>
+        <Link to="/CreateItem" style={{ textDecoration: "none" }}>
+          <Typography className={classes.links}>Create</Typography>
+        </Link>
         <Link to="/ProfileStore" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>My Items</Typography>
         </Link>
         <Link to="/Activity" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Activity</Typography>
         </Link>
-        {/* <Link to="/Charts" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>Charts</Typography>
-        </Link> */}
         {/* <Link to="/" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Community</Typography>
         </Link> */}
@@ -110,16 +110,13 @@ const Navbar = (props) => {
           className={classes.createBtn}
           onClick={() => setOpen(true)}
         >
-          Create
+          {account ? account.substring(0, 5) + "..." : "Connect"}
         </Button>
       </div>
       <Notifications />
       <div>
         <Profile />
       </div>
-      <ModalManager open={open} close={() => setOpen(false)}>
-        <ConnectWallet />
-      </ModalManager>
     </div>
   );
 };

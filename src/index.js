@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 // import reportWebVitals from './reportWebVitals';
 import Theme from "src/Theme/LightTheme.js";
 import DarkTheme from "src/Theme/Theme.js";
+import { WalletProvider } from "@react-dapp/wallet";
 
 let item = localStorage.getItem("theme");
 if (item === "light") item = true;
@@ -14,11 +15,13 @@ else item = false;
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={item ? Theme : DarkTheme}>              
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
+    <WalletProvider isBSC={true} chainId={5} isDarkMode={false}>
+      <BrowserRouter>
+        <ThemeProvider theme={item ? Theme : DarkTheme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </WalletProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
