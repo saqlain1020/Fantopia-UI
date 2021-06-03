@@ -51,6 +51,19 @@ const Theme = createMuiTheme({
         },
       },
     },
+    MuiTextField: {
+      root: {
+        "& input,textarea": {
+          color: "white",
+        },
+        "& .MuiInput-underline:after": {
+          borderColor: "white",
+        },
+        "& .MuiInput-underline:before": {
+          borderColor: "rgba(255,255,255,0.5)",
+        },
+      },
+    },
     MuiButton: {
       root: {
         textTransform: "none",
@@ -84,7 +97,7 @@ const Theme = createMuiTheme({
         color: "#24E3AD",
         "& fieldset": {
           // borderRadius: "15px",
-          borderRadius: "360px",          
+          borderRadius: "360px",
           borderColor: "#24E3AD !important",
           "& legend span": {
             // visibility:"initial"
@@ -93,12 +106,11 @@ const Theme = createMuiTheme({
         },
         fontWeight: 800,
       },
-      multiline:{
-        "& fieldset":{
-          borderRadius: "20px",          
-        }
-      }
-      
+      multiline: {
+        "& fieldset": {
+          borderRadius: "20px",
+        },
+      },
     },
     MuiTableCell: {
       head: {

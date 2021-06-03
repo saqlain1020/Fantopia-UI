@@ -14,6 +14,8 @@ import SmileAddIco from "src/Assets/Icons/smileadd.png";
 import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
+import ModalManager from "../ModalManager/ModalManager";
+import Collection from "src/Modals/Collection/Collection";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateSingleItem = () => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
 
   return (
     <div className={classes.root}>
@@ -147,6 +150,7 @@ const CreateSingleItem = () => {
           variant="contained"
           color="secondary"
           className={classes.createBtn}
+          onClick={() => setOpen(true)}
         >
           Create Item
         </CustomButton>
@@ -246,6 +250,9 @@ const CreateSingleItem = () => {
           </Grid>
         </Grid>
       </div>
+      <ModalManager open={open} close={() => setOpen(false)}>
+        <Collection />
+      </ModalManager>
     </div>
   );
 };
