@@ -242,7 +242,7 @@ const CreateSingleItem = () => {
               Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={12} md={6}>
             <TextField
               select
               variant="outlined"
@@ -256,7 +256,21 @@ const CreateSingleItem = () => {
               <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={12} sm={12} md={5} className="flex">
+          <Grid item xs={12} sm={12} md={6}>
+            <TextField
+              select
+              variant="outlined"
+              defaultValue="disabled"
+              fullWidth
+            >
+              <MenuItem value="disabled" disabled>
+                Choose Your Collection
+              </MenuItem>
+              <MenuItem value="comicbook">Song Joong-ki Biased</MenuItem>
+              <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12} className="flex">
             <CustomButton
               variant="contained"
               color="secondary"
