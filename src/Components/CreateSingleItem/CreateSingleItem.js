@@ -14,13 +14,10 @@ import SmileAddIco from "src/Assets/Icons/smileadd.png";
 import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
-<<<<<<< HEAD
 import { useDeployERC721 } from "../../Hooks/useContract";
 import { readFile } from "../../Utils";
-=======
 import ModalManager from "../ModalManager/ModalManager";
 import Collection from "src/Modals/Collection/Collection";
->>>>>>> fddeb1ff09500e8fbdade0c84078fc4870adf356
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -122,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateSingleItem = () => {
   const classes = useStyles();
-<<<<<<< HEAD
   const { isDeploying, deploy } = useDeployERC721();
   const [file, setFile] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState(undefined);
@@ -135,9 +131,6 @@ const CreateSingleItem = () => {
       setFile(bytes);
     }
   };
-=======
-  const [open, setOpen] = React.useState(false);
->>>>>>> fddeb1ff09500e8fbdade0c84078fc4870adf356
 
   return (
     <div className={classes.root}>
@@ -194,11 +187,7 @@ const CreateSingleItem = () => {
           variant="contained"
           color="secondary"
           className={classes.createBtn}
-<<<<<<< HEAD
           onClick={() => deploy("Hello", "HE", 10000)}
-=======
-          onClick={() => setOpen(true)}
->>>>>>> fddeb1ff09500e8fbdade0c84078fc4870adf356
         >
           Create Item
         </CustomButton>
