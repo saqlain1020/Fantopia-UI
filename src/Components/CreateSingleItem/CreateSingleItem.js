@@ -16,6 +16,7 @@ import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import ModalManager from "../ModalManager/ModalManager";
 import Collection from "src/Modals/Collection/Collection";
+import CollectionSteps from "./../../Modals/CollectionSteps/CollectionSteps";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateSingleItem = () => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [open2, setOpen2] = React.useState(false);
 
   return (
     <div className={classes.root}>
@@ -251,7 +253,15 @@ const CreateSingleItem = () => {
         </Grid>
       </div>
       <ModalManager open={open} close={() => setOpen(false)}>
-        <Collection />
+        <Collection
+          openSteps={() => {
+            setOpen(false);
+            setOpen2(true);
+          }}
+        />
+      </ModalManager>
+      <ModalManager open={open2} close={() => setOpen2(false)}>
+        <CollectionSteps />
       </ModalManager>
     </div>
   );
