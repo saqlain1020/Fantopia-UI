@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     background: theme.palette.secondary.vibrant,
+    width:"calc(100% - 16px)",
+    objectFit:"cover",
     height: 180,
     marginLeft: 8,
     marginRight: 8,
