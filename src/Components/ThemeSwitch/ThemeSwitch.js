@@ -5,9 +5,9 @@ import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "absolute",
-    top: 80,
-    right: 30,
+    // position: "absolute",
+    // top: 80,
+    // right: 30,
     zIndex: 9999,
     background: "black",
     borderRadius: 360,

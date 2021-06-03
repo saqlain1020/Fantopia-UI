@@ -11,6 +11,7 @@ import { Link, withRouter } from "react-router-dom";
 import Profile from "./Components/Profile";
 import Notifications from "../Notifications/Notifications";
 import { useWalletModal, useWeb3 } from "@react-dapp/wallet";
+import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
     display: "grid",
     gridTemplateColumns:
-      "min-content min-content 1fr min-content min-content min-content",
+      "min-content min-content 1fr min-content min-content min-content min-content",
     gap: 10,
     alignItems: "center",
     justifyItems: "center",
@@ -99,9 +100,7 @@ const Navbar = (props) => {
         <Link to="/Activity" style={{ textDecoration: "none" }}>
           <Typography className={classes.links}>Activity</Typography>
         </Link>
-        {/* <Link to="/" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>Community</Typography>
-        </Link> */}
+       
       </div>
       <div>
         <Button
@@ -117,6 +116,7 @@ const Navbar = (props) => {
       <div>
         <Profile />
       </div>
+      <ThemeSwitch/>
     </div>
   );
 };

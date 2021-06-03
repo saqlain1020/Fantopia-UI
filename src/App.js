@@ -17,7 +17,6 @@ function App() {
       style={{ backgroundColor: item ? "#EBEEF5" : "#0C162F" }}
     >
       <Navbar />
-      <ThemeSwitch />
       <Routes />
       <Footer />
     </Container>
