@@ -145,9 +145,11 @@ const CreateSingleItem = () => {
   const classes = useStyles();
   const { open, setOpen } = useWalletModal();
   const { isDeploying, deploy } = useDeployERC721();
+  const openModal = useCreateCollectionModal();
+
   const [file, setFile] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState(undefined);
-  const openModal = useCreateCollectionModal();
+  const [putOnSale, setPutOnSale] = useState(false);
 
   const handleFilePick = async (e) => {
     const filename = e.target.files[0];
@@ -164,52 +166,55 @@ const CreateSingleItem = () => {
         <CreationCard media={selectedFile} />
         <Divider />
         <div style={{ padding: 10 }}>
-          <div className={classes.switches}>
+          <div
+            onClick={() => setPutOnSale(!putOnSale)}
+            className={classes.switches}
+          >
             <Typography variant="h6">Put on Sale</Typography>
             <IOSSwitch />
           </div>
           <Grid container spacing={1}>
-            <Grid item xs={4}>
-              <div className={classes.saleBtnsActive}>
-                <LocalOfferOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Fixed
-                    <br />
-                    price
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div className={classes.saleBtns}>
-                <TimelapseOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Timed
-                    <br />
-                    auction
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div className={classes.saleBtns}>
-                <AllInclusiveOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Unlimited
-                    <br />
-                    auction
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
+            {putOnSale && (
+              <>
+                <Grid item xs={4}>
+                  <div className={classes.saleBtnsActive}>
+                    <LocalOfferOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Fixed
+                        <br />
+                        price
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4}>
+                  <div className={classes.saleBtns}>
+                    <TimelapseOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Timed
+                        <br />
+                        auction
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4}>
+                  <div className={classes.saleBtns}>
+                    <AllInclusiveOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Unlimited
+                        <br />
+                        auction
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+              </>
+            )}
           </Grid>
-          <div className={classes.switches}>
-            <Typography variant="h6">Instant Sale</Typography>
-            <IOSSwitch />
-          </div>
           <div className={classes.switches}>
             <Typography variant="h6">Unlock upon purchase</Typography>
             <IOSSwitch />
@@ -309,7 +314,12 @@ const CreateSingleItem = () => {
               options={["Song Joong-ki", "Lee Min-ho"]}
               getOptionLabel={(option) => option}
               renderInput={(params) => (
-                <TextField  {...params} color="secondary" placeholder="Choose collection" variant="outlined" />
+                <TextField
+                  {...params}
+                  color="secondary"
+                  placeholder="Choose collection"
+                  variant="outlined"
+                />
               )}
             />
             {/* <TextField

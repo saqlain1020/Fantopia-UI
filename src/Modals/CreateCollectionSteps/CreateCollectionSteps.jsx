@@ -30,11 +30,7 @@ const CollectionSteps = () => {
       />
       <br />
 
-      <Step
-        heading="Sign message"
-        para="Sign message with new collection prefrences"
-        onClick={stepClick}
-      />
+      <Step heading="Upload Data" para="Uploading Data" onClick={stepClick} />
 
       <br />
       <Button color="secondary" variant="outlined" fullWidth>

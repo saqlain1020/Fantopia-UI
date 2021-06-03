@@ -26,14 +26,12 @@ const ImageUpload = ({ image, setImage, required }) => {
     let file = e.target.files[0];
     let reader = new FileReader();
     reader.onloadend = function () {
-      console.log(reader.result);
       setImage(reader.result);
     };
     reader.readAsDataURL(file);
   };
 
   React.useEffect(() => {
-    console.log(ref.current);
     ref.current.onchange = fileInputEvent;
   }, [ref.current]);
 

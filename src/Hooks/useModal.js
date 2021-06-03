@@ -3,10 +3,9 @@ import { MODAL_TYPE, ModalContext } from "../Providers/ModalProvider";
 export { MODAL_TYPE } from "../Providers/ModalProvider";
 
 export const useModal = (modalType) => {
-  const { setModal } = useContext(ModalContext);
-  const open = () => {
-    console.log(modalType);
-    setModal(modalType);
+  const { modal, setModal } = useContext(ModalContext);
+  const open = (payload, onClose) => {
+    setModal(modalType, payload, onClose);
   };
 
   return open;

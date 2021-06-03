@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -7,6 +7,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
+import { useCreateERC721 } from "../../Hooks/useCreate";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,13 +20,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CreateCollection = ({ openSteps }) => {
+const CreateCollection = ({ payload }) => {
   const classes = useStyles();
+  const create = useCreateERC721();
+
   const [image, setImage] = React.useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+  const [symbol, setSymbol] = useState("");
 
   const handleCreate = (e) => {
     e.preventDefault();
-    openSteps();
   };
 
   return (
@@ -77,6 +84,24 @@ const CreateCollection = ({ openSteps }) => {
               multiline
               rows={3}
               fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography style={{ marginBottom: "10px" }}>
+              <b>Royalty </b>
+              <small>(optional)</small>
+            </Typography>
+            <Autocomplete
+              options={["1", "2", "5", "10", "15", "20", "30"]}
+              getOptionLabel={(option) => option}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  color="secondary"
+                  placeholder="Choose Royalty"
+                  variant="outlined"
+                />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
