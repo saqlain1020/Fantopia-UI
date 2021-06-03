@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.dark,
     height: 180,
     marginLeft: 8,
+    objectFit:"cover",
     marginRight: 8,
     borderRadius: 10,
     "&:after": {
