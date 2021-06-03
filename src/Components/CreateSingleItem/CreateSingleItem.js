@@ -15,10 +15,8 @@ import Logo from "src/Assets/Images/logo.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
 import { useDeployERC721 } from "../../Hooks/useContract";
+import { useCreateCollectionModal } from "../../Hooks/useModal";
 import { readFile } from "../../Utils";
-import ModalManager from "../ModalManager/ModalManager";
-import Collection from "src/Modals/Collection/Collection";
-import CollectionSteps from "./../../Modals/CollectionSteps/CollectionSteps";
 import { useWalletModal } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
@@ -125,7 +123,7 @@ const CreateSingleItem = () => {
   const { isDeploying, deploy } = useDeployERC721();
   const [file, setFile] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState(undefined);
-  const [open2, setOpen2] = React.useState(false);
+  const openModal = useCreateCollectionModal();
 
   const handleFilePick = async (e) => {
     const filename = e.target.files[0];
@@ -277,6 +275,7 @@ const CreateSingleItem = () => {
               variant="contained"
               color="secondary"
               className={classes.btns}
+              onClick={() => openModal()}
             >
               <div>
                 <img src={SmileAddIco} width="20px" alt="" />
@@ -319,17 +318,6 @@ const CreateSingleItem = () => {
           </Grid>
         </Grid>
       </div>
-      <ModalManager open={open} close={() => setOpen(false)}>
-        <Collection
-          openSteps={() => {
-            setOpen(false);
-            setOpen2(true);
-          }}
-        />
-      </ModalManager>
-      <ModalManager open={open2} close={() => setOpen2(false)}>
-        <CollectionSteps />
-      </ModalManager>
     </div>
   );
 };

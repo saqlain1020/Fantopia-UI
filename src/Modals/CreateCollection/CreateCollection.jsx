@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Collection = ({ openSteps }) => {
+const CreateCollection = ({ openSteps }) => {
   const classes = useStyles();
   const [image, setImage] = React.useState(null);
 
@@ -111,4 +111,4 @@ const Collection = ({ openSteps }) => {
   );
 };
 
-export default Collection;
+export default CreateCollection;

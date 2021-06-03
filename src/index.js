@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import Theme from "src/Theme/LightTheme.js";
 import DarkTheme from "src/Theme/Theme.js";
 import { WalletProvider } from "@react-dapp/wallet";
+import { ModalProvider } from "./Providers/ModalProvider";
 
 let item = localStorage.getItem("theme");
 if (item === "light") item = true;
@@ -18,7 +19,9 @@ ReactDOM.render(
     <WalletProvider isBSC={true} chainId={5} isDarkMode={false}>
       <BrowserRouter>
         <ThemeProvider theme={item ? Theme : DarkTheme}>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </ThemeProvider>
       </BrowserRouter>
     </WalletProvider>

@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ModalManager = ({ open, close, ...props }) => {
   const classes = useStyles();
-
   return (
     <Dialog
       open={open}

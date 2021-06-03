@@ -12,8 +12,7 @@ import HexGoldIcon from "src/Assets/Images/hexGold.png";
 import PropTypes from "prop-types";
 import HexGiftIcon from "src/Assets/Images/hexgift.png";
 import { withRouter } from "react-router";
-import ModalManager from "../ModalManager/ModalManager";
-import EditItem from "src/Modals/EditItem/EditItem";
+import { useEditItemsModal } from "../../Hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreationCard = (props) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const openModal = useEditItemsModal();
   return (
     <div className={classes.root}>
       <div style={{ position: "relative" }}>
@@ -271,14 +270,11 @@ const CreationCard = (props) => {
           variant="outlined"
           color="secondary"
           className={classes.editBtn}
-          onClick={() => setOpen(true)}
+          onClick={() => openModal()}
         >
           Edit Item
         </Button>
       )}
-      <ModalManager open={open} close={() => setOpen(false)}>
-        <EditItem />
-      </ModalManager>
     </div>
   );
 };
