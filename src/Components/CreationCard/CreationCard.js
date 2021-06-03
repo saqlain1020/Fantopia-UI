@@ -243,7 +243,7 @@ const CreationCard = (props) => {
                 className={classes.hexClipGold}
                 style={{
                   transform: "translateX(-30px) scale(1.1)",
-                  zIndex: 1,
+                  zIndex: 4,
                   // backgroundImage: `url(${HexGoldIcon})`,
                 }}
               ></div>
