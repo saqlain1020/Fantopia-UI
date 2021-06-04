@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import Step from "../Step";
-import { useCreateERC721 } from "../../Hooks/useCreate";
+import { useMintERC721 } from "../../Hooks/useMintToken";
+import { useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
 
@@ -13,17 +14,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CollectionSteps = ({ payload }) => {
+  const data = paylaod;
   const classes = useStyles();
-  const { createState, create } = useCreateERC721();
+  const { mintState, mint } = useMintERC721(data);
+  const { approveState, isApproved, approve } = useERC721Approval(address);
   const closeModal = useCloseModal();
 
   useEffect(() => {
-    create(payload);
+    mint(payload);
   }, []);
 
   useEffect(() => {
-    if (createState === STATE.SUCCESS) closeModal();
-  }, [createState]);
+    if (isApproved && mintState === STATE.IDLE) mint();
+  }, [isApproved]);
+
+  useEffect(() => {
+    if (mintState === STATE.SUCCEED) closeModal();
+  }, [mintState]);
 
   return (
     <div className={classes.root}>
@@ -34,14 +41,16 @@ const CollectionSteps = ({ payload }) => {
       <Step
         heading="Deploy contract"
         para="Deploy code for the new collection smart contract"
-        onClick={() => create(payload)}
-        state={
-          createState === STATE.BUSY
-            ? STATE.LOADING
-            : createState === STATE.FAILED
-            ? STATE.FAILED
-            : STATE.COMPLETED
-        }
+        onClick={() => approve()}
+        state={approveState}
+      />
+      <br />
+
+      <Step
+        heading="Upload Data"
+        para="Uploading Data"
+        onClick={() => mint()}
+        state={mintState}
       />
 
       <br />
@@ -49,7 +58,7 @@ const CollectionSteps = ({ payload }) => {
         color="secondary"
         variant="outlined"
         fullWidth
-        disabled={createState !== STATE.SUCCESS && createState !== STATE.FAILED}
+        disabled={approveState === STATE.BUSY || mintState !== STATE.BUSY}
         onClick={() => closeModal()}
       >
         Close

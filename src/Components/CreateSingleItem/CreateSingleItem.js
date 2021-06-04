@@ -22,6 +22,7 @@ import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
 import { Autocomplete } from "@material-ui/lab";
+import DateTimePicker from "react-datetime-picker";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -139,6 +140,27 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 0px",
     width: "100%",
   },
+  datePicker: {
+    color: theme.palette.secondary.main,
+    display: "block",
+    margin: "auto",
+    zIndex: 9,
+    "& select": {
+      color: theme.palette.secondary.main,
+    },
+    "& input": {
+      color: theme.palette.secondary.main,
+    },
+    "& button": {
+      color: theme.palette.secondary.main,
+    },
+    "& svg": {
+      stroke: theme.palette.secondary.main,
+    },
+    "& div": {
+      border: "none",
+    },
+  },
 }));
 
 const CreateSingleItem = () => {
@@ -150,6 +172,9 @@ const CreateSingleItem = () => {
   const [file, setFile] = useState(undefined);
   const [selectedFile, setSelectedFile] = useState(undefined);
   const [putOnSale, setPutOnSale] = useState(false);
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
+  const [saleBtn, setSaleBtn] = React.useState(1);
 
   const handleFilePick = async (e) => {
     const filename = e.target.files[0];
@@ -174,43 +199,79 @@ const CreateSingleItem = () => {
             <IOSSwitch />
           </div>
           <Grid container spacing={1}>
-            {putOnSale && (
+            <Grid item xs={4}>
+              <div
+                className={
+                  saleBtn === 1 ? classes.saleBtnsActive : classes.saleBtns
+                }
+                onClick={() => setSaleBtn(1)}
+              >
+                <LocalOfferOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Fixed
+                    <br />
+                    price
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div
+                className={
+                  saleBtn === 2 ? classes.saleBtnsActive : classes.saleBtns
+                }
+                onClick={() => setSaleBtn(2)}
+              >
+                <TimelapseOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Timed
+                    <br />
+                    auction
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={4}>
+              <div
+                className={
+                  saleBtn === 3 ? classes.saleBtnsActive : classes.saleBtns
+                }
+                onClick={() => setSaleBtn(3)}
+              >
+                <AllInclusiveOutlinedIcon />
+                <Typography align="center">
+                  <b>
+                    Unlimited
+                    <br />
+                    auction
+                  </b>
+                </Typography>
+              </div>
+            </Grid>
+            {saleBtn === 2 && (
               <>
-                <Grid item xs={4}>
-                  <div className={classes.saleBtnsActive}>
-                    <LocalOfferOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Fixed
-                        <br />
-                        price
-                      </b>
-                    </Typography>
-                  </div>
+                <Grid item xs={12}>
+                  <Typography>
+                    <b>Starting date </b>{" "}
+                    <small> (Don't pick to start after listing)</small>
+                  </Typography>
+                  <DateTimePicker
+                    value={startDate}
+                    onChange={(e) => setStartDate(e)}
+                    className={classes.datePicker}
+                  />
                 </Grid>
-                <Grid item xs={4}>
-                  <div className={classes.saleBtns}>
-                    <TimelapseOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Timed
-                        <br />
-                        auction
-                      </b>
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={4}>
-                  <div className={classes.saleBtns}>
-                    <AllInclusiveOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Unlimited
-                        <br />
-                        auction
-                      </b>
-                    </Typography>
-                  </div>
+                <Grid item xs={12}>
+                  <Typography>
+                    <b>Expiration date </b>{" "}
+                  </Typography>
+                  <DateTimePicker
+                    value={endDate}
+                    onChange={(e) => setEndDate(e)}
+                    className={classes.datePicker}
+                  />
                 </Grid>
               </>
             )}

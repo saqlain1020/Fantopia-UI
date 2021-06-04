@@ -22,3 +22,11 @@ export const useCreateCollectionStepsModal = () => {
 export const useEditItemsModal = () => {
   return useModal(MODAL_TYPE.EDIT_ITEM);
 };
+
+export const useCloseModal = () => {
+  const { setModal } = useContext(ModalContext);
+  const close = () => {
+    setModal(MODAL_TYPE.NONE);
+  };
+  return close;
+};

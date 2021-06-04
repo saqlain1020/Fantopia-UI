@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
-import { useCreateERC721 } from "../../Hooks/useCreate";
+import { useCreateCollectionStepsModal } from "../../Hooks/useModal";
 import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -18,20 +18,31 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     borderRadius: 360,
   },
+  error: {
+    color: "red",
+  },
 }));
 
 const CreateCollection = ({ payload }) => {
   const classes = useStyles();
-  const create = useCreateERC721();
+  const openModal = useCreateCollectionStepsModal();
 
   const [image, setImage] = React.useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [royalty, setRoyalty] = useState("1");
   const [shortUrl, setShortUrl] = useState("");
   const [symbol, setSymbol] = useState("");
 
-  const handleCreate = (e) => {
+  const [error, setError] = useState(undefined);
+
+  const handleCreate = async (e) => {
     e.preventDefault();
+    if (name !== undefined && symbol !== undefined && image !== undefined) {
+      openModal({ name, symbol, royalty, image, shortUrl, description });
+    } else {
+      setError("Fill out the form properly!");
+    }
   };
 
   return (
@@ -49,6 +60,8 @@ const CreateCollection = ({ payload }) => {
               <small>(required)</small>
             </Typography>
             <TextField
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter token name"
@@ -65,6 +78,8 @@ const CreateCollection = ({ payload }) => {
               <small>(required)</small>
             </Typography>
             <TextField
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter token symbol"
@@ -78,6 +93,8 @@ const CreateCollection = ({ payload }) => {
               <small>(optional)</small>
             </Typography>
             <TextField
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Spread some words about your token collection"
@@ -94,6 +111,10 @@ const CreateCollection = ({ payload }) => {
             <Autocomplete
               options={["1", "2", "5", "10", "15", "20", "30"]}
               getOptionLabel={(option) => option}
+              value={royalty}
+              onChange={(e, value) => {
+                setRoyalty(value);
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -110,6 +131,8 @@ const CreateCollection = ({ payload }) => {
               <small></small>
             </Typography>
             <TextField
+              value={shortUrl}
+              onChange={(e) => setShortUrl(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter short url phrase"
@@ -119,6 +142,7 @@ const CreateCollection = ({ payload }) => {
               <small>Will be used as public URL</small>
             </Typography>
           </Grid>
+          {error ? <small className={classes.error}>{error}</small> : null}
           <Grid item xs={12}>
             <Button
               color="secondary"
