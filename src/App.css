@@ -28,6 +28,10 @@ body {
   height: 80px;
   font-size: 16px;
 }
+.slick-arrow{
+  
+  transform: scale(1.5) !important;
+}
 @font-face {
   font-family: AcmeFont;
   src: url("./Assets/Fonts/acmefontregular.ttf");
@@ -36,7 +40,6 @@ body {
 .Activity_loading {
   animation: loading 500ms linear infinite alternate;
 }
-
 @keyframes loading {
   0% {
     transform: scaleY(1.2);

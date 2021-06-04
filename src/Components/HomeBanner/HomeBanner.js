@@ -4,6 +4,12 @@ import Bg from "src/Assets/Images/landing-bg.jpg";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.white,
     position: "relative",
     marginBottom: 30,
+    paddingTop: 10,
+    [theme.breakpoints.down("xs")]: {
+      height: 550,
+    },
   },
   btnsContainer: {
     border: `1px solid ${theme.palette.secondary.main}`,
@@ -24,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     width: 380,
     overflow: "hidden",
     cursor: "default",
-    marginTop: 10,
+    marginTop: 150,
     [theme.breakpoints.down("xs")]: {
       width: "90%",
     },
@@ -55,26 +65,94 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     bottom: "10px",
   },
+  carousel: {
+    maxWidth: 700,
+    margin: "auto",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 300,
+    },
+  },
+  slideBox: {
+    width: "calc(100% - 20px)",
+    height: "100%",
+    borderRadius: 15,
+
+    margin: 10,
+  },
+  slideWrapper: {
+    width: 500,
+    height: 300,
+    [theme.breakpoints.down("sm")]: {
+      width: 300,
+      height: 180,
+    },
+  },
 }));
 
 const HomeBanner = () => {
   const classes = useStyles();
   const [selection, setSelection] = React.useState(1);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
-    <Carousel>
+    <>
+      {/* <Carousel> */}
       <div className={classes.root}>
-        <Typography align="center" variant="h5" style={{ paddingTop: 20 }}>
-          WELCOME TO
-        </Typography>
-        <Typography align="center" variant="h1">
-          Fantopia
-        </Typography>
-        <Typography align="center" variant="h6" style={{ marginTop: 20 }}>
-          Buy, sell and trade authentic digital assets
-          <br />
-          that can be owned securely with blockchain
-        </Typography>
+        {/* <Typography align="center" variant="h5" style={{ paddingTop: 20 }}>
+            WELCOME TO
+          </Typography>
+          <Typography align="center" variant="h1">
+            Fantopia
+          </Typography>
+          <Typography align="center" variant="h6" style={{ marginTop: 20 }}>
+            Buy, sell and trade authentic digital assets
+            <br />
+            that can be owned securely with blockchain
+          </Typography> */}
+        <div className={classes.carousel}>
+          <Slider
+            className="center"
+            centerMode={true}
+            infinite={true}
+            centerPadding={matches ? "0px" : "100px"}
+            slidesToShow={1}
+            speed={500}
+          >
+            <div>
+              <div className={classes.slideWrapper}>
+                <div
+                  className={classes.slideBox}
+                  style={{ backgroundColor: "yellow" }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className={classes.slideWrapper}>
+                <div
+                  className={classes.slideBox}
+                  style={{ backgroundColor: "green" }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className={classes.slideWrapper}>
+                <div
+                  className={classes.slideBox}
+                  style={{ backgroundColor: "red" }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className={classes.slideWrapper}>
+                <div
+                  className={classes.slideBox}
+                  style={{ backgroundColor: "magenta" }}
+                />
+              </div>
+            </div>
+          </Slider>
+        </div>
         <center>
           <div className={classes.btnsContainer}>
             <div>
@@ -99,12 +177,9 @@ const HomeBanner = () => {
           <JoinCommunity />
         </div>
       </div>
-      <div>
-        <Typography variant="h1">
-          Slide 2
-        </Typography>
-      </div>
-    </Carousel>
+
+      {/* </Carousel> */}
+    </>
   );
 };
 
