@@ -10,6 +10,14 @@ const data = [
     {
         heading: "Most Valuable",
         para: "The rarest, biggest resale value and largest appreciation."
+    },
+    {
+        heading: "Hottest",
+        para: "The most trending"
+    },
+    {
+        heading: "Most Valuable",
+        para: "The rarest, biggest resale value and largest appreciation."
     }
 ]
 
