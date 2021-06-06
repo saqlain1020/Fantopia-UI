@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   CircularProgress,
@@ -6,7 +6,9 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import CancleIcon from "@material-ui/icons/Cancel";
 import PropTypes from "prop-types";
+import { STATE } from "src/Config/enums";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -32,33 +34,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Step = ({ onClick, heading, para }) => {
+const Step = ({ state, onClick, heading, para }) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(1);
-
-  const handleClick = async () => {
-    try {
-      setChecked(2);
-      await onClick();
-      setChecked(3);
-    } catch (err) {
-      console.log(err);
-      setChecked(1);
-    }
-  };
-
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={4} className="flex">
-          {checked === 1 && <div className={classes.line} />}
-          {checked === 2 && (
+          {state === STATE.IDLE ? (
+            <div className={classes.line} />
+          ) : state === STATE.BUSY ? (
             <CircularProgress
               className={classes.progress}
               style={{ opacity: 0.5 }}
             />
+          ) : state === STATE.SUCCEED ? (
+            <div className={classes.check} />
+          ) : (
+            <CancleIcon color="error" />
           )}
-          {checked === 3 && <div className={classes.check} />}
         </Grid>
         <Grid item xs={8}>
           <Typography variant="h5">
@@ -72,7 +65,8 @@ const Step = ({ onClick, heading, para }) => {
             color="secondary"
             fullWidth
             className={classes.btn}
-            onClick={handleClick}
+            onClick={onClick}
+            disabled={state === STATE.BUSY || state === STATE.SUCCEED}
           >
             Start
           </Button>

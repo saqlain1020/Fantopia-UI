@@ -1,4 +1,5 @@
 import { Container } from "@material-ui/core";
+import { useEagerConnect } from "@react-dapp/wallet";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
@@ -9,7 +10,7 @@ function App() {
   let item = localStorage.getItem("theme");
   if (item === "light") item = true;
   else item = false;
-
+  useEagerConnect();
   return (
     <Container
       maxWidth="xl"

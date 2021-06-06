@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -7,6 +7,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import ImageUpload from "./ImageUpload";
+import { useCreateCollectionStepsModal } from "../../Hooks/useModal";
+import { Autocomplete } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,15 +18,32 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     borderRadius: 360,
   },
+  error: {
+    color: "red",
+  },
 }));
 
-const CreateCollection = ({ openSteps }) => {
+const CreateCollection = ({ payload }) => {
   const classes = useStyles();
-  const [image, setImage] = React.useState(null);
+  const { openModal } = useCreateCollectionStepsModal();
 
-  const handleCreate = (e) => {
+  const [image, setImage] = React.useState(null);
+  const [file, setFile] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [royalty, setRoyalty] = useState("1");
+  const [shortUrl, setShortUrl] = useState("");
+  const [symbol, setSymbol] = useState("");
+
+  const [error, setError] = useState(undefined);
+
+  const handleCreate = async (e) => {
     e.preventDefault();
-    openSteps();
+    if (name !== undefined && symbol !== undefined && image !== undefined) {
+      openModal({ name, symbol, royalty, image: file, shortUrl, description });
+    } else {
+      setError("Fill out the form properly!");
+    }
   };
 
   return (
@@ -34,7 +53,12 @@ const CreateCollection = ({ openSteps }) => {
           <b>Collection</b>
         </Typography>
         {/* image choose */}
-        <ImageUpload required={true} image={image} setImage={setImage} />
+        <ImageUpload
+          required={true}
+          image={image}
+          setImage={setImage}
+          setFile={setFile}
+        />
         <Grid container spacing={2} style={{ marginTop: 10 }}>
           <Grid item xs={12}>
             <Typography>
@@ -42,6 +66,8 @@ const CreateCollection = ({ openSteps }) => {
               <small>(required)</small>
             </Typography>
             <TextField
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter token name"
@@ -58,6 +84,8 @@ const CreateCollection = ({ openSteps }) => {
               <small>(required)</small>
             </Typography>
             <TextField
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter token symbol"
@@ -71,6 +99,8 @@ const CreateCollection = ({ openSteps }) => {
               <small>(optional)</small>
             </Typography>
             <TextField
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Spread some words about your token collection"
@@ -80,11 +110,35 @@ const CreateCollection = ({ openSteps }) => {
             />
           </Grid>
           <Grid item xs={12}>
+            <Typography style={{ marginBottom: "10px" }}>
+              <b>Royalty </b>
+              <small>(optional)</small>
+            </Typography>
+            <Autocomplete
+              options={["1", "2", "5", "10", "15", "20", "30"]}
+              getOptionLabel={(option) => option}
+              value={royalty}
+              onChange={(e, value) => {
+                setRoyalty(value);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  color="secondary"
+                  placeholder="Choose Royalty"
+                  variant="outlined"
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <Typography>
               <b>Short url </b>
               <small></small>
             </Typography>
             <TextField
+              value={shortUrl}
+              onChange={(e) => setShortUrl(e.target.value)}
               size="small"
               // variant="outlined"
               placeholder="Enter short url phrase"
@@ -94,6 +148,7 @@ const CreateCollection = ({ openSteps }) => {
               <small>Will be used as public URL</small>
             </Typography>
           </Grid>
+          {error ? <small className={classes.error}>{error}</small> : null}
           <Grid item xs={12}>
             <Button
               color="secondary"

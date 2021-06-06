@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Divider,
   Grid,
@@ -10,19 +10,22 @@ import {
 } from "@material-ui/core";
 import CreationCard from "../CreationCard/CreationCard";
 import CustomButton from "../CustomButton/CustomButton";
-import SmileAddIco from "src/Assets/Icons/smileadd.png";
-import Logo from "src/Assets/Images/logo.png";
+import SmileAddIco from "src/Assets/Icons/smileadd_dark.png";
+import LogoLight from "src/Assets/Images/logo_light.png";
+import LogoDark from "src/Assets/Images/logo_filled.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
-import { useDeployERC721 } from "../../Hooks/useContract";
 import { useCreateCollectionModal } from "../../Hooks/useModal";
-import { readFile } from "../../Utils";
-import { useWalletModal } from "@react-dapp/wallet";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
 import { Autocomplete } from "@material-ui/lab";
 import DateTimePicker from "react-datetime-picker";
+import { useCollectionList } from "src/Hooks/useCollectionList";
+import { COLLECTION_TYPE } from "src/Config/enums";
+import { useMintTokenModal } from "src/Hooks/useModal";
+import { FANTOPIA_COLLECTION } from "../../Config/contracts";
+import { useWeb3 } from "@react-dapp/wallet";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -129,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     padding: "15px 0px",
     width: "100%",
+    cursor: "pointer",
   },
   saleBtns: {
     display: "flex",
@@ -139,6 +143,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     padding: "15px 0px",
     width: "100%",
+    cursor: "pointer",
   },
   datePicker: {
     color: theme.palette.secondary.main,
@@ -165,86 +170,142 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateSingleItem = () => {
   const classes = useStyles();
-  const { open, setOpen } = useWalletModal();
-  const { isDeploying, deploy } = useDeployERC721();
-  const [file, setFile] = useState(undefined);
-  const [selectedFile, setSelectedFile] = useState(undefined);
-  const openModal = useCreateCollectionModal();
+  const { openModal } = useCreateCollectionModal();
+  const { userCollections, celebrityCollections } = useCollectionList();
+  const { openModal: openMintModal } = useMintTokenModal();
+  const [media, setMedia] = useState(null);
+  const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [royalty, setRoyalty] = useState(0);
+  const [category, setCategory] = useState("artwork");
+
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
+  const [putOnSale, setPutOnSale] = useState(false);
   const [saleBtn, setSaleBtn] = React.useState(1);
+  const [collectionAddress, setCollectionAddress] =
+    useState(FANTOPIA_COLLECTION);
+  const [selectedCollection, setSelectedCollection] = useState(
+    COLLECTION_TYPE.NATIVE
+  );
+
+  const { account } = useWeb3();
 
   const handleFilePick = async (e) => {
     const filename = e.target.files[0];
     if (filename) {
-      setSelectedFile(URL.createObjectURL(filename));
-      const bytes = await readFile(filename);
-      setFile(bytes);
+      setMedia(URL.createObjectURL(filename));
     }
   };
 
+  const handleCreateItem = (e) => {
+    e.preventDefault();
+    if (!media) {
+      alert("Please Select NFT media!");
+      return;
+    }
+    const data = {
+      name,
+      description,
+      image: media,
+      address: collectionAddress,
+      fees: royalty ? [{ recipient: account, value: royalty }] : [],
+    };
+    console.log(data);
+    openMintModal(data);
+  };
+
   return (
-    <div className={classes.root}>
+    <form className={classes.root} onSubmit={handleCreateItem}>
       <div className={classes.left}>
-        <CreationCard media={selectedFile} />
+        <CreationCard media={media} />
         <Divider />
         <div style={{ padding: 10 }}>
-          <div className={classes.switches}>
+          <div
+            onClick={() => setPutOnSale(!putOnSale)}
+            className={classes.switches}
+          >
             <Typography variant="h6">Put on Sale</Typography>
             <IOSSwitch />
           </div>
           <Grid container spacing={1}>
-            <Grid item xs={4}>
-              <div
-                className={
-                  saleBtn === 1 ? classes.saleBtnsActive : classes.saleBtns
-                }
-                onClick={() => setSaleBtn(1)}
-              >
-                <LocalOfferOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Fixed
-                    <br />
-                    price
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div
-                className={
-                  saleBtn === 2 ? classes.saleBtnsActive : classes.saleBtns
-                }
-                onClick={() => setSaleBtn(2)}
-              >
-                <TimelapseOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Timed
-                    <br />
-                    auction
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={4}>
-              <div
-                className={
-                  saleBtn === 3 ? classes.saleBtnsActive : classes.saleBtns
-                }
-                onClick={() => setSaleBtn(3)}
-              >
-                <AllInclusiveOutlinedIcon />
-                <Typography align="center">
-                  <b>
-                    Unlimited
-                    <br />
-                    auction
-                  </b>
-                </Typography>
-              </div>
-            </Grid>
+            {putOnSale && (
+              <>
+                <Grid item xs={4}>
+                  <div
+                    className={
+                      saleBtn === 1 ? classes.saleBtnsActive : classes.saleBtns
+                    }
+                    onClick={() => setSaleBtn(1)}
+                  >
+                    <LocalOfferOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Fixed
+                        <br />
+                        price
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4}>
+                  <div
+                    className={
+                      saleBtn === 2 ? classes.saleBtnsActive : classes.saleBtns
+                    }
+                    onClick={() => setSaleBtn(2)}
+                  >
+                    <TimelapseOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Timed
+                        <br />
+                        auction
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={4}>
+                  <div
+                    className={
+                      saleBtn === 3 ? classes.saleBtnsActive : classes.saleBtns
+                    }
+                    onClick={() => setSaleBtn(3)}
+                  >
+                    <AllInclusiveOutlinedIcon />
+                    <Typography align="center">
+                      <b>
+                        Unlimited
+                        <br />
+                        auction
+                      </b>
+                    </Typography>
+                  </div>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <Select
+                          variant="standard"
+                          color="secondary"
+                          defaultValue="bnb"
+                          className={classes.select}
+                        >
+                          <MenuItem value="bnb">BNB</MenuItem>
+                        </Select>
+                      ),
+                    }}
+                    variant="outlined"
+                    placeholder="Enter price for one piece"
+                  />
+                  <Typography>
+                    Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
+                  </Typography>
+                </Grid>
+              </>
+            )}
             {saleBtn === 2 && (
               <>
                 <Grid item xs={12}>
@@ -271,17 +332,32 @@ const CreateSingleItem = () => {
               </>
             )}
           </Grid>
-          <div className={classes.switches}>
-            <Typography variant="h6">Instant Sale</Typography>
-            <IOSSwitch />
-          </div>
-          <div className={classes.switches}>
+          {/* <div className={classes.switches}>
             <Typography variant="h6">Unlock upon purchase</Typography>
             <IOSSwitch />
-          </div>
+          </div> */}
           <div className={classes.switches}>
             <Typography variant="h6">Royalty (Sug: 5-30%)</Typography>
             <TextField
+              select
+              defaultValue="disabled"
+              style={{ width: 70 }}
+              value={royalty}
+              onClick={(e) => setRoyalty(e.target.value)}
+              required
+            >
+              <MenuItem value="0">0</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="10">10</MenuItem>
+              <MenuItem value="15">15</MenuItem>
+              <MenuItem value="20">20</MenuItem>
+              <MenuItem value="30">30</MenuItem>
+            </TextField>
+            {/* <TextField
+              value={royalty}
+              onChange={(e) => setRoyalty(e.target.value)}
               style={{ width: 70 }}
               variant="outlined"
               InputProps={{
@@ -290,7 +366,7 @@ const CreateSingleItem = () => {
                   height: 30,
                 },
               }}
-            />
+            /> */}
           </div>
         </div>
         <Divider />
@@ -313,10 +389,10 @@ const CreateSingleItem = () => {
           </div>
         </label>
         <CustomButton
+          type="submit"
           variant="contained"
           color="secondary"
           className={classes.createBtn}
-          onClick={() => deploy("Hello", "HE", 10000)}
         >
           Create Item
         </CustomButton>
@@ -332,6 +408,9 @@ const CreateSingleItem = () => {
               color="secondary"
               placeholder="Item Name"
               fullWidth
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -340,60 +419,60 @@ const CreateSingleItem = () => {
               variant="outlined"
               defaultValue="disabled"
               fullWidth
+              value={category}
+              onClick={(e) => setCategory(e.target.value)}
+              required
             >
-              <MenuItem value="disabled" disabled>
+              {/* <MenuItem value="disabled" disabled>
                 Category
-              </MenuItem>
-              <MenuItem value="comicbook">Comic Book</MenuItem>
+              </MenuItem> */}
+              <MenuItem value="artwork">Artwork</MenuItem>
+              <MenuItem value="fancam">FanCam</MenuItem>
             </TextField>
           </Grid>
+          {/* <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              placeholder="properties i.e. size (Optional)"
+              fullWidth
+            />
+          </Grid> */}
           <Grid item xs={12}>
             <TextField
-              fullWidth
-              InputProps={{
-                endAdornment: (
-                  <Select
-                    variant="standard"
-                    color="secondary"
-                    defaultValue="bnb"
-                    className={classes.select}
-                  >
-                    <MenuItem value="bnb">BNB</MenuItem>
-                  </Select>
-                ),
-              }}
+              multiline
+              rows={5}
               variant="outlined"
-              placeholder="Enter price for one piece"
+              placeholder="Items Description"
+              fullWidth
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
-            <Typography>
-              Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
-            </Typography>
           </Grid>
+          {/* <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              placeholder="Digital key, code to redeem or link to a file for buyer"
+              fullWidth
+            />
+          </Grid> */}
           <Grid item xs={12} sm={12} md={6}>
             <Autocomplete
-              options={["Song Joong-ki", "Lee Min-ho"]}
-              getOptionLabel={(option) => option}
+              onChange={(e, value) => {
+                setCollectionAddress(value?.address);
+              }}
+              options={celebrityCollections}
+              getOptionLabel={(option) => option.name}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   color="secondary"
                   placeholder="Choose collection"
                   variant="outlined"
+                  disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
+                  onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
                 />
               )}
             />
-            {/* <TextField
-              select
-              variant="outlined"
-              defaultValue="disabled"
-              fullWidth
-            >
-              <MenuItem value="disabled" disabled>
-                Choose Celebrity Collection
-              </MenuItem>
-              <MenuItem value="comicbook">Song Joong-ki</MenuItem>
-              <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
-            </TextField> */}
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
@@ -401,17 +480,23 @@ const CreateSingleItem = () => {
               variant="outlined"
               defaultValue="disabled"
               fullWidth
+              disabled={selectedCollection !== COLLECTION_TYPE.USER}
+              onClick={(e, value) => {
+                setSelectedCollection(COLLECTION_TYPE.USER);
+              }}
+              onChange={(e) => setCollectionAddress(e.target.value?.address)}
             >
               <MenuItem value="disabled" disabled>
                 Choose Your Collection
               </MenuItem>
-              <MenuItem value="comicbook">Song Joong-ki Biased</MenuItem>
-              <MenuItem value="comicboo1k">Lee Min-ho</MenuItem>
+              {userCollections.map((e) => (
+                <MenuItem value={e.address}>{e.name}</MenuItem>
+              ))}
             </TextField>
           </Grid>
           <Grid item xs={12} className="flex">
             <CustomButton
-              variant="contained"
+              variant="outlined"
               color="secondary"
               className={classes.btns}
               onClick={() => openModal()}
@@ -422,42 +507,35 @@ const CreateSingleItem = () => {
               </div>
             </CustomButton>
             <CustomButton
-              variant="outlined"
+              variant={
+                selectedCollection === COLLECTION_TYPE.NATIVE
+                  ? "contained"
+                  : "outlined"
+              }
               color="secondary"
               className={classes.btns}
+              onClick={() => {
+                setCollectionAddress(FANTOPIA_COLLECTION);
+                setSelectedCollection(COLLECTION_TYPE.NATIVE);
+              }}
             >
               <div>
-                <img src={Logo} width="30px" alt="" />
+                <img
+                  src={
+                    selectedCollection === COLLECTION_TYPE.NATIVE
+                      ? LogoLight
+                      : LogoDark
+                  }
+                  width="30px"
+                  alt=""
+                />
                 <span>Fantopia</span>
               </div>
             </CustomButton>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              placeholder="properties i.e. size (Optional)"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              multiline
-              rows={5}
-              variant="outlined"
-              placeholder="Items Description"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              placeholder="Digital key, code to redeem or link to a file for buyer"
-              fullWidth
-            />
-          </Grid>
         </Grid>
       </div>
-    </div>
+    </form>
   );
 };
 

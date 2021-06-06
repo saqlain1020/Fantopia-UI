@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
-import Step from "./Step";
+import Step from "../Step";
+import { useCreateERC721 } from "../../Hooks/useCreate";
+import { useCloseModal } from "../../Hooks/useModal";
+import { STATE } from "src/Config/enums";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,13 +12,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CollectionSteps = () => {
+const CollectionSteps = ({ payload }) => {
   const classes = useStyles();
+  const { createState, create } = useCreateERC721();
+  const closeModal = useCloseModal();
 
-  const stepClick = () =>
-    new Promise((resolve) => {
-      setTimeout(() => resolve(), 1000);
-    });
+  useEffect(() => {
+    console.log(payload);
+    create(payload);
+  }, []);
+
+  useEffect(() => {
+    if (createState === STATE.SUCCESS) closeModal();
+  }, [createState]);
 
   return (
     <div className={classes.root}>
@@ -26,19 +35,19 @@ const CollectionSteps = () => {
       <Step
         heading="Deploy contract"
         para="Deploy code for the new collection smart contract"
-        onClick={stepClick}
-      />
-      <br />
-
-      <Step
-        heading="Sign message"
-        para="Sign message with new collection prefrences"
-        onClick={stepClick}
+        onClick={() => create(payload)}
+        state={createState}
       />
 
       <br />
-      <Button color="secondary" variant="outlined" fullWidth>
-        Cancel
+      <Button
+        color="secondary"
+        variant="outlined"
+        fullWidth
+        disabled={createState !== STATE.SUCCESS && createState !== STATE.FAILED}
+        onClick={() => closeModal()}
+      >
+        Close
       </Button>
     </div>
   );
