@@ -10,7 +10,8 @@ import {
 } from "@material-ui/core";
 import CreationCard from "../CreationCard/CreationCard";
 import CustomButton from "../CustomButton/CustomButton";
-import SmileAddIco from "src/Assets/Icons/smileadd_dark.png";
+import SmileAddIcoDark from "src/Assets/Icons/smileadd_dark.png";
+import SmileAddIcoLight from "src/Assets/Icons/smileadd.png";
 import LogoLight from "src/Assets/Images/logo_light.png";
 import LogoDark from "src/Assets/Images/logo_filled.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
@@ -26,6 +27,7 @@ import { COLLECTION_TYPE } from "src/Config/enums";
 import { useMintTokenModal } from "src/Hooks/useModal";
 import { FANTOPIA_COLLECTION } from "../../Config/contracts";
 import { useWeb3 } from "@react-dapp/wallet";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -189,6 +191,7 @@ const CreateSingleItem = () => {
     COLLECTION_TYPE.NATIVE
   );
 
+  const history = useHistory();
   const { account } = useWeb3();
 
   const handleFilePick = async (e) => {
@@ -210,9 +213,14 @@ const CreateSingleItem = () => {
       image: media,
       address: collectionAddress,
       fees: royalty ? [{ recipient: account, value: royalty }] : [],
+      category: category,
+      minter: account,
+      owner: account,
     };
     console.log(data);
-    openMintModal(data);
+    openMintModal(data, (tokenId) => {
+      if (tokenId) history.push(`/collection/${collectionAddress}/${tokenId}`);
+    });
   };
 
   return (
@@ -426,8 +434,8 @@ const CreateSingleItem = () => {
               {/* <MenuItem value="disabled" disabled>
                 Category
               </MenuItem> */}
-              <MenuItem value="artwork">Artwork</MenuItem>
-              <MenuItem value="fancam">FanCam</MenuItem>
+              <MenuItem value="Artwork">Artwork</MenuItem>
+              <MenuItem value="FanCam">FanCam</MenuItem>
             </TextField>
           </Grid>
           {/* <Grid item xs={12}>
@@ -502,7 +510,7 @@ const CreateSingleItem = () => {
               onClick={() => openModal()}
             >
               <div>
-                <img src={SmileAddIco} width="20px" alt="" />
+                <img src={SmileAddIcoDark} width="20px" alt="" />
                 <span>Create BEP-721</span>
               </div>
             </CustomButton>

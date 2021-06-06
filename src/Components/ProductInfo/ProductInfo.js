@@ -12,6 +12,8 @@ import ProductInfoTabs from "../ProductInfoTabs/ProductInfoTabs";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
+    width:"calc(100% - 16px)",
+    objectFit: 'cover',
     background: theme.palette.secondary.vibrant,
     height: "90vh",
     maxHeight: 750,
@@ -62,12 +64,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfo = () => {
+const ProductInfo = ({media}) => {
   const classes = useStyles();
 
   return (
     <div>
-      <div className={classes.bg}></div>
+      <img src={media} className={classes.bg}></img>
       <div className={classes.reactsDiv}>
         <div className={`${classes.react} ${classes.reactBorder}`}>
           <center>

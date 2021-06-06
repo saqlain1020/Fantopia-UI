@@ -110,24 +110,24 @@ const useStyles = makeStyles((theme) => ({
       color: theme.customColors.veryLightBlack,
     },
   },
-  goldWrapper:{
-    width:40,
-    height:40,
-    background:"gold",
-    borderRadius:360,
-    border: `2px solid ${theme.palette.secondary.main}`
-  }
+  goldWrapper: {
+    width: 40,
+    height: 40,
+    background: "gold",
+    borderRadius: 360,
+    border: `2px solid ${theme.palette.secondary.main}`,
+  },
 }));
 
-const ProductInfoBar = () => {
+const ProductInfoBar = ({ metadata }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
       <Typography variant="h4" className={classes.mainHeading}>
-        BILL RUN #131/271
+        {metadata?.name}
       </Typography>
-      <Typography variant="h6">#5 of 10 Editions</Typography>
+      <Typography variant="h6">One Of a Kind</Typography>
       <div className={classes.price}>
         <Typography variant="h6" className={classes.bold}>
           On Sale For
@@ -141,8 +141,9 @@ const ProductInfoBar = () => {
         </Typography>
       </div>
       <Typography className={classes.para}>
-        For use, by you or one client, in a single end product which end users
-        are not charged for...<span>React More</span>
+        {metadata?.description}
+        {/* For use, by you or one client, in a single end product which end users
+        are not charged for...<span>React More</span> */}
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -165,13 +166,13 @@ const ProductInfoBar = () => {
             Make Offer
           </Button>
         </Grid>
-        <Grid item xs={12} className="flex">
+        {/* <Grid item xs={12} className="flex">
           <Button variant="outlined" className={classes.btnOutlined}>
             Propose Trade
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
-      <div className={classes.valuesGrid}>
+      {/* <div className={classes.valuesGrid}>
         <div>
           <Typography align="center">Last Sold For</Typography>
           <Typography align="center" variant="h5">
@@ -189,17 +190,41 @@ const ProductInfoBar = () => {
             <b>703</b>
           </Typography>
         </div>
-      </div>
+      </div> */}
       <Typography variant="h6" className={classes.ownByText}>
         Owned By:
       </Typography>
-      <ProfileName />
+      <ProfileName
+        title={
+          metadata?.owner
+            ? `${metadata.owner.substring(0, 5)}....${metadata.owner.substring(
+                metadata.owner.length - 5,
+                metadata.owner.length
+              )}`
+            : null
+        }
+      />
       <Typography variant="h6" className={classes.createdByText}>
         Created By:
       </Typography>
-      <ProfileName />
+      <ProfileName
+        title={
+          metadata?.minter
+            ? `${metadata.minter.substring(
+                0,
+                5
+              )}....${metadata.minter.substring(
+                metadata.minter.length - 5,
+                metadata.minter.length
+              )}`
+            : null
+        }
+      />
       <div className="flex" style={{ marginTop: 10 }}>
-        <div style={{ position: "relative", margin: 10, marginRight: 10 }} className={classes.goldWrapper}>
+        <div
+          style={{ position: "relative", margin: 10, marginRight: 10 }}
+          className={classes.goldWrapper}
+        >
           <Typography className={classes.goldValue}>+9</Typography>
         </div>
         <Typography
@@ -225,14 +250,24 @@ const ProductInfoBar = () => {
         </div>
       </div>
       <Typography className={classes.categories}>
-        Categories: <span>Art, Gaming</span>
+        Categories: <span>{metadata?.category}</span>
       </Typography>
       <Typography className={classes.idText}>
         <b>Contact Address: </b>{" "}
-        <span>0xb5e5993512385aca01ec292DeF80f3C906d4314e</span>
+        <span>
+          {metadata
+            ? `${metadata.address.substring(
+                0,
+                10
+              )}....${metadata.address.substring(
+                metadata.address.length - 10,
+                metadata.address.length
+              )}`
+            : null}
+        </span>
       </Typography>
       <Typography className={classes.idText}>
-        <b>Token ID: </b> <span>11500010251</span>
+        <b>Token ID: </b> <span>{metadata?.tokenId}</span>
       </Typography>
     </div>
   );
@@ -240,19 +275,19 @@ const ProductInfoBar = () => {
 
 export default ProductInfoBar;
 
-const ProfileName = () => {
+const ProfileName = ({ title, subtitle }) => {
   return (
     <div className="flex">
       <div
         style={{ position: "relative", width: 45, height: 50, marginRight: 15 }}
       >
-       <UserName noName/>
+        <UserName noName />
       </div>
       <div>
         <Typography style={{ lineHeight: 1 }}>
-          <b>Marina Valentine</b>
+          <b>{title}</b>
         </Typography>
-        <Typography style={{ lineHeight: 1 }}>5 items in collection</Typography>
+        <Typography style={{ lineHeight: 1 }}>{subtitle}</Typography>
       </div>
     </div>
   );
