@@ -12,3 +12,8 @@ export const postMetadata = async (metadata) => {
   const response = await metadataApi.post("createtoken", data);
   return response.data;
 };
+
+export const getMetadata = async (address, tokenId) => {
+  const response = await metadataApi.get(`${address}/${tokenId}`);
+  return response.data;
+};

@@ -36,7 +36,7 @@ const CollectionSteps = ({ payload }) => {
   }, [signState]);
 
   useEffect(() => {
-    if (mintState === STATE.SUCCEED) closeModal();
+    if (mintState === STATE.SUCCEED) closeModal(tokenId);
   }, [mintState]);
 
   return (

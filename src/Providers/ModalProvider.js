@@ -36,11 +36,18 @@ export const ModalProvider = ({ children }) => {
     <ModalContext.Provider
       value={{
         modal: modal,
-        setModal: (modalType, payload, onClose) => {
-          // https://medium.com/swlh/how-to-store-a-function-with-the-usestate-hook-in-react-8a88dd4eede1
-          setOnModalClose(() => onClose);
-          setModalPayload(payload);
-          setModal(modalType);
+        setModal: (modalType, payload, onClose, close) => {
+          // if this is an close modal event
+          if (close) {
+            if (onModalClose) onModalClose(payload);
+            setModal(modalType);
+          }
+          // open modal event
+          else {
+            setOnModalClose(() => onClose);
+            setModalPayload(payload);
+            setModal(modalType);
+          }
         },
       }}
     >
@@ -49,7 +56,7 @@ export const ModalProvider = ({ children }) => {
         open={modal !== MODAL_TYPE.NONE}
         close={() => {
           setModal(MODAL_TYPE.NONE);
-          if (onModalClose) onModalClose();
+          if (onModalClose) onModalClose(); // we cannot pass any payload here, cause this is explicit modal close by user
         }}
       >
         {renderModal()}

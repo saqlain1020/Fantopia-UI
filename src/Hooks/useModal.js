@@ -29,8 +29,8 @@ export const useMintTokenModal = () => {
 
 export const useCloseModal = () => {
   const { setModal } = useContext(ModalContext);
-  const close = () => {
-    setModal(MODAL_TYPE.NONE);
+  const close = (payload) => {
+    setModal(MODAL_TYPE.NONE, payload, null, true);
   };
   return close;
 };
