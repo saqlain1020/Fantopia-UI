@@ -4,7 +4,7 @@
   border: 0px;
 }
 body {
-  background-color: #EBEEF5;
+  background-color: #ebeef5;
   /* background-color: #0C162F; */
 }
 .flex {
@@ -28,9 +28,17 @@ body {
   height: 80px;
   font-size: 16px;
 }
-.slick-arrow{
-  
-  transform: scale(1.5) !important;
+.slick-arrow {
+  transform: scale(3) !important;
+  z-index: 1;
+}
+.slick-slide {
+  opacity: 0.5;
+  transform: scale(0.9);
+}
+.slick-current {
+  opacity: 1;
+  transform: scale(1);
 }
 @font-face {
   font-family: AcmeFont;
