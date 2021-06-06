@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { MODAL_TYPE, ModalContext } from "../Providers/ModalProvider";
-export { MODAL_TYPE } from "../Providers/ModalProvider";
+import { MODAL_TYPE } from "src/Config/enums";
+import { ModalContext } from "../Providers/ModalProvider";
 
 export const useModal = (modalType) => {
   const { modal, setModal } = useContext(ModalContext);
-  const open = (payload, onClose) => {
+  const openModal = (payload, onClose) => {
     setModal(modalType, payload, onClose);
   };
 
-  return open;
+  return { isModalOpen: modal !== MODAL_TYPE.NONE, openModal, modal };
 };
 
 export const useCreateCollectionModal = () => {
@@ -21,6 +21,10 @@ export const useCreateCollectionStepsModal = () => {
 
 export const useEditItemsModal = () => {
   return useModal(MODAL_TYPE.EDIT_ITEM);
+};
+
+export const useMintTokenModal = () => {
+  return useModal(MODAL_TYPE.MINT_TOKEN_STEPS);
 };
 
 export const useCloseModal = () => {

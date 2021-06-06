@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useWeb3 } from "@react-dapp/wallet";
-import erc721Abi from "../Config/abis/erc721Abi.json";
-import erc1155Abi from "../Config/abis/erc1155Abi.json";
-import bytecode from "../Config/bytecodes";
+import erc721Abi from "../Config/abi/erc721Abi.json";
+import erc1155Abi from "../Config/abi/erc1155Abi.json";
+import bytecode from "../Config/bytecode";
 import { BASE_METADATA_URL } from "../Config/apiConfig";
 
 const getContract = (abi, address, web3) => {
@@ -24,7 +24,6 @@ export const useDeployERC721 = () => {
           "0x0000000000000000000000000000000000000000",
           BASE_METADATA_URL,
           "",
-          !royalty || royalty === "" ? 0 : parseInt(royalty) * 100,
         ],
       })
       .send({ from: account });

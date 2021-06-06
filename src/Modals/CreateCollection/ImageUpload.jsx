@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ImageUpload = ({ image, setImage, required }) => {
+const ImageUpload = ({ image, setImage, setFile, required }) => {
   const classes = useStyles();
   const ref = React.createRef();
 
@@ -24,11 +24,8 @@ const ImageUpload = ({ image, setImage, required }) => {
 
   const fileInputEvent = (e) => {
     let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onloadend = function () {
-      setImage(reader.result);
-    };
-    reader.readAsDataURL(file);
+    setFile(file);
+    setImage(URL.createObjectURL(file));
   };
 
   React.useEffect(() => {

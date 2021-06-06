@@ -12,16 +12,12 @@ export const useCreateERC721 = () => {
   const create = async (collection) => {
     setCreateState(STATE.BUSY);
     try {
-      const contract = await deploy(
-        collection.name,
-        collection.symbol,
-        collection.royalty
-      );
+      const contract = await deploy(collection.name, collection.symbol);
+      console.log(contract);
       try {
         await postCollection({
           address: contract._address,
           userAddress: account,
-          isCelebrity: true,
           type: "ERC721",
           ...collection,
         });

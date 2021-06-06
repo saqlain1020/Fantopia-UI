@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import Step from "../Step";
-import { useMintERC721 } from "../../Hooks/useMintToken";
+import { useMintERC721, useSignMintTokenId } from "../../Hooks/useMintToken";
 import { useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
@@ -14,19 +14,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CollectionSteps = ({ payload }) => {
-  const data = paylaod;
   const classes = useStyles();
-  const { mintState, mint } = useMintERC721(data);
-  const { approveState, isApproved, approve } = useERC721Approval(address);
+  const { approveState, isApproved, approve } = useERC721Approval(
+    payload.address
+  );
+  const { sign, signState, signature, tokenId } = useSignMintTokenId(
+    payload.address
+  );
+  const { mintState, mint } = useMintERC721(payload);
   const closeModal = useCloseModal();
 
   useEffect(() => {
-    mint(payload);
-  }, []);
+    console.log(isApproved, approveState);
+    if (!isApproved && approveState === STATE.SUCCEED) approve();
+    else if (isApproved && approveState === STATE.SUCCEED) sign(payload.fees);
+  }, [isApproved, approveState]);
 
   useEffect(() => {
-    if (isApproved && mintState === STATE.IDLE) mint();
-  }, [isApproved]);
+    if (signState === STATE.SUCCEED && mintState === STATE.IDLE)
+      mint(tokenId, signature);
+  }, [signState]);
 
   useEffect(() => {
     if (mintState === STATE.SUCCEED) closeModal();
@@ -39,17 +46,25 @@ const CollectionSteps = ({ payload }) => {
       </Typography>
 
       <Step
-        heading="Deploy contract"
-        para="Deploy code for the new collection smart contract"
+        heading="Approve"
+        para="Approve Exchange Contract"
         onClick={() => approve()}
         state={approveState}
       />
       <br />
 
       <Step
-        heading="Upload Data"
-        para="Uploading Data"
-        onClick={() => mint()}
+        heading="Sign Message"
+        para="Sign TokenId and Fees to Mint token"
+        onClick={() => sign(payload.fees)}
+        state={signState}
+      />
+      <br />
+
+      <Step
+        heading="Mint"
+        para="Minting Token"
+        onClick={() => mint(tokenId, signature)}
         state={mintState}
       />
 
@@ -58,7 +73,11 @@ const CollectionSteps = ({ payload }) => {
         color="secondary"
         variant="outlined"
         fullWidth
-        disabled={approveState === STATE.BUSY || mintState !== STATE.BUSY}
+        disabled={
+          approveState === STATE.BUSY ||
+          mintState === STATE.BUSY ||
+          signState === STATE.BUSY
+        }
         onClick={() => closeModal()}
       >
         Close

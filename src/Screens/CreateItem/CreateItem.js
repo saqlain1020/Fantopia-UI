@@ -33,7 +33,7 @@ const [tab,setTab] = React.useState(0);
       <Typography className="acmeFont" variant="h4" align="center">
         Create Digital Asset
       </Typography>
-      <Typography variant="h6" align="center" className={classes.subHeading}>
+      {/* <Typography variant="h6" align="center" className={classes.subHeading}>
         Choose "Single Edition" to create a one of a kinds items
         <br />
         or "Multiple Editions" to sell one item multiple times.
@@ -48,7 +48,7 @@ const [tab,setTab] = React.useState(0);
       >
         <Tab label="Single Edition" />
         <Tab label="Multiple Editions" />
-      </Tabs>
+      </Tabs> */}
       <CreateSingleItem/>
     </div>
   );

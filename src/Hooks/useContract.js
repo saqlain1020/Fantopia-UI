@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { useWeb3 } from "@react-dapp/wallet";
-import ERC20_ABI from "../Config/abis/erc20Abi.json";
-import ERC721_ABI from "../Config/abis/erc721Abi.json";
-import ERC1155_ABI from "../Config/abis/erc1155Abi.json";
-import EXCHANGE_ABI from "../Config/abis/exchangeAbi.json";
+import ERC20_ABI from "../Config/abi/erc20Abi.json";
+import ERC721_ABI from "../Config/abi/erc721Abi.json";
+import ERC1155_ABI from "../Config/abi/erc1155Abi.json";
+import EXCHANGE_ABI from "../Config/abi/exchangeAbi.json";
 import { EXCHANGE, FANTOPIA_COLLECTION } from "../Config/contracts";
 
 const getContract = (abi, address, web3) => {

@@ -18,6 +18,7 @@ const CollectionSteps = ({ payload }) => {
   const closeModal = useCloseModal();
 
   useEffect(() => {
+    console.log(payload);
     create(payload);
   }, []);
 
@@ -35,13 +36,7 @@ const CollectionSteps = ({ payload }) => {
         heading="Deploy contract"
         para="Deploy code for the new collection smart contract"
         onClick={() => create(payload)}
-        state={
-          createState === STATE.BUSY
-            ? STATE.LOADING
-            : createState === STATE.FAILED
-            ? STATE.FAILED
-            : STATE.COMPLETED
-        }
+        state={createState}
       />
 
       <br />

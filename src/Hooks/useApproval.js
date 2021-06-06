@@ -23,37 +23,31 @@ export const useERC20Approval = (address, balance) => {
   const { account } = useWeb3();
   const token = useERC20(address);
 
-  let fetchApprovedBalance;
+  const fetchApprovedBalance = async () => {
+    if (address === ZERO_ADDRESS) {
+      setIsApproved(true);
+      return;
+    }
+    try {
+      const bal = await token.methods.allowance(account, EXCHANGE).call();
+      const approveBal = new BigNumber(bal);
+      setApprovedBalance(approveBal);
+      setIsApproved(approveBal >= balance ?? 0);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
-    fetchApprovedBalance = async () => {
-      if (address === ZERO_ADDRESS) {
-        setIsApproved(true);
-        return;
-      }
-      try {
-        const bal = await token.methods
-          .allowance(account, EXCHANGE_ADDRESS)
-          .call();
-        const approveBal = new BigNumber(bal);
-        setApprovedBalance(approveBal);
-        setIsApproved(approveBal >= balance ?? 0);
-      } catch (e) {
-        console.log(e);
-      }
-    };
     if (account && token) {
       fetchApprovedBalance();
     }
   }, [account, token]);
 
   const approve = async () => {
-    setIsApproving(true);
     try {
       setApproveState(STATE.BUSY);
 
-      await token.methods
-        .approve(EXCHANGE_ADDRESS, MAX_UINT)
-        .send({ from: account });
+      await token.methods.approve(EXCHANGE, MAX_UINT).send({ from: account });
       await fetchApprovedBalance();
 
       setApproveState(STATE.SUCCEED);
@@ -68,19 +62,20 @@ export const useERC20Approval = (address, balance) => {
 
 export const useERC721Approval = (address) => {
   const [isApproved, setIsApproved] = useState(false);
-  const [approveState, setApproveState] = useState(STATE.IDLE);
+  const [approveState, setApproveState] = useState(STATE.BUSY);
   const { account } = useWeb3();
   const contract = useERC721(address);
 
-  let fetchApproved;
+  const fetchApproved = async () => {
+    setApproveState(STATE.BUSY);
+    const _isApproved = await contract.methods
+      .isApprovedForAll(account, EXCHANGE)
+      .call();
+    setIsApproved(_isApproved);
+    setApproveState(STATE.SUCCEED);
+  };
 
   useEffect(() => {
-    const fetchApproved = async () => {
-      const _isApproved = await contract.methods
-        .isApprovedForAll(account, EXCHANGE_ADDRESS)
-        .call();
-      setIsApproved(_isApproved);
-    };
     if (account && contract) {
       fetchApproved();
     }
@@ -90,7 +85,7 @@ export const useERC721Approval = (address) => {
     try {
       setApproveState(STATE.BUSY);
       await contract.methods
-        .setApprovalForAll(EXCHANGE_ADDRESS, true)
+        .setApprovalForAll(EXCHANGE, true)
         .send({ from: account });
       await fetchApproved();
       setApproveState(STATE.SUCCEED);

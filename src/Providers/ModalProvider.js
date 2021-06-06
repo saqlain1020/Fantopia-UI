@@ -1,16 +1,10 @@
 import { createContext, useState } from "react";
+import { MODAL_TYPE } from "src/Config/enums";
 import ModalManager from "../Components/ModalManager/ModalManager";
 import CreateCollection from "../Modals/CreateCollection/CreateCollection";
 import CreateCollectionSteps from "../Modals/CreateCollectionSteps/CreateCollectionSteps";
+import MintCollectoinSteps from "../Modals/MintCollectionSteps/MintCollectoinSteps";
 import EditItem from "../Modals/EditItem/EditItem";
-
-export const MODAL_TYPE = {
-  NONE: "NONE",
-  EDIT_ITEM: "EDIT_ITEM",
-  CREATE_COLLECTION: "CREATE_COLLECTION",
-  CREATE_COLLECTION_STEPS: "CREATE_COLLECTION_STEPS",
-  MINT_TOKEN_STEPS: "MINT_TOKEN_STEPS",
-};
 
 export const ModalContext = createContext({
   modal: MODAL_TYPE.NONE,
@@ -32,6 +26,8 @@ export const ModalProvider = ({ children }) => {
         return <CreateCollection payload={modalPayload} />;
       case MODAL_TYPE.CREATE_COLLECTION_STEPS:
         return <CreateCollectionSteps payload={modalPayload} />;
+      case MODAL_TYPE.MINT_TOKEN_STEPS:
+        return <MintCollectoinSteps payload={modalPayload} />;
       default:
         return null;
     }

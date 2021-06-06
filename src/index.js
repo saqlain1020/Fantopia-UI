@@ -14,9 +14,11 @@ let item = localStorage.getItem("theme");
 if (item === "light") item = true;
 else item = false;
 
+console.warn = () => {};
+
 ReactDOM.render(
   <React.StrictMode>
-    <WalletProvider isBSC={true} chainId={5} isDarkMode={false}>
+    <WalletProvider isBSC={true} chainId={42} isDarkMode={false}>
       <BrowserRouter>
         <ThemeProvider theme={item ? Theme : DarkTheme}>
           <ModalProvider>

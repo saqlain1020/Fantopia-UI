@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateCollection = ({ payload }) => {
   const classes = useStyles();
-  const openModal = useCreateCollectionStepsModal();
+  const { openModal } = useCreateCollectionStepsModal();
 
   const [image, setImage] = React.useState(null);
+  const [file, setFile] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [royalty, setRoyalty] = useState("1");
@@ -39,7 +40,7 @@ const CreateCollection = ({ payload }) => {
   const handleCreate = async (e) => {
     e.preventDefault();
     if (name !== undefined && symbol !== undefined && image !== undefined) {
-      openModal({ name, symbol, royalty, image, shortUrl, description });
+      openModal({ name, symbol, royalty, image: file, shortUrl, description });
     } else {
       setError("Fill out the form properly!");
     }
@@ -52,7 +53,12 @@ const CreateCollection = ({ payload }) => {
           <b>Collection</b>
         </Typography>
         {/* image choose */}
-        <ImageUpload required={true} image={image} setImage={setImage} />
+        <ImageUpload
+          required={true}
+          image={image}
+          setImage={setImage}
+          setFile={setFile}
+        />
         <Grid container spacing={2} style={{ marginTop: 10 }}>
           <Grid item xs={12}>
             <Typography>
