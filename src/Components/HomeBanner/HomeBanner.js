@@ -7,9 +7,12 @@ import { Carousel } from "react-responsive-carousel";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import LeftArr from "src/Assets/Images/leftarrow.png";
+import RightArr from "src/Assets/Images/rightarrow.png";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,7 +90,34 @@ const useStyles = makeStyles((theme) => ({
       height: 180,
     },
   },
+  arrow:{
+    "&:before":{
+      content: "'' !important",
+    },
+    height:"10%",
+  }
 }));
+
+const LeftArrow = (props) => {
+  const { className, style, onClick } = props;
+  const classes = useStyles();
+
+  return (
+    <div onClick={onClick} className={clsx(className,classes.arrow)} style={{ ...style, }}>
+      <img src={LeftArr} height="100%"/>
+    </div>
+  );
+};
+const RightArrow = (props) => {
+  const { className, style, onClick } = props;
+  const classes = useStyles();
+
+  return (
+    <div onClick={onClick} className={clsx(className,classes.arrow)} style={{ ...style,paddingLeft:40 }}>
+      <img src={RightArr} height="100%"/>
+    </div>
+  );
+};
 
 const HomeBanner = () => {
   const classes = useStyles();
@@ -118,6 +148,8 @@ const HomeBanner = () => {
             centerPadding={matches ? "0px" : "100px"}
             slidesToShow={1}
             speed={500}
+            prevArrow={<LeftArrow/>}
+            nextArrow={<RightArrow/>}
           >
             <div>
               <div className={classes.slideWrapper}>
