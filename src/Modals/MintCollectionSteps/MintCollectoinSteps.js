@@ -5,6 +5,8 @@ import { useMintERC721, useSignMintTokenId } from "../../Hooks/useMintToken";
 import { useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
+import { useCreateOrder } from "src/Hooks/useOrder";
+import { FANTOPIA_COLLECTION } from "src/Config/contracts";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,20 +16,29 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CollectionSteps = ({ payload }) => {
+  const { metadata, order } = payload;
   const classes = useStyles();
   const { approveState, isApproved, approve } = useERC721Approval(
-    payload.address
+    metadata.address
   );
   const { sign, signState, signature, tokenId } = useSignMintTokenId(
-    payload.address
+    metadata.address,
+    metadata.shouldSignMint
   );
-  const { mintState, mint } = useMintERC721(payload);
+  const { mint, mintState } = useMintERC721(metadata);
+  const { create, createState } = useCreateOrder();
   const closeModal = useCloseModal();
 
+  console.log(payload);
+
   useEffect(() => {
-    console.log(isApproved, approveState);
     if (!isApproved && approveState === STATE.SUCCEED) approve();
-    else if (isApproved && approveState === STATE.SUCCEED) sign(payload.fees);
+    else if (
+      isApproved &&
+      approveState === STATE.SUCCEED &&
+      signState != STATE.SUCCEED
+    )
+      sign(metadata.fees);
   }, [isApproved, approveState]);
 
   useEffect(() => {
@@ -36,8 +47,13 @@ const CollectionSteps = ({ payload }) => {
   }, [signState]);
 
   useEffect(() => {
-    if (mintState === STATE.SUCCEED) closeModal(tokenId);
+    if (mintState === STATE.SUCCEED && order) create({ ...order, tokenId });
+    else if (mintState === STATE.SUCCEED) closeModal(tokenId);
   }, [mintState]);
+
+  useEffect(() => {
+    if (createState === STATE.SUCCEED) closeModal(tokenId);
+  }, [createState]);
 
   return (
     <div className={classes.root}>
@@ -52,21 +68,31 @@ const CollectionSteps = ({ payload }) => {
         state={approveState}
       />
       <br />
-
-      <Step
-        heading="Sign Message"
-        para="Sign TokenId and Fees to Mint token"
-        onClick={() => sign(payload.fees)}
-        state={signState}
-      />
-      <br />
-
+      {metadata.shouldSignMint && (
+        <>
+          <Step
+            heading="Sign Message"
+            para="Sign TokenId and Fees to Mint token"
+            onClick={() => sign(metadata.fees)}
+            state={signState}
+          />
+          <br />
+        </>
+      )}
       <Step
         heading="Mint"
         para="Minting Token"
         onClick={() => mint(tokenId, signature)}
         state={mintState}
       />
+      {order && (
+        <Step
+          heading="Sign Order"
+          para="Sign Sell Order"
+          onClick={() => create(order)}
+          state={createState}
+        />
+      )}
 
       <br />
       <Button
@@ -76,7 +102,8 @@ const CollectionSteps = ({ payload }) => {
         disabled={
           approveState === STATE.BUSY ||
           mintState === STATE.BUSY ||
-          signState === STATE.BUSY
+          signState === STATE.BUSY ||
+          (order && createState === STATE.BUSY)
         }
         onClick={() => closeModal()}
       >

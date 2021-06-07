@@ -21,6 +21,5 @@ export const useCollectionList = () => {
   useEffect(() => {
     if (account) fetchUserCollection();
   }, [account]);
-
   return { userCollections, celebrityCollections };
 };

@@ -11,6 +11,9 @@ import Twitter from "src/Assets/Icons/Twitter.png";
 import Youtube from "src/Assets/Icons/Youtube.png";
 import Instagram from "src/Assets/Icons/Instagram.png";
 import UserName from "../UserName/UserName";
+import { convertToLowerValue } from "src/Utils";
+import CustomButton from "../CustomButton/CustomButton";
+import { useBuyOrderModal, useMakeBidModal } from "src/Hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,27 +122,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfoBar = ({ metadata }) => {
+const ProductInfoBar = ({ metadata, order }) => {
   const classes = useStyles();
-
+  const { openModal } = useBuyOrderModal();
+  const { openModal: openBidModal } = useMakeBidModal();
+  console.log(order);
   return (
     <div className={classes.root}>
       <Typography variant="h4" className={classes.mainHeading}>
         {metadata?.name}
       </Typography>
       <Typography variant="h6">One Of a Kind</Typography>
-      <div className={classes.price}>
-        <Typography variant="h6" className={classes.bold}>
-          On Sale For
-        </Typography>
-        <Typography variant="h3" className={classes.bold}>
-          <span>$</span>
-          26.00
-        </Typography>
-        <Typography variant="h6" className={classes.bold}>
-          <span>0.10 BNB</span>
-        </Typography>
-      </div>
+      {order && (
+        <div className={classes.price}>
+          <Typography variant="h6" className={classes.bold}>
+            On Sale For
+          </Typography>
+          <Typography variant="h3" className={classes.bold}>
+            <span>{convertToLowerValue(order.order.basePrice)} BNB</span>
+          </Typography>
+          <Typography variant="h6" className={classes.bold}>
+            {/* <span>0.10 BNB</span> */}
+          </Typography>
+        </div>
+      )}
       <Typography className={classes.para}>
         {metadata?.description}
         {/* For use, by you or one client, in a single end product which end users
@@ -147,14 +153,16 @@ const ProductInfoBar = ({ metadata }) => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Button
+          <CustomButton
             fullWidth
             variant="outlined"
             color="secondary"
             className={classes.btn}
+            disabled={!order}
+            onClick={() => openModal(order)}
           >
             Buy Now
-          </Button>
+          </CustomButton>
         </Grid>
         <Grid item xs={6}>
           <Button
@@ -162,6 +170,8 @@ const ProductInfoBar = ({ metadata }) => {
             variant="contained"
             color="secondary"
             className={classes.btn2}
+            disabled={!order}
+            onClick={() => openBidModal(order)}
           >
             Make Offer
           </Button>

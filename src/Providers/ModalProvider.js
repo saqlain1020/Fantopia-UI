@@ -5,6 +5,8 @@ import CreateCollection from "../Modals/CreateCollection/CreateCollection";
 import CreateCollectionSteps from "../Modals/CreateCollectionSteps/CreateCollectionSteps";
 import MintCollectoinSteps from "../Modals/MintCollectionSteps/MintCollectoinSteps";
 import EditItem from "../Modals/EditItem/EditItem";
+import MakeBid from "../Modals/MakeBid/MakeBid";
+import BuyOrder from "../Modals/BuyOrder/BuyOrder";
 
 export const ModalContext = createContext({
   modal: MODAL_TYPE.NONE,
@@ -28,6 +30,10 @@ export const ModalProvider = ({ children }) => {
         return <CreateCollectionSteps payload={modalPayload} />;
       case MODAL_TYPE.MINT_TOKEN_STEPS:
         return <MintCollectoinSteps payload={modalPayload} />;
+      case MODAL_TYPE.MAKE_BID:
+        return <MakeBid payload={modalPayload} />;
+      case MODAL_TYPE.BUY_NOW:
+        return <BuyOrder payload={modalPayload} />;
       default:
         return null;
     }

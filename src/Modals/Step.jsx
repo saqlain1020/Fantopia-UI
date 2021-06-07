@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Step = ({ state, onClick, heading, para }) => {
+const Step = ({ state, onClick, disabled, heading, para }) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -66,7 +66,9 @@ const Step = ({ state, onClick, heading, para }) => {
             fullWidth
             className={classes.btn}
             onClick={onClick}
-            disabled={state === STATE.BUSY || state === STATE.SUCCEED}
+            disabled={
+              disabled || state === STATE.BUSY || state === STATE.SUCCEED
+            }
           >
             Start
           </Button>

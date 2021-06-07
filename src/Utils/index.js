@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useERC721 } from "src/Hooks/useContract";
 import { ethers } from "ethers";
+import BigNumber from "bignumber.js";
 
 export const readFile = (file) => {
   return new Promise((resolve, reject) => {
@@ -12,6 +13,35 @@ export const readFile = (file) => {
     };
     reader.onerror = reject;
   });
+};
+
+export const convertToLowerValue = (
+  value,
+  decimals = "18",
+  bignumber = false
+) => {
+  let ans = new BigNumber("0");
+  if (value)
+    ans = new BigNumber(value.toString()).div(
+      new BigNumber(10).exponentiatedBy(decimals)
+    );
+  if (bignumber) return ans;
+  else return ans.toNumber();
+};
+
+export const convertToHigherValue = (
+  value,
+  bignumber = false,
+  decimals = "18"
+) => {
+  let ans = new BigNumber("0");
+  if (value) {
+    ans = new BigNumber(value.toString()).times(
+      new BigNumber(10).exponentiatedBy(decimals)
+    );
+  }
+  if (bignumber) return ans;
+  else return ans.toNumber();
 };
 
 export const splitSignature = (signature) => {

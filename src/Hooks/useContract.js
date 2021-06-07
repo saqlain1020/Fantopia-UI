@@ -12,13 +12,13 @@ const getContract = (abi, address, web3) => {
 
 export const useExchange = () => {
   const { web3 } = useWeb3();
-  return useMemo(() => getContract(ERC721_ABI, EXCHANGE, web3), [web3]);
+  return useMemo(() => getContract(EXCHANGE_ABI, EXCHANGE, web3), [web3]);
 };
 
 export const useFantopiaCollection = () => {
   const { web3 } = useWeb3();
   return useMemo(
-    () => getContract(EXCHANGE_ABI, FANTOPIA_COLLECTION, web3),
+    () => getContract(ERC721_ABI, FANTOPIA_COLLECTION, web3),
     [web3]
   );
 };

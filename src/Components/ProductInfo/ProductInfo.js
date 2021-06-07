@@ -12,8 +12,8 @@ import ProductInfoTabs from "../ProductInfoTabs/ProductInfoTabs";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
-    width:"calc(100% - 16px)",
-    objectFit: 'cover',
+    width: "calc(100% - 16px)",
+    objectFit: "cover",
     background: theme.palette.secondary.vibrant,
     height: "90vh",
     maxHeight: 750,
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfo = ({media}) => {
+const ProductInfo = ({ media, order }) => {
   const classes = useStyles();
 
   return (
@@ -144,7 +144,7 @@ const ProductInfo = ({media}) => {
           <Typography className={classes.valueHeading}>SAD</Typography>
         </div>
       </div>
-      <ProductInfoTabs />
+      <ProductInfoTabs order={order} />
     </div>
   );
 };

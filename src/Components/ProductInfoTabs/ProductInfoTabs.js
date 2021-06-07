@@ -2,9 +2,10 @@ import React from "react";
 import { Divider, makeStyles, Tab, Typography } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import UserName from "../UserName/UserName";
+import { useOrderHistory } from "src/Hooks/useOrderHistory";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     // background: theme.customColors.white,
     boxShadow: theme.customShadows.light,
     padding: 20,
-    color:theme.customColors.whiteBtn,
+    color: theme.customColors.whiteBtn,
   },
   tabsContainer: {
     display: "grid",
@@ -28,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "20px 10px",
   },
-  pagination:{
-    fontWeight:700,
+  pagination: {
+    fontWeight: 700,
     color: theme.customColors.lightBlack,
-    display:"flex",
-    alignItems:"center",
-    justifyContent:"center",
-    marginTop:20,
-  }
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+  },
 }));
 
 const commentData = [
@@ -44,9 +45,13 @@ const commentData = [
   { msg: "#131/271 on sale for $14000000.00 30m ago", rating: 33 },
 ];
 
-const ProductInfoTabs = () => {
+const ProductInfoTabs = ({ order }) => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(1);
+  const { orders, loading } = useOrderHistory(
+    order?.order.asset,
+    order?.order.assetId
+  );
 
   return (
     <div className={classes.root}>
@@ -84,18 +89,23 @@ const ProductInfoTabs = () => {
         />
       </div>
       <div>
-        {commentData.map((item, index) => (
+        {orders?.results?.map((item, index) => (
           <div key={index}>
             <div className={classes.comment}>
               <div style={{ position: "relative", width: 45, height: 45 }}>
-                <UserName noName level={item.rating}/>                
+                <UserName noName level={item.rating} />
               </div>
-              <Typography style={{ marginLeft: 20 }}>{item.msg}</Typography>
+              <Typography style={{ marginLeft: 20 }}>
+                {item.order.maker}
+              </Typography>
             </div>
             <Divider />
           </div>
         ))}
-        <Typography className={classes.pagination}><ChevronLeftIcon/>Displaying 1 of 20 of 20,000 <ChevronRightIcon/></Typography>
+        <Typography className={classes.pagination}>
+          <ChevronLeftIcon />
+          Displaying 1 of 20 of 20,000 <ChevronRightIcon />
+        </Typography>
       </div>
     </div>
   );

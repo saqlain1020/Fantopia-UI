@@ -8,7 +8,7 @@ export const postMetadata = async (metadata) => {
     const value = metadata[key];
     data.append(key, value);
   }
-  console.log(data.keys(), data.values());
+  data.set("fees", JSON.stringify(metadata.fees));
   const response = await metadataApi.post("createtoken", data);
   return response.data;
 };

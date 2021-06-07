@@ -25,9 +25,10 @@ import DateTimePicker from "react-datetime-picker";
 import { useCollectionList } from "src/Hooks/useCollectionList";
 import { COLLECTION_TYPE } from "src/Config/enums";
 import { useMintTokenModal } from "src/Hooks/useModal";
-import { FANTOPIA_COLLECTION } from "../../Config/contracts";
+import { FANTOPIA_COLLECTION, ZERO_ADDRESS } from "../../Config/contracts";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useHistory } from "react-router";
+import tokenList from "src/Config/paymentTokens.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -176,15 +177,18 @@ const CreateSingleItem = () => {
   const { userCollections, celebrityCollections } = useCollectionList();
   const { openModal: openMintModal } = useMintTokenModal();
   const [media, setMedia] = useState(null);
+  const [file, setFile] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [royalty, setRoyalty] = useState(0);
-  const [category, setCategory] = useState("artwork");
+  const [category, setCategory] = useState("Artwork");
 
+  const [putOnSale, setPutOnSale] = useState(false);
+  const [currency, setCurrency] = useState("BNB");
   const [startDate, setStartDate] = React.useState("");
   const [endDate, setEndDate] = React.useState("");
-  const [putOnSale, setPutOnSale] = useState(false);
-  const [saleBtn, setSaleBtn] = React.useState(1);
+  const [saleKind, setSaleKind] = React.useState(0);
+  const [price, setPrice] = useState("");
   const [collectionAddress, setCollectionAddress] =
     useState(FANTOPIA_COLLECTION);
   const [selectedCollection, setSelectedCollection] = useState(
@@ -198,6 +202,7 @@ const CreateSingleItem = () => {
     const filename = e.target.files[0];
     if (filename) {
       setMedia(URL.createObjectURL(filename));
+      setFile(filename);
     }
   };
 
@@ -207,18 +212,38 @@ const CreateSingleItem = () => {
       alert("Please Select NFT media!");
       return;
     }
-    const data = {
+    const metadata = {
       name,
       description,
-      image: media,
+      image: file,
       address: collectionAddress,
-      fees: royalty ? [{ recipient: account, value: royalty }] : [],
+      fees:
+        royalty && royalty !== "0"
+          ? [{ recipient: account, value: royalty }]
+          : [],
       category: category,
       minter: account,
       owner: account,
+      shouldSignMint: COLLECTION_TYPE.USER === selectedCollection,
     };
-    console.log(data);
-    openMintModal(data, (tokenId) => {
+    let order;
+    if (putOnSale) {
+      order = {
+        address: collectionAddress,
+        account,
+        saleKind,
+        price,
+        paymentToken: currency === "BNB" ? null : currency,
+        listingTime:
+          !startDate || startDate === ""
+            ? parseInt(Date.now() / 1000)
+            : parseInt(startDate.getTime() / 1000),
+        expirationTime:
+          !endDate || endDate === "" ? 0 : parseInt(endDate.getTime() / 1000),
+      };
+    }
+    console.log({ metadata, order });
+    openMintModal({ metadata, order }, (tokenId) => {
       if (tokenId) history.push(`/collection/${collectionAddress}/${tokenId}`);
     });
   };
@@ -242,9 +267,9 @@ const CreateSingleItem = () => {
                 <Grid item xs={4}>
                   <div
                     className={
-                      saleBtn === 1 ? classes.saleBtnsActive : classes.saleBtns
+                      saleKind === 0 ? classes.saleBtnsActive : classes.saleBtns
                     }
-                    onClick={() => setSaleBtn(1)}
+                    onClick={() => setSaleKind(0)}
                   >
                     <LocalOfferOutlinedIcon />
                     <Typography align="center">
@@ -259,9 +284,9 @@ const CreateSingleItem = () => {
                 <Grid item xs={4}>
                   <div
                     className={
-                      saleBtn === 2 ? classes.saleBtnsActive : classes.saleBtns
+                      saleKind === 1 ? classes.saleBtnsActive : classes.saleBtns
                     }
-                    onClick={() => setSaleBtn(2)}
+                    onClick={() => setSaleKind(1)}
                   >
                     <TimelapseOutlinedIcon />
                     <Typography align="center">
@@ -276,9 +301,9 @@ const CreateSingleItem = () => {
                 <Grid item xs={4}>
                   <div
                     className={
-                      saleBtn === 3 ? classes.saleBtnsActive : classes.saleBtns
+                      saleKind === 2 ? classes.saleBtnsActive : classes.saleBtns
                     }
-                    onClick={() => setSaleBtn(3)}
+                    onClick={() => setSaleKind(2)}
                   >
                     <AllInclusiveOutlinedIcon />
                     <Typography align="center">
@@ -292,29 +317,43 @@ const CreateSingleItem = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    required
                     fullWidth
                     InputProps={{
                       endAdornment: (
                         <Select
+                          required
                           variant="standard"
                           color="secondary"
                           defaultValue="bnb"
                           className={classes.select}
+                          value={currency}
+                          onChange={(e) => setCurrency(e.target.value)}
                         >
-                          <MenuItem value="bnb">BNB</MenuItem>
+                          {saleKind === 0 ? (
+                            <MenuItem value="BNB">BNB</MenuItem>
+                          ) : null}
+                          {tokenList.map((e) => {
+                            return (
+                              <MenuItem value={e.address}>{e.symbol}</MenuItem>
+                            );
+                          })}
                         </Select>
                       ),
                     }}
                     variant="outlined"
-                    placeholder="Enter price for one piece"
+                    placeholder="Enter price"
                   />
                   <Typography>
-                    Service Fee <b>2.5%</b> You will recieve <b>0.29 BNB</b>
+                    Service Fee <b>2.5%</b>
+                    {/* You will recieve <b>0.29 BNB</b> */}
                   </Typography>
                 </Grid>
               </>
             )}
-            {saleBtn === 2 && (
+            {saleKind === 1 && (
               <>
                 <Grid item xs={12}>
                   <Typography>
@@ -465,6 +504,7 @@ const CreateSingleItem = () => {
           </Grid> */}
           <Grid item xs={12} sm={12} md={6}>
             <Autocomplete
+              disabled={true}
               onChange={(e, value) => {
                 setCollectionAddress(value?.address);
               }}
@@ -474,25 +514,26 @@ const CreateSingleItem = () => {
                 <TextField
                   {...params}
                   color="secondary"
-                  placeholder="Choose collection"
+                  placeholder="Choose Celebrity collection"
                   variant="outlined"
-                  disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
-                  onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
+                  // disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
+                  // onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
                 />
               )}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
+              disabled={true}
               select
               variant="outlined"
               defaultValue="disabled"
               fullWidth
-              disabled={selectedCollection !== COLLECTION_TYPE.USER}
+              // disabled={selectedCollection !== COLLECTION_TYPE.USER}
               onClick={(e, value) => {
-                setSelectedCollection(COLLECTION_TYPE.USER);
+                // setSelectedCollection(COLLECTION_TYPE.USER);
               }}
-              onChange={(e) => setCollectionAddress(e.target.value?.address)}
+              onChange={(e) => setCollectionAddress(e.target.value)}
             >
               <MenuItem value="disabled" disabled>
                 Choose Your Collection
