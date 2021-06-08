@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     marginTop: 10,
     "& span": {
-      color: theme.palette.primary.main,
+      // color: theme.palette.primary.main,
     },
   },
   bold: {
@@ -200,7 +200,7 @@ const ProductInfoBar = ({ metadata, order }) => {
             <b>703</b>
           </Typography>
         </div>
-      </div> */}
+       </div> */}
       <Typography variant="h6" className={classes.ownByText}>
         Owned By:
       </Typography>
