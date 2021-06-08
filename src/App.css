@@ -28,7 +28,7 @@ body {
   height: 80px;
   font-size: 16px;
 }
-.slick-arrow {
+/* .slick-arrow {
   transform: scale(3) !important;
   z-index: 1;
 }
@@ -36,10 +36,11 @@ body {
   opacity: 0.5;
   transform: scale(0.9);
 }
+
 .slick-current {
   opacity: 1;
   transform: scale(1);
-}
+} */
 @font-face {
   font-family: AcmeFont;
   src: url("./Assets/Fonts/acmefontregular.ttf");

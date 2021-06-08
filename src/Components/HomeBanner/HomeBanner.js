@@ -3,7 +3,6 @@ import React from "react";
 import Bg from "src/Assets/Images/landing-bg.jpg";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,8 +10,8 @@ import LeftArr from "src/Assets/Images/leftarrow.png";
 import RightArr from "src/Assets/Images/rightarrow.png";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
-import clsx from 'clsx'
+import { Carousel } from "3d-react-carousal";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   carousel: {
     maxWidth: 700,
+    position: "relative",
     margin: "auto",
     [theme.breakpoints.down("sm")]: {
       maxWidth: 300,
@@ -90,12 +90,12 @@ const useStyles = makeStyles((theme) => ({
       height: 180,
     },
   },
-  arrow:{
-    "&:before":{
+  arrow: {
+    "&:before": {
       content: "'' !important",
     },
-    height:"10%",
-  }
+    height: "10%",
+  },
 }));
 
 const LeftArrow = (props) => {
@@ -103,8 +103,12 @@ const LeftArrow = (props) => {
   const classes = useStyles();
 
   return (
-    <div onClick={onClick} className={clsx(className,classes.arrow)} style={{ ...style, }}>
-      <img src={LeftArr} height="100%"/>
+    <div
+      onClick={onClick}
+      className={clsx(className, classes.arrow)}
+      style={{ ...style }}
+    >
+      <img src={LeftArr} height="100%" />
     </div>
   );
 };
@@ -113,8 +117,12 @@ const RightArrow = (props) => {
   const classes = useStyles();
 
   return (
-    <div onClick={onClick} className={clsx(className,classes.arrow)} style={{ ...style,paddingLeft:40 }}>
-      <img src={RightArr} height="100%"/>
+    <div
+      onClick={onClick}
+      className={clsx(className, classes.arrow)}
+      style={{ ...style, paddingLeft: 40 }}
+    >
+      <img src={RightArr} height="100%" />
     </div>
   );
 };
@@ -124,6 +132,32 @@ const HomeBanner = () => {
   const [selection, setSelection] = React.useState(1);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+  
+  const slides = [
+    <div>
+      <div className={classes.slideWrapper}>
+        <div className={classes.slideBox} style={{ backgroundColor: "yellow" }} />
+      </div>
+    </div>,
+    <div>
+      <div className={classes.slideWrapper}>
+        <div className={classes.slideBox} style={{ backgroundColor: "green" }} />
+      </div>
+    </div>,
+    <div>
+      <div className={classes.slideWrapper}>
+        <div className={classes.slideBox} style={{ backgroundColor: "red" }} />
+      </div>
+    </div>,
+    <div>
+      <div className={classes.slideWrapper}>
+        <div
+          className={classes.slideBox}
+          style={{ backgroundColor: "magenta" }}
+        />
+      </div>
+    </div>,
+  ];
 
   return (
     <>
@@ -141,49 +175,17 @@ const HomeBanner = () => {
             that can be owned securely with blockchain
           </Typography> */}
         <div className={classes.carousel}>
-          <Slider
+          <Carousel slides={slides} autoplay={true} interval={3000} />
+          {/* <Slider
             className="center"
             centerMode={true}
             infinite={true}
             centerPadding={matches ? "0px" : "100px"}
             slidesToShow={1}
             speed={500}
-            prevArrow={<LeftArrow/>}
-            nextArrow={<RightArrow/>}
-          >
-            <div>
-              <div className={classes.slideWrapper}>
-                <div
-                  className={classes.slideBox}
-                  style={{ backgroundColor: "yellow" }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className={classes.slideWrapper}>
-                <div
-                  className={classes.slideBox}
-                  style={{ backgroundColor: "green" }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className={classes.slideWrapper}>
-                <div
-                  className={classes.slideBox}
-                  style={{ backgroundColor: "red" }}
-                />
-              </div>
-            </div>
-            <div>
-              <div className={classes.slideWrapper}>
-                <div
-                  className={classes.slideBox}
-                  style={{ backgroundColor: "magenta" }}
-                />
-              </div>
-            </div>
-          </Slider>
+            prevArrow={<LeftArrow />}
+            nextArrow={<RightArrow />}
+          ></Slider> */}
         </div>
         <center>
           <div className={classes.btnsContainer}>
