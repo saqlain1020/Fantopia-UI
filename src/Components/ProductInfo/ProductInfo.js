@@ -72,7 +72,7 @@ const ProductInfo = ({ media, order }) => {
     <div>
       {/* Use img or video based on any conditon */}
       {/* <img src={media} className={classes.bg}></img> */}
-      <video controls={true} controlsList="nodownload" autoPlay src={Vid}className={classes.bg}/>
+      <video controls={true} controlsList="nodownload" autoPlay loop src={Vid}className={classes.bg}/>
       <div className={classes.reactsDiv}>
         <div className={`${classes.react} ${classes.reactBorder}`}>
           <center>
