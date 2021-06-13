@@ -13,7 +13,7 @@ export const useMetadata = (address, tokenId) => {
       console.log(data);
       setLoading(false);
     };
-    fetchMetadata();
+    if (address && tokenId) fetchMetadata();
   }, []);
 
   return { metadata, loading };

@@ -1,8 +1,7 @@
-import { useState } from "react";
-import { useWeb3 } from "@react-dapp/wallet";
-import { useERC721 } from "src/Hooks/useContract";
 import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
+import paymentTokens from "src/Config/paymentTokens.json";
+import { ZERO_ADDRESS } from "src/Config/contracts";
 
 export const readFile = (file) => {
   return new Promise((resolve, reject) => {
@@ -46,12 +45,54 @@ export const convertToHigherValue = (
 
 export const splitSignature = (signature) => {
   return ethers.utils.splitSignature(signature);
-  // signature = signature.split("x")[1];
+};
 
-  // var r = Buffer.from(signature.substring(0, 64), "hex");
-  // var s = Buffer.from(signature.substring(64, 128), "hex");
-  // var v = Buffer.from(
-  //   (parseInt(signature.substring(128, 130)) + 27).toString()
-  // );
-  // return { r, s, v };
+export const getAuctionEndTime = (endTime) => {
+  const now = new Date(Date.now()).getTime() / 1000;
+  const end = parseInt(endTime);
+  if (now > end) return "AUCTION ENDED";
+  return getTimeLeft(now - end);
+};
+
+export const getTimeLeft = (delta) => {
+  if (!delta) return "";
+  if (delta && delta === "0") return null;
+
+  // calculate (and subtract) whole days
+  var days = Math.floor(delta / 86400);
+  delta -= days * 86400;
+  days = parseInt(days);
+
+  // calculate (and subtract) whole hours
+  var hours = Math.floor(delta / 3600) % 24;
+  delta -= hours * 3600;
+  hours = parseInt(hours);
+
+  // calculate (and subtract) whole minutes
+  var minutes = Math.floor(delta / 60) % 60;
+  delta -= minutes * 60;
+  minutes = parseInt(minutes);
+
+  // what's left is seconds
+  var seconds = delta % 60;
+  seconds = parseInt(seconds);
+
+  return { days, hours, minutes, seconds };
+};
+
+export const getTokenSymbol = (address) => {
+  if (address === ZERO_ADDRESS) return "BNB";
+  return paymentTokens.find((e) => e.address == address)?.symbol;
+};
+
+export const getHighestBid = (orders) => {
+  console.log("hi", orders);
+  if (!orders) return 0;
+
+  const max = orders.reduce((prev, cur) => {
+    console.log(prev, cur);
+    return 0;
+  });
+  console.log(max);
+  return convertToLowerValue(max.toString());
 };

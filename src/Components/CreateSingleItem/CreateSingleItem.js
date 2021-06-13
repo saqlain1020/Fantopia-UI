@@ -174,7 +174,8 @@ const useStyles = makeStyles((theme) => ({
 const CreateSingleItem = () => {
   const classes = useStyles();
   const { openModal } = useCreateCollectionModal();
-  const { userCollections, celebrityCollections } = useCollectionList();
+  const { userCollections, celebrityCollections, fetchUserCollection } =
+    useCollectionList();
   const { openModal: openMintModal } = useMintTokenModal();
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
@@ -254,12 +255,9 @@ const CreateSingleItem = () => {
         <CreationCard media={media} />
         <Divider />
         <div style={{ padding: 10 }}>
-          <div
-            onClick={() => setPutOnSale(!putOnSale)}
-            className={classes.switches}
-          >
+          <div className={classes.switches}>
             <Typography variant="h6">Put on Sale</Typography>
-            <IOSSwitch />
+            <IOSSwitch onClick={() => setPutOnSale(!putOnSale)} />
           </div>
           <Grid container spacing={1}>
             {putOnSale && (
@@ -504,7 +502,6 @@ const CreateSingleItem = () => {
           </Grid> */}
           <Grid item xs={12} sm={12} md={6}>
             <Autocomplete
-              disabled={true}
               onChange={(e, value) => {
                 setCollectionAddress(value?.address);
               }}
@@ -516,24 +513,26 @@ const CreateSingleItem = () => {
                   color="secondary"
                   placeholder="Choose Celebrity collection"
                   variant="outlined"
-                  // disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
-                  // onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
+                  disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
+                  onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
                 />
               )}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
-              disabled={true}
               select
               variant="outlined"
               defaultValue="disabled"
               fullWidth
-              // disabled={selectedCollection !== COLLECTION_TYPE.USER}
               onClick={(e, value) => {
-                // setSelectedCollection(COLLECTION_TYPE.USER);
+                setSelectedCollection(COLLECTION_TYPE.USER);
               }}
-              onChange={(e) => setCollectionAddress(e.target.value)}
+              disabled={selectedCollection !== COLLECTION_TYPE.USER}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setCollectionAddress(e.target.value);
+              }}
             >
               <MenuItem value="disabled" disabled>
                 Choose Your Collection
@@ -548,7 +547,12 @@ const CreateSingleItem = () => {
               variant="outlined"
               color="secondary"
               className={classes.btns}
-              onClick={() => openModal()}
+              onClick={() =>
+                openModal(() => () => {
+                  console.log("RELOADING...");
+                  fetchUserCollection();
+                })
+              }
             >
               <div>
                 <img src={SmileAddIcoDark} width="20px" alt="" />

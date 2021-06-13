@@ -40,12 +40,15 @@ const CreateCollection = ({ payload }) => {
   const handleCreate = async (e) => {
     e.preventDefault();
     if (name !== undefined && symbol !== undefined && image !== undefined) {
-      openModal({ name, symbol, royalty, image: file, shortUrl, description });
+      openModal(
+        { name, symbol, royalty, image: file, shortUrl, description },
+        payload // payload is the function to reload collections
+      );
     } else {
       setError("Fill out the form properly!");
     }
   };
-
+  console.log(payload);
   return (
     <div className={classes.root}>
       <form onSubmit={handleCreate}>

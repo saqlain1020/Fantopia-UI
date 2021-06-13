@@ -1,7 +1,7 @@
 import { splitSignature } from "@ethersproject/bytes";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useEffect, useState } from "react";
-import { getOrder, postBid, postOrder } from "src/Api/order";
+import { getOrder, getOrders, postBid, postOrder } from "src/Api/order";
 import { PROTOCOL_FEE, RELAYER, RELAYER_FEE } from "src/Config/constants";
 import { EXCHANGE, ZERO_ADDRESS } from "src/Config/contracts";
 import { STATE } from "src/Config/enums";
@@ -146,4 +146,30 @@ export const useOrder = (address, tokenId) => {
   }, []);
 
   return { order, loading };
+};
+
+export const useFixedPriceOrders = () => {
+  return useOrders(0);
+};
+
+export const useAuctionOrders = () => {
+  return useOrders(1);
+};
+
+const useOrders = (saleKind) => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setLoading(true);
+      const _orders = await getOrders(saleKind);
+      setLoading(false);
+      setOrders(_orders.results);
+      console.log(_orders.results);
+    };
+    fetchOrders();
+  }, []);
+
+  return { orders, loading };
 };

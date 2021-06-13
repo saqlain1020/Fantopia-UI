@@ -9,6 +9,7 @@ export const useOrderHistory = (address, tokenId) => {
     const fetchHistory = async () => {
       setLoading(true);
       const _orders = await getOrderHistory(address, tokenId);
+      console.log("ORDER HISTORY: ", orders);
       setOrders(_orders);
       setLoading(false);
     };

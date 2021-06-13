@@ -10,17 +10,17 @@ export const getOrder = async (address, tokenId) => {
 };
 
 export const postBid = async (order) => {
-  return marketplaceApi.post(
-    `orders/bid/${order.order.asset}/${order.order.assetId}`,
-    order
-  );
+  return marketplaceApi.post(`orders/bid`, order);
 };
 
 export const getOrderHistory = async (address, tokenId) => {
   const response = await marketplaceApi.get(
     `orderhistory/${address}/${tokenId}`
   );
+  return response.data;
+};
 
-  console.log(response.data);
+export const getOrders = async (type) => {
+  const response = await marketplaceApi.get(`orders?type=${type}`);
   return response.data;
 };

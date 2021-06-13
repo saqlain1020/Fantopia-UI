@@ -34,6 +34,10 @@ const MakeOffer = ({ payload }) => {
     if (approveState === STATE.SUCCEED && isApproved) signOrder();
   }, [approveState]);
 
+  useEffect(() => {
+    if (signState == STATE.SUCCEED) closeModal();
+  }, [signState]);
+
   const signOrder = () => {
     validatePrice(price);
     if (convertToHigherValue(price, true).gt(payload.order.basePrice))
