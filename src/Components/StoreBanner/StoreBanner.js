@@ -107,6 +107,7 @@ const StoreBanner = () => {
 
   const handleCopy = () => {
     copy("#unique_user_id");
+    alert("copied")
   };
 
   return (
