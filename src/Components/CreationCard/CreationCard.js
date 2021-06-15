@@ -9,14 +9,16 @@ import React from "react";
 import FiberManualRecordOutlinedIcon from "@material-ui/icons/FiberManualRecordOutlined";
 import HeartIcon from "src/Assets/Icons/heart.png";
 import HexGoldIcon from "src/Assets/Images/hexGold.png";
-import PropTypes from "prop-types";
 import HexGiftIcon from "src/Assets/Images/hexgift.png";
-import { withRouter } from "react-router";
 import { useEditItemsModal } from "../../Hooks/useModal";
 import AuctionTimer from "../AuctionTimer/AuctionTimer";
+import { useMetadata } from "src/Hooks/useToken";
+import { convertToLowerValue, getHighestBid, getTokenSymbol } from "src/Utils";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    cursor: "pointer",
     border: `1px solid ${theme.palette.secondary.main}`,
     paddingTop: 10,
     paddingBottom: 5,
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
   },
   img: {
     // background: theme.palette.secondary.vibrant,
-    width:"calc(100% - 16px)",
-    objectFit:"contain",
+    width: "calc(100% - 16px)",
+    objectFit: "contain",
     height: 180,
     marginLeft: 8,
     marginRight: 8,
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.dark,
     height: 180,
     marginLeft: 8,
-    objectFit:"cover",
+    objectFit: "cover",
     marginRight: 8,
     borderRadius: 10,
     "&:after": {
@@ -70,8 +72,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px 10px",
     boxShadow: "0px 2px 5px rgba(0,0,0,0.5)",
   },
-  dollar: {
-    color: theme.palette.primary.main,
+  bidText: {
+    color: theme.palette.secondary.vibrant,
+    fontSize: 10,
   },
   dotIcon: {
     color: theme.palette.secondary.dark,
@@ -169,35 +172,63 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreationCard = (props) => {
+  const { order, data } = props;
   const classes = useStyles();
+  const history = useHistory();
   const openModal = useEditItemsModal();
+
+  const { metadata, loading } = useMetadata(
+    order?.order.asset,
+    order?.order.assetId
+  );
+
   return (
     <div className={classes.root}>
       <div style={{ position: "relative" }}>
         <img
           className={props.gift ? classes.imgGift : classes.img}
-          src={props.media}
-          onClick={() => props.history.push("/Product")}
+          src={data?.media ?? metadata?.image}
+          onClick={() =>
+            order
+              ? history.push(
+                  `/collection/${order?.order.asset}/${order?.order.assetId}`
+                )
+              : null
+          }
         />
-        <Typography className={classes.dollarText}>
-          <span className={classes.dollar}>$</span> 12.00
-        </Typography>
+        {data ? (
+          <Typography className={classes.dollarText}>
+            {`${data?.price ?? ""} ${getTokenSymbol(data?.currency)}`}
+          </Typography>
+        ) : (
+          <Typography className={classes.dollarText}>
+            <span className={classes.bidText}>
+              {order?.order.saleKind !== 0 && "Highest Bid of "}
+            </span>
+            {`${convertToLowerValue(order?.order.basePrice)} ${getTokenSymbol(
+              order?.order.paymentToken
+            )}`}
+          </Typography>
+        )}
       </div>
       <div style={{ padding: "10px 20px" }}>
         <Grid container>
           <Grid item xs={7}>
-            <Typography className={classes.titleText}>Twitch</Typography>
-            <Typography className={classes.titleType}>
-              <FiberManualRecordOutlinedIcon className={classes.dotIcon} /> Art
+            <Typography className={classes.titleText}>
+              {data?.name ?? metadata?.name}
             </Typography>
-            {props.highestBid && (
+            <Typography className={classes.titleType}>
+              <FiberManualRecordOutlinedIcon className={classes.dotIcon} />{" "}
+              {data?.category ?? metadata?.category}
+            </Typography>
+            {/* {order?.order.saleKind !== 0 && (
               <Typography
                 style={{ fontSize: 14 }}
                 className={classes.titleText}
               >
-                Highest bid <span>0.01 BNB</span>
+                Highest bid <span> {getHighestBid(order.bids)}</span>
               </Typography>
-            )}
+            )} */}
           </Grid>
           <Grid item xs={5}>
             <div
@@ -208,10 +239,12 @@ const CreationCard = (props) => {
                 // marginTop: 10,
               }}
             >
-              <Typography className={classes.valueText}>0.02 BNB</Typography>
-              <Button variant="contained" className={classes.bidBtn}>
-                Bid
-              </Button>
+              {/* <Typography className={classes.valueText}>0.02 BNB</Typography> */}
+              {order && (
+                <Button variant="contained" className={classes.bidBtn}>
+                  Buy Now
+                </Button>
+              )}
             </div>
           </Grid>
        <Grid item xs={12}>
@@ -286,11 +319,4 @@ const CreationCard = (props) => {
   );
 };
 
-export default withRouter(CreationCard);
-
-CreationCard.propTypes = {
-  highestBid: PropTypes.string,
-  gift: PropTypes.bool,
-  create: PropTypes.bool,
-  edit: PropTypes.bool,
-};
+export default CreationCard;

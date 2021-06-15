@@ -22,7 +22,7 @@ import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
 import { Autocomplete } from "@material-ui/lab";
 import DateTimePicker from "react-datetime-picker";
-import { useCollectionList } from "src/Hooks/useCollectionList";
+import { useCollectionList } from "src/Hooks/useCollection";
 import { COLLECTION_TYPE } from "src/Config/enums";
 import { useMintTokenModal } from "src/Hooks/useModal";
 import { FANTOPIA_COLLECTION, ZERO_ADDRESS } from "../../Config/contracts";
@@ -174,7 +174,8 @@ const useStyles = makeStyles((theme) => ({
 const CreateSingleItem = () => {
   const classes = useStyles();
   const { openModal } = useCreateCollectionModal();
-  const { userCollections, celebrityCollections } = useCollectionList();
+  const { userCollections, celebrityCollections, fetchUserCollection } =
+    useCollectionList();
   const { openModal: openMintModal } = useMintTokenModal();
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
@@ -251,15 +252,12 @@ const CreateSingleItem = () => {
   return (
     <form className={classes.root} onSubmit={handleCreateItem}>
       <div className={classes.left}>
-        <CreationCard media={media} />
+        <CreationCard data={{ media, name, category, price, currency }} />
         <Divider />
         <div style={{ padding: 10 }}>
-          <div
-            onClick={() => setPutOnSale(!putOnSale)}
-            className={classes.switches}
-          >
+          <div className={classes.switches}>
             <Typography variant="h6">Put on Sale</Typography>
-            <IOSSwitch />
+            <IOSSwitch onClick={() => setPutOnSale(!putOnSale)} />
           </div>
           <Grid container spacing={1}>
             {putOnSale && (
@@ -371,6 +369,7 @@ const CreateSingleItem = () => {
                     <b>Expiration date </b>{" "}
                   </Typography>
                   <DateTimePicker
+                    required
                     value={endDate}
                     onChange={(e) => setEndDate(e)}
                     className={classes.datePicker}
@@ -504,7 +503,6 @@ const CreateSingleItem = () => {
           </Grid> */}
           <Grid item xs={12} sm={12} md={6}>
             <Autocomplete
-              disabled={true}
               onChange={(e, value) => {
                 setCollectionAddress(value?.address);
               }}
@@ -516,24 +514,26 @@ const CreateSingleItem = () => {
                   color="secondary"
                   placeholder="Choose Celebrity collection"
                   variant="outlined"
-                  // disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
-                  // onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
+                  disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
+                  onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
                 />
               )}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
-              disabled={true}
               select
               variant="outlined"
               defaultValue="disabled"
               fullWidth
-              // disabled={selectedCollection !== COLLECTION_TYPE.USER}
               onClick={(e, value) => {
-                // setSelectedCollection(COLLECTION_TYPE.USER);
+                setSelectedCollection(COLLECTION_TYPE.USER);
               }}
-              onChange={(e) => setCollectionAddress(e.target.value)}
+              disabled={selectedCollection !== COLLECTION_TYPE.USER}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setCollectionAddress(e.target.value);
+              }}
             >
               <MenuItem value="disabled" disabled>
                 Choose Your Collection
@@ -548,7 +548,12 @@ const CreateSingleItem = () => {
               variant="outlined"
               color="secondary"
               className={classes.btns}
-              onClick={() => openModal()}
+              onClick={() =>
+                openModal(() => () => {
+                  console.log("RELOADING...");
+                  fetchUserCollection();
+                })
+              }
             >
               <div>
                 <img src={SmileAddIcoDark} width="20px" alt="" />

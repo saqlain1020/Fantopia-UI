@@ -1,6 +1,11 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import Bg from "src/Assets/Images/landing-bg.jpg";
+import ad1 from "src/Assets/Images/ad-2.png";
+import ad2 from "src/Assets/Images/ad-1.png";
+import ad3 from "src/Assets/Images/ad-3.png";
+import ad4 from "src/Assets/Images/ad-4.png";
+import ad5 from "src/Assets/Images/ad-5.png";
 import JoinCommunity from "../JoinCommunity/JoinCommunity";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import Slider from "react-slick";
@@ -132,32 +137,14 @@ const HomeBanner = () => {
   const [selection, setSelection] = React.useState(1);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
-  
-  const slides = [
+
+  const slides = [ad1, ad2, ad3, ad4, ad5].map((e) => (
     <div>
       <div className={classes.slideWrapper}>
-        <div className={classes.slideBox} style={{ backgroundColor: "yellow" }} />
+        <img src={e} className={classes.slideBox} />
       </div>
-    </div>,
-    <div>
-      <div className={classes.slideWrapper}>
-        <div className={classes.slideBox} style={{ backgroundColor: "green" }} />
-      </div>
-    </div>,
-    <div>
-      <div className={classes.slideWrapper}>
-        <div className={classes.slideBox} style={{ backgroundColor: "red" }} />
-      </div>
-    </div>,
-    <div>
-      <div className={classes.slideWrapper}>
-        <div
-          className={classes.slideBox}
-          style={{ backgroundColor: "magenta" }}
-        />
-      </div>
-    </div>,
-  ];
+    </div>
+  ));
 
   return (
     <>

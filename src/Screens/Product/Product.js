@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Button } from "@material-ui/core";
 import ProductInfo from "src/Components/ProductInfo/ProductInfo";
 import ProductInfoBar from "src/Components/ProductInfoBar/ProductInfoBar";
 import { useParams } from "react-router-dom";
@@ -27,7 +27,7 @@ const Product = () => {
   const classes = useStyles();
   const { address, tokenId } = useParams();
   const { metadata, loading } = useMetadata(address, tokenId);
-  const { order } = useOrder(address, tokenId);
+  const { order, fetchOrder } = useOrder(address, tokenId);
   return (
     <div className={classes.container}>
       <div></div>
@@ -36,7 +36,11 @@ const Product = () => {
           <ProductInfo media={metadata?.image} order={order} />
         </div>
         <div style={{ margin: 5 }}>
-          <ProductInfoBar metadata={metadata} order={order} />
+          <ProductInfoBar
+            metadata={metadata}
+            order={order}
+            fetchOrder={fetchOrder}
+          />
         </div>
       </div>
       <div></div>

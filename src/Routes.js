@@ -17,7 +17,7 @@ const Routes = () => {
       <Route path="/Account" component={Account} />
       <Route path="/ProfileStore" component={ProfileStore} />
       <Route path="/collection/:address/:tokenId" component={Product} />
-      <Route path="/collection/:collectionId" component={Collection} />
+      <Route path="/collection/:address" component={Collection} />
       <Route path="/Categories" component={Categories} />
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />

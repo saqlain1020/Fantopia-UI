@@ -1,7 +1,7 @@
 import { splitSignature } from "@ethersproject/bytes";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useEffect, useState } from "react";
-import { getOrder, postBid, postOrder } from "src/Api/order";
+import { getOrder, getOrders, postBid, postOrder } from "src/Api/order";
 import { PROTOCOL_FEE, RELAYER, RELAYER_FEE } from "src/Config/constants";
 import { EXCHANGE, ZERO_ADDRESS } from "src/Config/contracts";
 import { STATE } from "src/Config/enums";
@@ -68,6 +68,7 @@ export const useCreateOrder = () => {
   return { create, createState: signState };
 };
 
+// also used for bid
 export const useSignBuyOrder = () => {
   const { sign: _sign, signState, setSignState } = useWaleltSign();
   const { account, web3 } = useWeb3();
@@ -85,7 +86,7 @@ export const useSignBuyOrder = () => {
     };
     let buyOrderHash;
     buyOrderHash = await exchange.methods.hashOrder(buyOrder).call();
-    const buySignature = await _sign(buyOrderHash, false);
+    const buySignature = await _sign(buyOrderHash, true);
     if (price) {
       const orderObj = {
         order: buyOrder,
@@ -93,9 +94,11 @@ export const useSignBuyOrder = () => {
         orderHash: buyOrderHash,
         tags: ["art"],
       };
+      console.log(orderObj);
       await postBid(orderObj);
     }
     setOrder({ buyOrder, buySignature, sellOrder, sellSignature });
+    setSignState(STATE.SUCCEED);
   };
 
   return { sign, order, signState };
@@ -118,7 +121,10 @@ export const useBuyOrder = () => {
         )
         .send({
           from: buyOrder.maker,
-          value: sellOrder.basePrice,
+          value:
+            sellOrder.paymentToken === ZERO_ADDRESS
+              ? sellOrder.basePrice
+              : null,
         });
       setBuyState(STATE.SUCCEED);
     } catch (e) {
@@ -134,16 +140,44 @@ export const useOrder = (address, tokenId) => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  let fetchOrder = async () => {
+    console.log("fetching....");
+    setLoading(true);
+    const _order = await getOrder(address, tokenId);
+    setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
+    console.log(_order);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchOrder = async () => {
-      setLoading(true);
-      const _order = await getOrder(address, tokenId);
-      setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
-      console.log(_order);
-      setLoading(false);
-    };
     fetchOrder();
   }, []);
 
-  return { order, loading };
+  return { order, loading, fetchOrder };
+};
+
+export const useFixedPriceOrders = () => {
+  return useOrders(0);
+};
+
+export const useAuctionOrders = () => {
+  return useOrders(1);
+};
+
+const useOrders = (saleKind) => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setLoading(true);
+      const _orders = await getOrders(saleKind);
+      setLoading(false);
+      setOrders(_orders);
+      console.log(_orders);
+    };
+    fetchOrders();
+  }, []);
+
+  return { orders, loading };
 };

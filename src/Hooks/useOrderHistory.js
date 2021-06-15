@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getOrderHistory } from "src/Api/order";
 
 export const useOrderHistory = (address, tokenId) => {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

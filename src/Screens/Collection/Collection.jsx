@@ -12,6 +12,9 @@ import CopyAddress from "src/Components/CopyAddress/CopyAddress";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CreationCard from "src/Components/CreationCard/CreationCard";
+import { useParams } from "react-router-dom";
+import { useCollection, useCollectionTokens } from "src/Hooks/useCollection";
+import image from "src/Assets/Images/ad-1.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +61,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Collection = () => {
   const classes = useStyles();
-  const [tab, setTab] = React.useState(1);
+  const [tab, setTab] = React.useState(0);
+  const { address } = useParams();
+  const { collection, loading: loadingCollection } = useCollection(address);
+  const { tokens, loading } = useCollectionTokens(address);
 
   return (
     <div className={classes.root}>
@@ -71,22 +77,27 @@ const Collection = () => {
             transform: "scale(3)",
           }}
         >
-          <UserName noName />
+          <UserName noName media={collection?.image} />
         </div>
       </div>
       <Container maxWidth="lg">
         <Typography variant="h4" className={classes.value}>
-          Marina Valentine
+          {collection?.name}
         </Typography>
-        <CopyAddress text="asdaskkhflkasnfnassaas" />
+        <CopyAddress
+          text={`${collection?.address.substring(
+            0,
+            6
+          )}...${collection?.address.substring(
+            collection?.address.length - 6,
+            collection?.address.length
+          )}`}
+        />
         <Typography
           className={classes.para}
           style={{ maxWidth: 700, margin: "auto" }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni officia
-          iure adipisci voluptate, molestiae ipsam quasi fuga distinctio
-          officiis, quis cumque alias, atque culpa facere molestias a eaque.
-          Amet, nam!
+          {collection?.description}
         </Typography>
       </Container>
       <Tabs
@@ -98,54 +109,29 @@ const Collection = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
+        <Tab icon="All" />
         <Tab icon="On Sale" />
         <Tab icon="On Auction" />
-        <Tab icon="Newly Minted" />
-    
       </Tabs>
-      <Container maxWIdth="lg" disableGutters>
+      <Container maxWidth="lg" disableGutters>
+        <Grid container>
+          {tokens?.map((e) => {
+            if (e.image.startsWith("http://res.cloudinary.com"))
+              return (
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <CreationCard data={{ ...e, media: e.image }} />
+                </Grid>
+              );
+          })}
 
-      <Grid container>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
+          <Grid item xs={12}>
+            <Typography variant="h6" align="center">
+              <ChevronLeftIcon className={classes.dropIcon} />{" "}
+              {/* <b>Displaying 1 of 20 of 2,000</b>{" "} */}
+              <ChevronRightIcon className={classes.dropIcon} />
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <CreationCard />
-        </Grid>
-        
-        <Grid item xs={12}>
-          <Typography variant="h6" align="center">
-            <ChevronLeftIcon className={classes.dropIcon} />{" "}
-            <b>Displaying 1 of 20 of 2,000</b>{" "}
-            <ChevronRightIcon className={classes.dropIcon} />
-          </Typography>
-        </Grid>
-      </Grid>
-  
       </Container>
     </div>
   );

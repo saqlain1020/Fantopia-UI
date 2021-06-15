@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Typography } from "@material-ui/core";
 import CopyIcon from "src/Assets/Icons/copy.png";
 
@@ -16,8 +16,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CopyAddress = ({ text, ...props }) => {
+const CopyAddress = ({ text, value, ...props }) => {
   const classes = useStyles();
+  const [isCopied, setIsCopied] = useState(false);
+
   const copy = (id) => {
     var configId = document.querySelector(id);
     var range = document.createRange();
@@ -27,9 +29,9 @@ const CopyAddress = ({ text, ...props }) => {
     selection.addRange(range);
 
     try {
-      var successful = document.execCommand("copy");
-      var msg = successful ? "successful" : "unsuccessful";
-      console.log("Copy command was " + msg);
+      // var successful = document.execCommand("copy");
+      // var msg = successful ? "successful" : "unsuccessful";
+      // console.log("Copy command was " + msg);
     } catch (err) {
       console.log("Oops, unable to copy");
     }
@@ -38,20 +40,29 @@ const CopyAddress = ({ text, ...props }) => {
   };
 
   const handleCopy = () => {
-    copy("#unique_user_id");
-    alert("copied");
+    // copy("unique_user_id");
+    onCopyText();
   };
-
+  const onCopyText = () => {
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 500);
+  };
   return (
-    <div {...props}>
+    <div {...props} style={{ cursor: "pointer" }} onClick={handleCopy}>
       <Typography className={classes.idValue}>
-        <span id="unique_user_id">{text}</span> &nbsp;
-        <img
-          alt="copy"
-          src={CopyIcon}
-          style={{ filter: "invert(0.5)" }}
-          onClick={handleCopy}
-        />
+        <span id="unique_user_id" style={{ opacity: 0 }}>
+          {" "}
+          {value}
+        </span>
+        &nbsp;
+        <span>{text}</span> &nbsp;{" "}
+        {isCopied ? (
+          "Copied!"
+        ) : (
+          <img alt="copy" src={CopyIcon} style={{ filter: "invert(0.5)" }} />
+        )}
       </Typography>
     </div>
   );
