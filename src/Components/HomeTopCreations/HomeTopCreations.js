@@ -4,8 +4,10 @@ import {
   Tab,
   Tabs,
   Typography,
+  Grid,
 } from "@material-ui/core";
 import React from "react";
+import { useAuctionOrders, useFixedPriceOrders } from "src/Hooks/useOrder";
 import CreationCard from "../CreationCard/CreationCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,22 +21,25 @@ const useStyles = makeStyles((theme) => ({
     // background: theme.customColors.white,
     // color: theme.palette.secondary.main,
     color: "white",
-    "& .MuiTabs-flexContainer":{
+    "& .MuiTabs-flexContainer": {
       justifyContent: "center",
-    }
+    },
   },
   grid: {
     width: "100%",
     maxWidth: 1500,
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit,minmax(270px,1fr))",
-    marginBottom:10,
+    marginBottom: 10,
   },
 }));
 
 const HomeTopCreations = () => {
   const classes = useStyles();
-  const [tab, setTab] = React.useState(1);
+  const [tab, setTab] = React.useState(0);
+
+  const { orders: saleOrders } = useFixedPriceOrders();
+  const { orders: auctionOrders } = useAuctionOrders();
 
   return (
     <Container maxWidth="xl">
@@ -50,28 +55,34 @@ const HomeTopCreations = () => {
         // centered
         variant="scrollable"
         scrollButtons="auto"
-        
       >
-        <Tab label="Best Seller" />
-        <Tab label="Recently Added" />
+        <Tab label="Fixed Price Sales" />
+        <Tab label="Auctions" />
         <Tab label="Most Viewed" />
         <Tab label="Lowest Price" />
         <Tab label="Highest Price" />
       </Tabs>
-      <div className="flex">
-        <div className={classes.grid}>
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-        </div>
-      </div>
+      <Container maxWidth="lg" disableGutters>
+        <Grid container>
+          <div className="flex">
+            <div className={classes.grid}>
+              {tab === 0
+                ? saleOrders?.results?.map((e) => (
+                    <Grid>
+                      {" "}
+                      <CreationCard order={e} />{" "}
+                    </Grid>
+                  ))
+                : auctionOrders?.results?.map((e) => (
+                    <Grid>
+                      {" "}
+                      <CreationCard order={e} />{" "}
+                    </Grid>
+                  ))}
+            </div>
+          </div>
+        </Grid>
+      </Container>
     </Container>
   );
 };

@@ -1,5 +1,4 @@
-import { ethers } from "ethers";
-import { appApi } from "../Config/apiConfig";
+import { metadataApi, appApi } from "../Config/apiConfig";
 
 export const postCollection = async (collection) => {
   const data = new FormData();
@@ -20,5 +19,15 @@ export const getCelebrityCollections = async () => {
 
 export const getUserCollections = async (address) => {
   const response = await appApi.get(`collections/user/${address}`);
+  return response.data;
+};
+
+export const getCollection = async (address) => {
+  const response = await appApi.get(`collections/${address}`);
+  return response.data;
+};
+
+export const getCollectionTokens = async (address) => {
+  const response = await metadataApi.get(`tokenlist/${address}`);
   return response.data;
 };

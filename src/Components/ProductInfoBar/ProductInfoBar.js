@@ -20,6 +20,7 @@ import {
 } from "src/Utils";
 import CustomButton from "../CustomButton/CustomButton";
 import { useBuyOrderModal, useMakeBidModal } from "src/Hooks/useModal";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -128,8 +129,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductInfoBar = ({ metadata, order }) => {
+const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
   const classes = useStyles();
+  const history = useHistory();
   const { openModal } = useBuyOrderModal();
   const { openModal: openBidModal } = useMakeBidModal();
   const [auctionEndTime, setAuctionEndTime] = useState({
@@ -145,8 +147,6 @@ const ProductInfoBar = ({ metadata, order }) => {
       if (time) setAuctionEndTime(time);
     }
   }, [order]);
-
-  console.log(order);
 
   return (
     <div className={classes.root}>
@@ -174,7 +174,8 @@ const ProductInfoBar = ({ metadata, order }) => {
             </Typography>
             <Typography variant="h3" className={classes.bold}>
               <span>
-                {getHighestBid(order.bids)}{" "}
+                {getHighestBid(order.bids) ??
+                  convertToLowerValue(order.order.basePrice)}{" "}
                 {getTokenSymbol(order.order.paymentToken)}
               </span>
             </Typography>
@@ -196,7 +197,7 @@ const ProductInfoBar = ({ metadata, order }) => {
             color="secondary"
             className={classes.btn}
             disabled={!order || order?.order.saleKind !== 0}
-            onClick={() => openModal(order)}
+            onClick={() => openModal(order, fetchOrder)}
           >
             Buy Now
           </CustomButton>
@@ -208,7 +209,7 @@ const ProductInfoBar = ({ metadata, order }) => {
             color="secondary"
             className={classes.btn2}
             disabled={!order || order?.order.saleKind === 0}
-            onClick={() => openBidModal(order)}
+            onClick={() => openBidModal(order, fetchOrder)}
           >
             Make Offer
           </Button>
@@ -267,12 +268,18 @@ const ProductInfoBar = ({ metadata, order }) => {
             : null
         }
       />
-      <div className="flex" style={{ marginTop: 10 }}>
+      <div
+        className="flex"
+        style={{ marginTop: 10, cursor: "pointer" }}
+        onClick={() => history.push(`/collection/${order?.order.asset}`)}
+      >
         <div
           style={{ position: "relative", margin: 10, marginRight: 10 }}
           className={classes.goldWrapper}
         >
-          <Typography className={classes.goldValue}>+9</Typography>
+          {/* <Typography className={classes.goldValue}>
+            {order?.order.asset}
+          </Typography> */}
         </div>
         <Typography
           variant="h6"

@@ -22,7 +22,7 @@ import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
 import { Autocomplete } from "@material-ui/lab";
 import DateTimePicker from "react-datetime-picker";
-import { useCollectionList } from "src/Hooks/useCollectionList";
+import { useCollectionList } from "src/Hooks/useCollection";
 import { COLLECTION_TYPE } from "src/Config/enums";
 import { useMintTokenModal } from "src/Hooks/useModal";
 import { FANTOPIA_COLLECTION, ZERO_ADDRESS } from "../../Config/contracts";
@@ -252,7 +252,7 @@ const CreateSingleItem = () => {
   return (
     <form className={classes.root} onSubmit={handleCreateItem}>
       <div className={classes.left}>
-        <CreationCard media={media} />
+        <CreationCard data={{ media, name, category, price, currency }} />
         <Divider />
         <div style={{ padding: 10 }}>
           <div className={classes.switches}>
@@ -369,6 +369,7 @@ const CreateSingleItem = () => {
                     <b>Expiration date </b>{" "}
                   </Typography>
                   <DateTimePicker
+                    required
                     value={endDate}
                     onChange={(e) => setEndDate(e)}
                     className={classes.datePicker}

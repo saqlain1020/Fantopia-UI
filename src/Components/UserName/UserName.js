@@ -18,22 +18,22 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1.5,
     fontSize: 14,
   },
-  avatarText:{
+  avatarText: {
     position: "absolute",
     fontSize: 10,
     color: theme.palette.primary.main,
     background: theme.palette.secondary.main,
-    width:15,
-    height:15,
-    textAlign:"center",
-    borderRadius:360,
+    width: 15,
+    height: 15,
+    textAlign: "center",
+    borderRadius: 360,
     left: "70%",
     top: "62%",
     fontWeight: 600,
-  }
+  },
 }));
 
-const UserName = ({ badgeColor, name, ...props }) => {
+const UserName = ({ badgeColor, name, media, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -63,12 +63,9 @@ const UserName = ({ badgeColor, name, ...props }) => {
             marginRight: 15,
           }}
         >
-          <Avatar style={{ width: "100%", height: "100%" }} />
-          <Typography
-          className={classes.avatarText}
-          
-          >
-            {props?.level || '✓'}
+          <Avatar src={media} style={{ width: "100%", height: "100%" }} />
+          <Typography className={classes.avatarText}>
+            {props?.level || "✓"}
           </Typography>
         </div>
       </Badge>

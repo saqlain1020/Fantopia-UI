@@ -14,14 +14,14 @@ export const useCreateERC721 = () => {
     try {
       const contract = await deploy(collection.name, collection.symbol);
       console.log({
-        address: contract._address,
+        address: contract.options.address,
         userAddress: account,
         type: "ERC721",
         ...collection,
       });
       try {
         await postCollection({
-          address: contract._address,
+          address: contract.options.address,
           userAddress: account,
           type: "ERC721",
           ...collection,

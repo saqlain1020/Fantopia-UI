@@ -81,18 +81,19 @@ export const getTimeLeft = (delta) => {
 };
 
 export const getTokenSymbol = (address) => {
-  if (address === ZERO_ADDRESS) return "BNB";
+  if (!address || address === "BNB" || address === ZERO_ADDRESS) return "BNB";
   return paymentTokens.find((e) => e.address == address)?.symbol;
 };
 
 export const getHighestBid = (orders) => {
-  console.log("hi", orders);
-  if (!orders) return 0;
+  if (!orders) return null;
 
-  const max = orders.reduce((prev, cur) => {
-    console.log(prev, cur);
-    return 0;
-  });
-  console.log(max);
-  return convertToLowerValue(max.toString());
+  if (orders.length === 0) return null;
+
+  const max = orders.reduce((prev, cur) =>
+    BigNumber(prev.order.basePrice).gt(BigNumber(cur.order.basePrice))
+      ? prev
+      : cur
+  );
+  return convertToLowerValue(max.order.basePrice);
 };

@@ -6,7 +6,11 @@ import { useERC20Approval, useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
 import { useSignBuyOrder } from "src/Hooks/useOrder";
-import { convertToHigherValue, convertToLowerValue } from "src/Utils";
+import {
+  convertToHigherValue,
+  convertToLowerValue,
+  getHighestBid,
+} from "src/Utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +30,7 @@ const MakeOffer = ({ payload }) => {
   const [priceErr, setPriceErr] = useState(null);
 
   useEffect(() => {
-    setPrice(convertToLowerValue(payload.order.basePrice) + 1);
+    setPrice(getHighestBid(payload.bids) + 1);
   }, []);
 
   useEffect(() => {
@@ -45,10 +49,6 @@ const MakeOffer = ({ payload }) => {
   };
 
   const validatePrice = (p) => {
-    console.log(
-      price,
-      convertToHigherValue(p, true).gt(payload.order.basePrice)
-    );
     if (convertToHigherValue(p, true).gt(payload.order.basePrice))
       setPriceErr(null);
     else setPriceErr("Invalid Price");

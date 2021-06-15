@@ -12,7 +12,7 @@ import CreationCard from "../CreationCard/CreationCard";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FilterBar from "../FilterBar/FilterBar";
-import { useFixedPriceOrders } from "src/Hooks/useOrder";
+import { useAuctionOrders, useFixedPriceOrders } from "src/Hooks/useOrder";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const CategoriesCreators = () => {
   const classes = useStyles();
   const { orders, loading } = useFixedPriceOrders();
+  const { orders: auctionOrders } = useAuctionOrders();
 
   return (
     <div className={classes.root}>
@@ -72,16 +73,18 @@ const CategoriesCreators = () => {
           {loading ? (
             <CircularProgress />
           ) : (
-            orders?.map((e) => (
-              <Grid item xs={12} sm={12} md={4} lg={3}>
-                <CreationCard order={e} />
-              </Grid>
-            ))
+            [...(orders?.results ?? []), ...(auctionOrders?.results ?? [])].map(
+              (e) => (
+                <Grid item xs={12} sm={12} md={4} lg={3}>
+                  <CreationCard order={e} />
+                </Grid>
+              )
+            )
           )}
           <Grid item xs={12}>
             <Typography variant="h6" align="center">
               <ChevronLeftIcon className={classes.dropIcon} />{" "}
-              <b>Displaying 1 of 20 of 2,000</b>{" "}
+              {/* <b>Displaying 1 of 20 of 2,000</b>{" "} */}
               <ChevronRightIcon className={classes.dropIcon} />
             </Typography>
           </Grid>

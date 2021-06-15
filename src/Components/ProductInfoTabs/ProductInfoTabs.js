@@ -1,11 +1,19 @@
 import React from "react";
-import { Divider, makeStyles, Tab, Typography } from "@material-ui/core";
+import {
+  CircularProgress,
+  Divider,
+  makeStyles,
+  Tab,
+  Typography,
+} from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import UserName from "../UserName/UserName";
 import { useOrderHistory } from "src/Hooks/useOrderHistory";
+import { convertToLowerValue, getTokenSymbol } from "src/Utils";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,10 +56,8 @@ const commentData = [
 const ProductInfoTabs = ({ order }) => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(1);
-  const { orders, loading } = useOrderHistory(
-    order?.order.asset,
-    order?.order.assetId
-  );
+  const { address, tokenId } = useParams();
+  const { orders, loading } = useOrderHistory(address, tokenId);
 
   return (
     <div className={classes.root}>
@@ -62,7 +68,7 @@ const ProductInfoTabs = ({ order }) => {
             background: "rgba(0,0,0,0.05)",
           }}
           fullWidth
-          label="Owner History"
+          label="Bids"
           className={tab === 1 ? classes.tabActive : ""}
           onClick={() => setTab(1)}
         />
@@ -73,7 +79,7 @@ const ProductInfoTabs = ({ order }) => {
             background: "rgba(0,0,0,0.05)",
           }}
           fullWidth
-          label="Market Stats"
+          label="Owner History"
           className={tab === 2 ? classes.tabActive : ""}
           onClick={() => setTab(2)}
         />
@@ -89,19 +95,43 @@ const ProductInfoTabs = ({ order }) => {
         />
       </div>
       <div>
-        {orders?.results?.map((item, index) => (
-          <div key={index}>
-            <div className={classes.comment}>
-              <div style={{ position: "relative", width: 45, height: 45 }}>
-                <UserName noName level={item.rating} />
+        {tab === 1 ? (
+          order?.bids?.map((item, index) => (
+            <div key={index}>
+              <div className={classes.comment}>
+                <div style={{ position: "relative", width: 45, height: 45 }}>
+                  <UserName noName level={item.rating} />
+                </div>
+                <Typography style={{ marginLeft: 20 }}>
+                  {`Bid of ${convertToLowerValue(
+                    item.order.basePrice
+                  )} ${getTokenSymbol(item.order.paymentToken)} by ${
+                    item.order.maker
+                  }`}
+                </Typography>
               </div>
-              <Typography style={{ marginLeft: 20 }}>
-                {item.order.maker}
-              </Typography>
+              <Divider />
             </div>
-            <Divider />
-          </div>
-        ))}
+          ))
+        ) : tab === 2 ? (
+          loading ? (
+            <CircularProgress />
+          ) : (
+            orders?.results?.map((item, index) => (
+              <div key={index}>
+                <div className={classes.comment}>
+                  <div style={{ position: "relative", width: 45, height: 45 }}>
+                    <UserName noName level={item.rating} />
+                  </div>
+                  <Typography style={{ marginLeft: 20 }}>
+                    {item.order.maker}
+                  </Typography>
+                </div>
+                <Divider />
+              </div>
+            ))
+          )
+        ) : null}
         <Typography className={classes.pagination}>
           <ChevronLeftIcon />
           Displaying 1 of 20 of 20,000 <ChevronRightIcon />

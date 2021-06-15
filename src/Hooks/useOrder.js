@@ -68,6 +68,7 @@ export const useCreateOrder = () => {
   return { create, createState: signState };
 };
 
+// also used for bid
 export const useSignBuyOrder = () => {
   const { sign: _sign, signState, setSignState } = useWaleltSign();
   const { account, web3 } = useWeb3();
@@ -85,7 +86,7 @@ export const useSignBuyOrder = () => {
     };
     let buyOrderHash;
     buyOrderHash = await exchange.methods.hashOrder(buyOrder).call();
-    const buySignature = await _sign(buyOrderHash, false);
+    const buySignature = await _sign(buyOrderHash, true);
     if (price) {
       const orderObj = {
         order: buyOrder,
@@ -93,9 +94,11 @@ export const useSignBuyOrder = () => {
         orderHash: buyOrderHash,
         tags: ["art"],
       };
+      console.log(orderObj);
       await postBid(orderObj);
     }
     setOrder({ buyOrder, buySignature, sellOrder, sellSignature });
+    setSignState(STATE.SUCCEED);
   };
 
   return { sign, order, signState };
@@ -118,7 +121,10 @@ export const useBuyOrder = () => {
         )
         .send({
           from: buyOrder.maker,
-          value: sellOrder.basePrice,
+          value:
+            sellOrder.paymentToken === ZERO_ADDRESS
+              ? sellOrder.basePrice
+              : null,
         });
       setBuyState(STATE.SUCCEED);
     } catch (e) {
@@ -134,18 +140,20 @@ export const useOrder = (address, tokenId) => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  let fetchOrder = async () => {
+    console.log("fetching....");
+    setLoading(true);
+    const _order = await getOrder(address, tokenId);
+    setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
+    console.log(_order);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const fetchOrder = async () => {
-      setLoading(true);
-      const _order = await getOrder(address, tokenId);
-      setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
-      console.log(_order);
-      setLoading(false);
-    };
     fetchOrder();
   }, []);
 
-  return { order, loading };
+  return { order, loading, fetchOrder };
 };
 
 export const useFixedPriceOrders = () => {
@@ -165,8 +173,8 @@ const useOrders = (saleKind) => {
       setLoading(true);
       const _orders = await getOrders(saleKind);
       setLoading(false);
-      setOrders(_orders.results);
-      console.log(_orders.results);
+      setOrders(_orders);
+      console.log(_orders);
     };
     fetchOrders();
   }, []);
