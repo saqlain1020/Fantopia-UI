@@ -166,6 +166,7 @@ const useStyles = makeStyles((theme) => ({
       stroke: theme.palette.secondary.main,
     },
     "& div": {
+      background: theme.palette.primary.mainWhite,
       border: "none",
     },
   },
