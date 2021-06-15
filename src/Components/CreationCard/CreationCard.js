@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import HexGiftIcon from "src/Assets/Images/hexgift.png";
 import { withRouter } from "react-router";
 import { useEditItemsModal } from "../../Hooks/useModal";
+import AuctionTimer from "../AuctionTimer/AuctionTimer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -213,7 +214,10 @@ const CreationCard = (props) => {
               </Button>
             </div>
           </Grid>
-        </Grid>
+       <Grid item xs={12}>
+         <AuctionTimer style={{marginTop:10}}/>
+       </Grid>
+       </Grid>
       </div>
       <Divider />
       {!props.create && !props.edit && (
