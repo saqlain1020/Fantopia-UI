@@ -4,6 +4,7 @@ import HomeBinancePromo from "src/Components/HomeBinancePromo/HomeBinancePromo";
 import HomeFeaturedCollections from "src/Components/HomeFeaturedCollections/HomeFeaturedCollections";
 import HomeHowItWorks from "src/Components/HomeHowItWorks/HomeHowItWorks";
 import HomeTopCreations from "src/Components/HomeTopCreations/HomeTopCreations";
+import Features from './Features'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <HomeTopCreations />
       {/* <HomeHowItWorks/> */}
       <HomeBinancePromo/>
+      <Features/>
     </div>
   );
 };
