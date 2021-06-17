@@ -28,7 +28,7 @@ const Features = () => {
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
             <AccountBalanceWalletTwoToneIcon fontSize="large" />
             <Typography
@@ -45,7 +45,7 @@ const Features = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
             <ViewQuiltTwoToneIcon fontSize="large" />
             <Typography
@@ -62,7 +62,7 @@ const Features = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
             <ImageTwoToneIcon fontSize="large" />
             <Typography
@@ -79,7 +79,7 @@ const Features = () => {
             </Typography>
           </div>
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
             <LocalOfferTwoToneIcon fontSize="large" />
             <Typography
