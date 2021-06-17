@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Button, IconButton, makeStyles, Typography } from "@material-ui/core";
 import LikeIco from "src/Assets/Icons/Like.png";
 import SadIco from "src/Assets/Icons/Sad.png";
 import HappyIco from "src/Assets/Icons/Happy.png";
@@ -10,6 +10,7 @@ import AngryIco from "src/Assets/Icons/Angry.png";
 import DislikeIco from "src/Assets/Icons/Dislike.png";
 import ProductInfoTabs from "../ProductInfoTabs/ProductInfoTabs";
 import Vid from "src/Assets/Videos/vid.mp4";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
@@ -63,6 +64,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     fontWeight: 600,
   },
+  btn: {
+    height: "auto",
+    width: "100%",
+    minWidth: "auto",
+    borderRadius: 5,
+  },
 }));
 
 const ProductInfo = ({ media, order }) => {
@@ -74,78 +81,94 @@ const ProductInfo = ({ media, order }) => {
       <img src={media} className={classes.bg}></img>
       {/* <video controls={true} controlsList="nodownload" autoPlay loop src={Vid}className={classes.bg}/> */}
       <div className={classes.reactsDiv}>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={LikeIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            12,642
-          </Typography>
-          <Typography className={classes.valueHeading}>LIKES</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={LoveIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            8,913
-          </Typography>
-          <Typography className={classes.valueHeading}>LOVES</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={DislikeIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            034
-          </Typography>
-          <Typography className={classes.valueHeading}>DISLIKES</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={HappyIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            356
-          </Typography>
-          <Typography className={classes.valueHeading}>HAPPY</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={FunnyIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            944
-          </Typography>
-          <Typography className={classes.valueHeading}>FUNNY</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={WowIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            706
-          </Typography>
-          <Typography className={classes.valueHeading}>WOW!</Typography>
-        </div>
-        <div className={`${classes.react} ${classes.reactBorder}`}>
-          <center>
-            <img alt="reaction" src={AngryIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            801
-          </Typography>
-          <Typography className={classes.valueHeading}>ANGRY</Typography>
-        </div>
-        <div className={classes.react}>
-          <center>
-            <img alt="reaction" src={SadIco} width="35px" />
-          </center>
-          <Typography variant="h5" className={classes.value}>
-            12,642
-          </Typography>
-          <Typography className={classes.valueHeading}>SAD</Typography>
-        </div>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={LikeIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              12,642
+            </Typography>
+            <Typography className={classes.valueHeading}>LIKES</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={LoveIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              8,913
+            </Typography>
+            <Typography className={classes.valueHeading}>LOVES</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={DislikeIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              034
+            </Typography>
+            <Typography className={classes.valueHeading}>DISLIKES</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={HappyIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              356
+            </Typography>
+            <Typography className={classes.valueHeading}>HAPPY</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={FunnyIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              944
+            </Typography>
+            <Typography className={classes.valueHeading}>FUNNY</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={WowIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              706
+            </Typography>
+            <Typography className={classes.valueHeading}>WOW!</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn, classes.reactBorder)}>
+          <div className={`${classes.react}`}>
+            <center>
+              <img alt="reaction" src={AngryIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              801
+            </Typography>
+            <Typography className={classes.valueHeading}>ANGRY</Typography>
+          </div>
+        </Button>
+        <Button className={clsx(classes.btn)}>
+          <div className={classes.react}>
+            <center>
+              <img alt="reaction" src={SadIco} width="35px" />
+            </center>
+            <Typography variant="h5" className={classes.value}>
+              12,642
+            </Typography>
+            <Typography className={classes.valueHeading}>SAD</Typography>
+          </div>
+        </Button>
       </div>
       <ProductInfoTabs order={order} />
     </div>
