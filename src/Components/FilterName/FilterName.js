@@ -52,7 +52,7 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
             />
           )}
 
-          <Typography variant="h6">
+          <Typography variant="h6" onClick={()=>setChecked(!checked)} style={{cursor:"default"}}>
             <b>{name ? name : "Filter"} </b>
             {expanded && items.length > 0 && (
               <KeyboardArrowUpIcon
@@ -68,7 +68,7 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
             )}
           </Typography>
         </div>
-        <Typography className={classes.value} variant="h6">
+        <Typography className={classes.value} variant="h6" >
           {value}
         </Typography>
       </div>

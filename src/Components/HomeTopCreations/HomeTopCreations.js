@@ -63,25 +63,13 @@ const HomeTopCreations = () => {
         <Tab label="Highest Price" />
       </Tabs>
       <Container maxWidth="lg" disableGutters>
-        <Grid container>
-          <div className="flex">
-            <div className={classes.grid}>
-              {tab === 0
-                ? saleOrders?.results?.map((e) => (
-                    <Grid>
-                      {" "}
-                      <CreationCard order={e} />{" "}
-                    </Grid>
-                  ))
-                : auctionOrders?.results?.map((e) => (
-                    <Grid>
-                      {" "}
-                      <CreationCard order={e} />{" "}
-                    </Grid>
-                  ))}
-            </div>
+        <div className="flex">
+          <div className={classes.grid}>
+            {tab === 0
+              ? saleOrders?.results?.map((e) => <CreationCard order={e} />)
+              : auctionOrders?.results?.map((e) => <CreationCard order={e} />)}
           </div>
-        </Grid>
+        </div>
       </Container>
     </Container>
   );
