@@ -4,7 +4,9 @@ import {
   Divider,
   makeStyles,
   Tab,
+  TextField,
   Typography,
+  Button
 } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabsContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    gridTemplateColumns: "1fr 1fr 1fr 1fr",
   },
   tabActive: {
     borderBottom: "none !important",
@@ -93,45 +95,95 @@ const ProductInfoTabs = ({ order }) => {
           className={tab === 3 ? classes.tabActive : ""}
           onClick={() => setTab(3)}
         />
+        <Tab
+          style={{
+            borderBottom: "1px solid rgba(0,0,0,0.1)",
+            background: "rgba(0,0,0,0.05)",
+          }}
+          fullWidth
+          label="Comments"
+          className={tab === 4 ? classes.tabActive : ""}
+          onClick={() => setTab(4)}
+        />
       </div>
       <div>
-        {tab === 1 ? (
-          order?.bids?.map((item, index) => (
-            <div key={index}>
-              <div className={classes.comment}>
-                <div style={{ position: "relative", width: 45, height: 45 }}>
-                  <UserName noName level={item.rating} />
-                </div>
-                <Typography style={{ marginLeft: 20 }}>
-                  {`Bid of ${convertToLowerValue(
-                    item.order.basePrice
-                  )} ${getTokenSymbol(item.order.paymentToken)} by ${
-                    item.order.maker
-                  }`}
-                </Typography>
-              </div>
-              <Divider />
-            </div>
-          ))
-        ) : tab === 2 ? (
-          loading ? (
-            <CircularProgress />
-          ) : (
-            orders?.results?.map((item, index) => (
+        {tab === 1 && (
+          <>
+            {order?.bids?.map((item, index) => (
               <div key={index}>
                 <div className={classes.comment}>
                   <div style={{ position: "relative", width: 45, height: 45 }}>
                     <UserName noName level={item.rating} />
                   </div>
                   <Typography style={{ marginLeft: 20 }}>
+                    {`Bid of ${convertToLowerValue(
+                      item.order.basePrice
+                    )} ${getTokenSymbol(item.order.paymentToken)} by ${
+                      item.order.maker
+                    }`}
+                  </Typography>
+                </div>
+                <Divider />
+              </div>
+            ))}
+          </>
+        )}
+        {tab === 2 && (
+          <>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              orders?.results?.map((item, index) => (
+                <div key={index}>
+                  <div className={classes.comment}>
+                    <div
+                      style={{ position: "relative", width: 45, height: 45 }}
+                    >
+                      <UserName noName level={item.rating} />
+                    </div>
+                    <Typography style={{ marginLeft: 20 }}>
+                      {item.order.maker}
+                    </Typography>
+                  </div>
+                  <Divider />
+                </div>
+              ))
+            )}
+          </>
+        )}
+        {tab === 4 && (
+          <>
+            {orders?.results?.map((item, index) => (
+              <div key={index}>
+                <div className={classes.comment}>
+                  <div style={{ position: "relative", width: 45, height: 45 }}>
+                    <UserName noName level={item.rating} />
+                  </div>
+                  <Typography style={{ marginLeft: 20 }}>
+                    <b>{"Person name"}</b><br/>
                     {item.order.maker}
                   </Typography>
                 </div>
                 <Divider />
               </div>
-            ))
-          )
-        ) : null}
+            ))}
+           <TextField
+              multiline
+              rows={2}
+              variant="standard"
+              color="secondary"
+              placeholder="Comment"
+              style={{marginTop:10}}
+              fullWidth
+            />
+            <div>
+
+            <Button variant="contained" color="secondary" style={{marginTop:20}}>
+              Send
+            </Button>
+            </div>
+          </>
+        )}
         <Typography className={classes.pagination}>
           <ChevronLeftIcon />
           Displaying 1 of 20 of 20,000 <ChevronRightIcon />

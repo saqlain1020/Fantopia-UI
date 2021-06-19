@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+
 const useStyles = makeStyles((theme) => ({
   mainHeading: {
     fontWeight: 700,
@@ -18,6 +19,13 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 300,
     color: theme.palette.primary.main,
     margin: 10,
+    position: "relative",
+    backgroundSize: "cover",
+    backgroundPosition:"center",
+    borderRadius: 10,
+    display:"flex",
+    justifyContent:"space-between",
+    alignItems:"flex-start"
   },
   panelHeading: {
     fontWeight: 700,
@@ -43,6 +51,13 @@ const useStyles = makeStyles((theme) => ({
       color: `${theme.palette.secondary.dark} !important`,
     },
   },
+  content:{
+    background: "white",
+    width:"fit-content",
+    padding:5,
+    borderRadius:10,
+    boxShadow: "-2px 2px 5px rgba(0,0,0,0.2)"
+  }
 }));
 
 const HomeFeaturedCollections = () => {
@@ -89,11 +104,19 @@ const HomeFeaturedCollections = () => {
       >
         {Data.map((item, index) => (
           <div key={index}>
-            <div className={classes.panel}>
+            <div className={classes.panel} style={{backgroundImage: `url(${item.image})`}}>
+              <div className={classes.content}>
               <Typography className={classes.panelHeading} variant="h5">
                 {item.heading}
               </Typography>
               <Typography className={classes.panelPara}>{item.para}</Typography>
+              </div>
+              <div className={classes.content}>
+              <Typography className={classes.panelHeading} variant="h5">
+                ${item.cost}
+              </Typography>
+              {/* <Typography className={classes.panelPara}>{item.para}</Typography> */}
+              </div>
             </div>
           </div>
         ))}
