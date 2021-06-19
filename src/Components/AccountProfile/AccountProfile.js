@@ -78,6 +78,15 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountProfile = ({ history }) => {
   const classes = useStyles();
+  const avatarUpload = React.useRef();
+  const coverUpload = React.useRef();
+
+  const avatarChange = (e) => {
+    console.log(e.target.files);
+  };
+  const coverChange = (e) => {
+    console.log(e.target.files);
+  };
   return (
     <div style={{ marginTop: 50 }}>
       <div className={classes.headingDiv}>
@@ -113,7 +122,10 @@ const AccountProfile = ({ history }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className={classes.profile2}>
+          <div
+            className={classes.profile2}
+            onClick={() => avatarUpload.current.click()}
+          >
             <PersonOutlineOutlinedIcon className={classes.userIcon} />
             <Typography className={classes.changeText}>
               Change Avatar
@@ -124,7 +136,10 @@ const AccountProfile = ({ history }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className={classes.profile2}>
+          <div
+            className={classes.profile2}
+            onClick={() => coverUpload.current.click()}
+          >
             <WallpaperOutlinedIcon className={classes.imageIcon} />
             <Typography className={classes.changeText}>Change Cover</Typography>
             <Typography className={classes.sizeText}>
@@ -146,6 +161,20 @@ const AccountProfile = ({ history }) => {
         Change Password
       </Typography>
       <AccountChangePassword />
+      <input
+        ref={avatarUpload}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={avatarChange}
+      />
+      <input
+        ref={coverUpload}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={coverChange}
+      />
     </div>
   );
 };

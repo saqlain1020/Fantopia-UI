@@ -9,6 +9,7 @@ import {
 import React from "react";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from '@material-ui/icons/Instagram';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 35px",
     background: theme.palette.primary.vibrant,
     fontWeight: 700,
+    width:290
   },
   linkAccName: {
     color: theme.customColors.lightBlack,
@@ -120,22 +122,37 @@ const AccountProfileForm = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              flexFlow:"column"
             }}
           >
             <Button
               variant="contained"
               color="primary"
               className={classes.twitterBtn}
+              style={{marginBottom:10}}
             >
               <TwitterIcon fontSize="small" />
               &nbsp;&nbsp; Link your Twitter Account
             </Button>
-            <Typography className={classes.linkAccName}>
+            
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.twitterBtn}
+              style={{background:"linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)"}}
+            >
+              <InstagramIcon fontSize="small" />
+              &nbsp;&nbsp; Link your Instagram Account
+            </Button>
+            
+          </div>
+        </Grid>
+        <Grid item xs={6}>
+        <Typography className={classes.linkAccName}>
               Linked Account: <b>@dghunterss</b>
             </Typography>
-          </div>
         </Grid>
       </Grid>
     </div>
