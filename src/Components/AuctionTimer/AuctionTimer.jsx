@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuctionTimer = ({ endDate, ...restProps }) => {
+const AuctionTimer = ({ endTime, ...restProps }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     days: 0,
@@ -44,14 +44,15 @@ const AuctionTimer = ({ endDate, ...restProps }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [endDate]);
+  }, [endTime]);
 
   const calcTimeLeft = () => {
+
     // Get today's date and time
     let now = new Date().getTime();
 
     // Find the distance between now and the count down date
-    let distance = new Date(endDate) - now;
+    let distance = new Date(endTime * 1000) - now;
 
     // Time calculations for days, hours, minutes and seconds
     let days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -74,7 +75,10 @@ const AuctionTimer = ({ endDate, ...restProps }) => {
       <div className={classes.container}>
         <div className={classes.content}>
           <Typography align="center" className={classes.text}>
-            {`${state.days}d ${state.hours}h ${state.minutes}m ${state.seconds}s left`}{" "}
+            {state.days !== 0 && `${state.days}d `}
+            {state.hours !== 0 && `${state.hours}h `}
+            {state.minutes !== 0 && `${state.minutes}m `}
+            {state.seconds !== 0 && `${state.seconds}s `}
             <img src={FireIco} height="13px" />
           </Typography>
         </div>

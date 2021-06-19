@@ -51,7 +51,7 @@ export const useMintERC721 = (data) => {
       setMintState(STATE.BUSY);
       const { v, r, s } = splitSignature(signature);
       await contract.methods
-        .mint(tokenId, v, r, s, data.fees, "")
+        .mint(tokenId, v, r, s, data.fees, tokenId)
         .send({ from: account });
       await postMetadata({ tokenId, ...data, fees: data.fees });
       setMintState(STATE.SUCCEED);

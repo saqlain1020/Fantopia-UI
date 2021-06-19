@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.customShadows.light,
     color: theme.customColors.white,
   },
-  heading:{
+  heading: {
     color: theme.palette.secondary.main,
   },
   icon: {
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 10px",
   },
   input: {
-    color:theme.palette.secondary.main,
+    color: theme.palette.secondary.main,
     "& fieldset": {
-      borderColor:`${theme.palette.secondary.main} !important`,
+      borderColor: `${theme.palette.secondary.main} !important`,
       "& legend": {
         visibility: "initial",
       },
@@ -45,27 +45,23 @@ const CategoriesFilterBar = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h6" className={classes.heading} style={{ marginBottom: 10 }}>
+      <Typography
+        variant="h6"
+        className={classes.heading}
+        style={{ marginBottom: 10 }}
+      >
         <b>Categories</b>
       </Typography>
-      <FilterName value="1207" name="Art" />
-      <FilterName value="1207" name="Comic Books" items={["Fun", "Science"]} />
-      <FilterName value="1207" name="Gaming" />
-      <FilterName value="1207" name="Trading Cards" />
-      <FilterName value="1207" name="Memes" />
-      <FilterName value="1207" name="Music /Audio" />
-      <FilterName value="1207" name="Video" />
-      <FilterName value="1207" name="Defi" />
-      <FilterName value="1207" name="Domains" />
-      <FilterName value="1207" name="Photographs" />
-      <FilterName value="1207" name="Vectors" />
-      <FilterName value="1207" name="Patterns" />
-      <FilterName value="1207" name="Illustrations" />
-      <FilterName value="1207" name="Mock Ups" />
-      <FilterName value="1207" name="Collectibles" />
-      <FilterName value="1207" name="Code" />
-      <FilterName value="1207" name="Antiques" items={["Maps", "Rare Books"]} />
-      <Typography variant="h6" className={classes.heading} style={{ marginTop: 10 }}>
+      <FilterName value="1207" name="Verified Celebrity" />
+      <FilterName value="1207" name="Digital Art" />
+      <FilterName value="1207" name="Photos" />
+      <FilterName value="1207" name="Videos" />
+      <FilterName value="1207" name="Music" />
+      <Typography
+        variant="h6"
+        className={classes.heading}
+        style={{ marginTop: 10 }}
+      >
         <b>Price Range</b>
       </Typography>
       <Grid container spacing={2}>
@@ -95,16 +91,18 @@ const CategoriesFilterBar = () => {
           </Button>
         </Grid>
       </Grid>
-      <Typography variant="h6" className={classes.heading} style={{ marginTop: 10 }}>
+      <Typography
+        variant="h6"
+        className={classes.heading}
+        style={{ marginTop: 10 }}
+      >
         <b>Sort By</b>
       </Typography>
       <FilterName name="Recently added" type="radio" />
-      <FilterName name="Cheapest" type="radio" />
-      <FilterName name="Highest price" type="radio" />
-      <FilterName name="Most liked" type="radio" />
-      <FilterName name="Hotest" type="radio" />
+      <FilterName name="Highest Value" type="radio" />
+      <FilterName name="Most Affordable" type="radio" />
+      <FilterName name="Most Trending" type="radio" />
       <FilterName name="Rarest" type="radio" />
-      <FilterName name="Most editions" type="radio" />
     </div>
   );
 };

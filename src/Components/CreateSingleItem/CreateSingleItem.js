@@ -253,7 +253,17 @@ const CreateSingleItem = () => {
   return (
     <form className={classes.root} onSubmit={handleCreateItem}>
       <div className={classes.left}>
-        <CreationCard data={{ media, name, category, price, currency }} />
+        <CreationCard
+          order={{
+            order: {
+              expirationTime:
+                !endDate || endDate === ""
+                  ? 0
+                  : parseInt(endDate.getTime() / 1000),
+            },
+          }}
+          data={{ media, name, category, price, currency }}
+        />
         <Divider />
         <div style={{ padding: 10 }}>
           <div className={classes.switches}>

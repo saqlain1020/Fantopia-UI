@@ -247,10 +247,16 @@ const CreationCard = (props) => {
               )}
             </div>
           </Grid>
-       <Grid item xs={12}>
-         <AuctionTimer style={{marginTop:10}}/>
-       </Grid>
-       </Grid>
+          <Grid item xs={12}>
+            {order?.order.saleKind !== 0 &&
+              order?.order.expirationTime !== 0 && (
+                <AuctionTimer
+                  style={{ marginTop: 10 }}
+                  endTime={order?.order.expirationTime}
+                />
+              )}
+          </Grid>
+        </Grid>
       </div>
       <Divider />
       {!props.create && !props.edit && (
