@@ -35,6 +35,18 @@ const useStyles = makeStyles((theme) => ({
   linkAccName: {
     color: theme.customColors.lightBlack,
   },
+  btn: {
+    color: theme.customColors.whiteBtn,
+    borderRadius: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    fontSize: 16,
+    fontWeight: 600,
+    boxShadow: "none",
+    width: 200,
+    // marginLeft: "auto",
+    display: "block",
+  },
 }));
 
 const AccountProfileForm = () => {
@@ -153,6 +165,11 @@ const AccountProfileForm = () => {
         <Typography className={classes.linkAccName}>
               Linked Account: <b>@dghunterss</b>
             </Typography>
+        </Grid>
+        <Grid item xs={12}>
+        <Button className={classes.btn} variant="outlined" color="secondary">
+            Save Changes!
+          </Button>
         </Grid>
       </Grid>
     </div>

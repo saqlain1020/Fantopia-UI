@@ -150,11 +150,11 @@ const AccountProfile = ({ history }) => {
         <Grid item xs={12}>
           <AccountProfileForm />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Button className={classes.btn} variant="outlined" color="secondary">
             Save Changes!
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
       <Typography className={classes.topHeading}>Account</Typography>
       <Typography variant="h4" className={classes.heading}>
