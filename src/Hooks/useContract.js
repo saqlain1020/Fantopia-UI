@@ -4,7 +4,7 @@ import ERC20_ABI from "../Config/abi/erc20Abi.json";
 import ERC721_ABI from "../Config/abi/erc721Abi.json";
 import ERC1155_ABI from "../Config/abi/erc1155Abi.json";
 import EXCHANGE_ABI from "../Config/abi/exchangeAbi.json";
-import { EXCHANGE, FANTOPIA_COLLECTION } from "../Config/contracts";
+import { EXCHANGE, NATIVE_ERC721_ADDRESS } from "../Config/contracts";
 
 const getContract = (abi, address, web3) => {
   return new web3.eth.Contract(abi, address);
@@ -18,7 +18,7 @@ export const useExchange = () => {
 export const useFantopiaCollection = () => {
   const { web3 } = useWeb3();
   return useMemo(
-    () => getContract(ERC721_ABI, FANTOPIA_COLLECTION, web3),
+    () => getContract(ERC721_ABI, NATIVE_ERC721_ADDRESS, web3),
     [web3]
   );
 };

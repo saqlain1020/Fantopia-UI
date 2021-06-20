@@ -118,7 +118,7 @@ const CreateCollection = ({ payload }) => {
               <small>(optional)</small>
             </Typography>
             <Autocomplete
-              options={["1", "2", "5", "10", "15", "20", "30"]}
+              options={["0", "1", "2", "5", "10", "15", "20", "30"]}
               getOptionLabel={(option) => option}
               value={royalty}
               onChange={(e, value) => {

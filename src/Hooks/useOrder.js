@@ -24,6 +24,10 @@ export const useCreateOrder = () => {
       listingTime,
       expirationTime,
       paymentToken,
+      name,
+      collectionName,
+      category,
+      verified,
     } = _order;
     console.log(_order);
 
@@ -46,7 +50,7 @@ export const useCreateOrder = () => {
       basePrice: saleKind === 2 ? 0 : web3.utils.toWei(price),
       reservePrice: saleKind === 2 ? web3.utils.toWei(price) : 0,
       listingTime: listingTime,
-      expirationTime: expirationTime, // no expiry
+      expirationTime: expirationTime,
       salt: Date.now(),
     };
     let orderHash;
@@ -58,7 +62,11 @@ export const useCreateOrder = () => {
         order: order,
         signature: signature,
         orderHash: orderHash,
-        tags: ["art"],
+        expirationTime: expirationTime,
+        name: name,
+        collectionName: collectionName,
+        category: category,
+        verified: verified ?? false,
       };
       await postOrder(orderObj);
       setSignState(STATE.SUCCEED);
@@ -171,10 +179,14 @@ const useOrders = (saleKind) => {
   useEffect(() => {
     const fetchOrders = async () => {
       setLoading(true);
-      const _orders = await getOrders(saleKind);
+      try {
+        const _orders = await getOrders(saleKind);
+        setOrders(_orders);
+        console.log(_orders);
+      } catch (e) {
+        console.log(e);
+      }
       setLoading(false);
-      setOrders(_orders);
-      console.log(_orders);
     };
     fetchOrders();
   }, []);

@@ -271,7 +271,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
       <div
         className="flex"
         style={{ marginTop: 10, cursor: "pointer" }}
-        onClick={() => history.push(`/collection/${order?.order.asset}`)}
+        onClick={() => history.push(`/collection/${metadata?.address}`)}
       >
         <div
           style={{ position: "relative", margin: 10, marginRight: 10 }}

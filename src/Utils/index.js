@@ -97,3 +97,7 @@ export const getHighestBid = (orders) => {
   );
   return convertToLowerValue(max.order.basePrice);
 };
+
+export const isAddress = (value) => {
+  return ethers.utils.isAddress(value);
+};

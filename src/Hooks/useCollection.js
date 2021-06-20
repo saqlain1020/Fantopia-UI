@@ -1,8 +1,10 @@
 import { useWeb3 } from "@react-dapp/wallet";
+import { isAddress } from "ethers/lib/utils";
 import { useEffect, useState } from "react";
 import {
   getCelebrityCollections,
   getCollection,
+  getCollectionByShortUrl,
   getCollectionTokens,
   getUserCollections,
 } from "../Api";
@@ -13,7 +15,12 @@ export const useCollectionList = () => {
   const { account } = useWeb3();
 
   const fetchUserCollection = async () => {
-    setUserCollections(await getUserCollections(account));
+    try {
+      const _col = await getUserCollections(account);
+      setUserCollections(_col);
+    } catch (e) {
+      console.log("USER COL ", e);
+    }
   };
 
   useEffect(() => {
@@ -29,7 +36,7 @@ export const useCollectionList = () => {
   return { userCollections, celebrityCollections, fetchUserCollection };
 };
 
-export const useCollection = (address) => {
+export const useCollection = (value) => {
   const [collection, setCollection] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -37,14 +44,19 @@ export const useCollection = (address) => {
     const fetch = async () => {
       setLoading(true);
 
-      const _collection = await getCollection(address);
+      let _collection;
+      _collection = isAddress(value)
+        ? await getCollection(value)
+        : await getCollectionByShortUrl(value);
+
+      console.log(_collection);
       setCollection(_collection);
 
       setLoading(true);
     };
 
-    if (address) fetch(address);
-  }, [address]);
+    if (value) fetch(value);
+  }, [value]);
 
   return { collection, loading };
 };

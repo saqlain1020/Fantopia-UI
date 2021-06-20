@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterName = ({ name, items = [], type = "checkbox",value }) => {
+const FilterName = ({ name, items = [], type = "checkbox", value }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
@@ -52,7 +52,11 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
             />
           )}
 
-          <Typography variant="h6" onClick={()=>setChecked(!checked)} style={{cursor:"default"}}>
+          <Typography
+            variant="h6"
+            onClick={() => setChecked(!checked)}
+            style={{ cursor: "pointer" }}
+          >
             <b>{name ? name : "Filter"} </b>
             {expanded && items.length > 0 && (
               <KeyboardArrowUpIcon
@@ -68,7 +72,7 @@ const FilterName = ({ name, items = [], type = "checkbox",value }) => {
             )}
           </Typography>
         </div>
-        <Typography className={classes.value} variant="h6" >
+        <Typography className={classes.value} variant="h6">
           {value}
         </Typography>
       </div>

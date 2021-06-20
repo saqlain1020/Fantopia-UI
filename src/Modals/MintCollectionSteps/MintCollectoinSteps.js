@@ -6,7 +6,7 @@ import { useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
 import { useCreateOrder } from "src/Hooks/useOrder";
-import { FANTOPIA_COLLECTION } from "src/Config/contracts";
+import { NATIVE_ERC721_ADDRESS } from "src/Config/contracts";
 
 const useStyles = makeStyles((theme) => ({
   root: {

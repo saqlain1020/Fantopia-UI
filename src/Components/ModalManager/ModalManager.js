@@ -36,7 +36,7 @@ const ModalManager = ({ open, close, ...props }) => {
           backgroundColor: "rgba(0, 0, 0, 0.7)",
         },
       }}
-      // disableBackdropClick
+      disableBackdropClick
       PaperProps={{
         style: {
           overflow: "visible",

@@ -4,7 +4,7 @@ import { useWeb3 } from "@react-dapp/wallet";
 import { splitSignature } from "../Utils";
 import { STATE } from "../Config/enums";
 import { postMetadata } from "../Api";
-import { FANTOPIA_COLLECTION } from "src/Config/contracts";
+import { NATIVE_ERC721_ADDRESS } from "src/Config/contracts";
 import { ethers } from "ethers";
 
 export const useSignMintTokenId = (address, shouldSignMint) => {

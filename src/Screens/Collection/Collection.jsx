@@ -64,7 +64,7 @@ const Collection = () => {
   const [tab, setTab] = React.useState(0);
   const { address } = useParams();
   const { collection, loading: loadingCollection } = useCollection(address);
-  const { tokens, loading } = useCollectionTokens(address);
+  const { tokens, loading } = useCollectionTokens(collection?.address);
 
   return (
     <div className={classes.root}>
@@ -115,7 +115,7 @@ const Collection = () => {
       </Tabs>
       <Container maxWidth="lg" disableGutters>
         <Grid container>
-          {tokens?.map((e) => {
+          {tokens.map((e) => {
             if (e.image.startsWith("http://res.cloudinary.com"))
               return (
                 <Grid item xs={12} sm={6} md={4} lg={3}>

@@ -141,11 +141,11 @@ const AccountProfile = ({ history }) => {
           </Button>
         </Grid>
       </Grid>
-      <Typography className={classes.topHeading}>Account</Typography>
+      {/* <Typography className={classes.topHeading}>Account</Typography>
       <Typography variant="h4" className={classes.heading}>
         Change Password
       </Typography>
-      <AccountChangePassword />
+      <AccountChangePassword /> */}
     </div>
   );
 };

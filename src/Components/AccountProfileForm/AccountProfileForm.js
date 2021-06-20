@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import TwitterIcon from "@material-ui/icons/Twitter";
 
@@ -33,14 +33,26 @@ const useStyles = makeStyles((theme) => ({
   linkAccName: {
     color: theme.customColors.lightBlack,
   },
+  headingDiv: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 }));
 
 const AccountProfileForm = () => {
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [shorlUrl, setShorlUrl] = useState("");
+  const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
+  const [website, setWebsite] = useState("");
+
+  const handleSubmit = () => {};
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
+    <form className={classes.root} onSubmit={handleSubmit}>
+      <Grid container spacing={3} >
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.mainHeading}>
             Profile Settings
@@ -52,14 +64,19 @@ const AccountProfileForm = () => {
             variant="outlined"
             placeholder="Display Name"
             color="secondary"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="URL"
+            placeholder="Short URL"
             color="secondary"
+            value={shorlUrl}
+            onChange={(e) => setShorlUrl(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
@@ -70,6 +87,8 @@ const AccountProfileForm = () => {
             color="secondary"
             multiline
             rows={5}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
@@ -80,14 +99,18 @@ const AccountProfileForm = () => {
                 variant="outlined"
                 placeholder="Public Email"
                 color="secondary"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Public Website"
+                placeholder="Personal Website"
                 color="secondary"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -101,7 +124,7 @@ const AccountProfileForm = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
               <Typography className={classes.mainHeading}>
                 Enable Twitter Feed
@@ -114,7 +137,7 @@ const AccountProfileForm = () => {
             <div>
               <IOSSwitch />
             </div>
-          </div>
+          </div> */}
         </Grid>
         <Grid item xs={12}>
           <div
@@ -125,6 +148,7 @@ const AccountProfileForm = () => {
             }}
           >
             <Button
+              type="submit"
               variant="contained"
               color="primary"
               className={classes.twitterBtn}
@@ -136,9 +160,18 @@ const AccountProfileForm = () => {
               Linked Account: <b>@dghunterss</b>
             </Typography>
           </div>
+          <Grid item xs={12}>
+            <Button
+              className={classes.btn}
+              variant="outlined"
+              color="secondary"
+            >
+              Save Changes!
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
-    </div>
+    </form>
   );
 };
 

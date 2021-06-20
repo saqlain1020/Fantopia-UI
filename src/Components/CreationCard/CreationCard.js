@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   img: {
     // background: theme.palette.secondary.vibrant,
     width: "calc(100% - 16px)",
-    objectFit: "contain",
+    objectFit: "fill",
     height: 180,
     marginLeft: 8,
     marginRight: 8,
@@ -177,10 +177,7 @@ const CreationCard = (props) => {
   const history = useHistory();
   const openModal = useEditItemsModal();
 
-  const { metadata, loading } = useMetadata(
-    order?.order.asset,
-    order?.order.assetId
-  );
+  const { metadata } = useMetadata(order?.order.asset, order?.order.assetId);
 
   return (
     <div className={classes.root}>
@@ -189,26 +186,30 @@ const CreationCard = (props) => {
           className={props.gift ? classes.imgGift : classes.img}
           src={data?.media ?? metadata?.image}
           onClick={() =>
-            order
-              ? history.push(
-                  `/collection/${order?.order.asset}/${order?.order.assetId}`
-                )
-              : null
+            history.push(
+              `/collection/${
+                data && data.address
+                  ? `${data?.address}/${data?.tokenId}`
+                  : `${metadata?.address}/${metadata?.tokenId}`
+              }`
+            )
           }
         />
-        {data ? (
+        {data && data.price ? (
           <Typography className={classes.dollarText}>
             {`${data?.price ?? ""} ${getTokenSymbol(data?.currency)}`}
           </Typography>
         ) : (
-          <Typography className={classes.dollarText}>
-            <span className={classes.bidText}>
-              {order?.order.saleKind !== 0 && "Highest Bid of "}
-            </span>
-            {`${convertToLowerValue(order?.order.basePrice)} ${getTokenSymbol(
-              order?.order.paymentToken
-            )}`}
-          </Typography>
+          order && (
+            <Typography className={classes.dollarText}>
+              <span className={classes.bidText}>
+                {order?.order.saleKind !== 0 && "Highest Bid of "}
+              </span>
+              {`${convertToLowerValue(order?.order.basePrice)} ${getTokenSymbol(
+                order?.order.paymentToken
+              )}`}
+            </Typography>
+          )
         )}
       </div>
       <div style={{ padding: "10px 20px" }}>
@@ -248,7 +249,8 @@ const CreationCard = (props) => {
             </div>
           </Grid>
           <Grid item xs={12}>
-            {order?.order.saleKind !== 0 &&
+            {order &&
+              order?.order.saleKind !== 0 &&
               order?.order.expirationTime !== 0 && (
                 <AuctionTimer
                   style={{ marginTop: 10 }}

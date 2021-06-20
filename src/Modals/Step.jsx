@@ -66,9 +66,7 @@ const Step = ({ state, onClick, disabled, heading, para }) => {
             fullWidth
             className={classes.btn}
             onClick={onClick}
-            disabled={
-              disabled || state === STATE.BUSY || state === STATE.SUCCEED
-            }
+            disabled={disabled || state !== STATE.FAILED}
           >
             Start
           </Button>

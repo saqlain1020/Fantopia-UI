@@ -1,4 +1,4 @@
-import { metadataApi, appApi } from "../Config/apiConfig";
+import { metadataApi } from "../Config/apiConfig";
 
 export const postCollection = async (collection) => {
   const data = new FormData();
@@ -8,22 +8,29 @@ export const postCollection = async (collection) => {
     const value = collection[key];
     data.append(key, value);
   }
-  appApi.post("collections", data);
+  metadataApi.post("collections", data);
 };
 
 export const getCelebrityCollections = async () => {
-  const response = await appApi.get("collections/celebrity");
+  const response = await metadataApi.get("collections/celebrity");
   console.log(response.data[0].name);
   return response.data;
 };
 
 export const getUserCollections = async (address) => {
-  const response = await appApi.get(`collections/user/${address}`);
+  const response = await metadataApi.get(`collections/user/${address}`);
   return response.data;
 };
 
 export const getCollection = async (address) => {
-  const response = await appApi.get(`collections/${address}`);
+  const response = await metadataApi.get(`collections/${address}`);
+  return response.data;
+};
+
+export const getCollectionByShortUrl = async (shortUrl) => {
+  const response = await metadataApi.get(
+    `collections/${shortUrl}?shortUrl=true`
+  );
   return response.data;
 };
 

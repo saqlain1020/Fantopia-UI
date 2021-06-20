@@ -25,10 +25,11 @@ import DateTimePicker from "react-datetime-picker";
 import { useCollectionList } from "src/Hooks/useCollection";
 import { COLLECTION_TYPE } from "src/Config/enums";
 import { useMintTokenModal } from "src/Hooks/useModal";
-import { FANTOPIA_COLLECTION, ZERO_ADDRESS } from "../../Config/contracts";
+import { NATIVE_ERC721_ADDRESS, ZERO_ADDRESS } from "../../Config/contracts";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useHistory } from "react-router";
 import tokenList from "src/Config/paymentTokens.json";
+import { NATIVE_ERC721_NAME } from "src/Config/constants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -183,7 +184,7 @@ const CreateSingleItem = () => {
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [royalty, setRoyalty] = useState(0);
-  const [category, setCategory] = useState("Artwork");
+  const [category, setCategory] = useState("Digital Art");
 
   const [putOnSale, setPutOnSale] = useState(false);
   const [currency, setCurrency] = useState("BNB");
@@ -192,10 +193,11 @@ const CreateSingleItem = () => {
   const [saleKind, setSaleKind] = React.useState(0);
   const [price, setPrice] = useState("");
   const [collectionAddress, setCollectionAddress] =
-    useState(FANTOPIA_COLLECTION);
+    useState(NATIVE_ERC721_ADDRESS);
   const [selectedCollection, setSelectedCollection] = useState(
     COLLECTION_TYPE.NATIVE
   );
+  const [collectionName, setCollectionName] = useState("Fantopia");
 
   const history = useHistory();
   const { account } = useWeb3();
@@ -226,11 +228,15 @@ const CreateSingleItem = () => {
       category: category,
       minter: account,
       owner: account,
-      shouldSignMint: COLLECTION_TYPE.USER === selectedCollection,
+      shouldSignMint: false, //COLLECTION_TYPE.USER === selectedCollection,
     };
     let order;
     if (putOnSale) {
       order = {
+        name,
+        category,
+        collectionName,
+        verified: false,
         address: collectionAddress,
         account,
         saleKind,
@@ -397,7 +403,7 @@ const CreateSingleItem = () => {
             <Typography variant="h6">Royalty (Sug: 5-30%)</Typography>
             <TextField
               select
-              defaultValue="disabled"
+              defaultValue="0"
               style={{ width: 70 }}
               value={royalty}
               onClick={(e) => setRoyalty(e.target.value)}
@@ -483,8 +489,10 @@ const CreateSingleItem = () => {
               {/* <MenuItem value="disabled" disabled>
                 Category
               </MenuItem> */}
-              <MenuItem value="Artwork">Artwork</MenuItem>
-              <MenuItem value="FanCam">FanCam</MenuItem>
+              <MenuItem value="Digital Art">Digital Art</MenuItem>
+              <MenuItem value="Photos">Photos</MenuItem>
+              <MenuItem value="Videos">Videos</MenuItem>
+              <MenuItem value="Music">Music</MenuItem>
             </TextField>
           </Grid>
           {/* <Grid item xs={12}>
@@ -516,6 +524,7 @@ const CreateSingleItem = () => {
             <Autocomplete
               onChange={(e, value) => {
                 setCollectionAddress(value?.address);
+                setCollectionName(value?.name);
               }}
               options={celebrityCollections}
               getOptionLabel={(option) => option.name}
@@ -543,14 +552,15 @@ const CreateSingleItem = () => {
               disabled={selectedCollection !== COLLECTION_TYPE.USER}
               onChange={(e) => {
                 console.log(e.target.value);
-                setCollectionAddress(e.target.value);
+                setCollectionAddress(e.target.value.address);
+                setCollectionName(e.target.value.name);
               }}
             >
               <MenuItem value="disabled" disabled>
                 Choose Your Collection
               </MenuItem>
               {userCollections.map((e) => (
-                <MenuItem value={e.address}>{e.name}</MenuItem>
+                <MenuItem value={e}>{e.name}</MenuItem>
               ))}
             </TextField>
           </Grid>
@@ -580,8 +590,9 @@ const CreateSingleItem = () => {
               color="secondary"
               className={classes.btns}
               onClick={() => {
-                setCollectionAddress(FANTOPIA_COLLECTION);
+                setCollectionAddress(NATIVE_ERC721_ADDRESS);
                 setSelectedCollection(COLLECTION_TYPE.NATIVE);
+                setCollectionName(NATIVE_ERC721_NAME);
               }}
             >
               <div>
@@ -594,7 +605,7 @@ const CreateSingleItem = () => {
                   width="30px"
                   alt=""
                 />
-                <span>Fantopia</span>
+                <span>{NATIVE_ERC721_NAME}</span>
               </div>
             </CustomButton>
           </Grid>
