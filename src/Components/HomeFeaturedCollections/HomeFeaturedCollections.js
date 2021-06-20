@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
 const useStyles = makeStyles((theme) => ({
   mainHeading: {
     fontWeight: 700,
@@ -21,15 +20,51 @@ const useStyles = makeStyles((theme) => ({
     margin: 10,
     position: "relative",
     backgroundSize: "cover",
-    backgroundPosition:"center",
+    backgroundPosition: "center center",
     borderRadius: 10,
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"flex-start"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    overflow:"hidden",
+    transition: "background-size 200ms ease-in-out",
+    "&::after": {
+      content: "''",
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "inherit",
+      backgroundSize: "cover",
+      transformOrigin: "center",
+      transition: "transform .2s ease-in-out",
+    },
+    "&::before":{
+      content: "''",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    height:"100%",
+    width:"100%",
+    zIndex:1, 
+    // opacity:.3,
+    background: "linear-gradient(0deg , rgba(0,0,0,0.8),rgba(0,0,0,0),rgba(0,0,0,0))"
+    },
+    "&:hover::after": {
+      transform: "scale(1.1)",
+    },
+    "& > div":{
+      zIndex:1,
+    }
   },
   panelHeading: {
     fontWeight: 700,
-    color: theme.palette.primary.main,
+
+    color:"white",
+  },
+  panelPara:{
+    color:"white",
+
   },
   discover: {
     display: "flex",
@@ -51,13 +86,13 @@ const useStyles = makeStyles((theme) => ({
       color: `${theme.palette.secondary.dark} !important`,
     },
   },
-  content:{
-    background: "white",
-    width:"fit-content",
-    padding:5,
-    borderRadius:10,
-    boxShadow: "-2px 2px 5px rgba(0,0,0,0.2)"
-  }
+  content: {
+    // background: "white",
+    width: "fit-content",
+    padding: 5,
+    borderRadius: 10,
+    boxShadow: "-2px 2px 5px rgba(0,0,0,0.2)",
+  },
 }));
 
 const HomeFeaturedCollections = () => {
@@ -104,18 +139,21 @@ const HomeFeaturedCollections = () => {
       >
         {Data.map((item, index) => (
           <div key={index}>
-            <div className={classes.panel} style={{backgroundImage: `url(${item.image})`}}>
+            <div
+              className={classes.panel}
+              style={{ backgroundImage: `url(${item.image})` }}
+            >
               <div className={classes.content}>
-              <Typography className={classes.panelHeading} variant="h5">
-                {item.heading}
-              </Typography>
-              <Typography className={classes.panelPara}>{item.para}</Typography>
-              </div>
-              <div className={classes.content}>
-              <Typography className={classes.panelHeading} variant="h5">
-                ${item.cost}
-              </Typography>
-              {/* <Typography className={classes.panelPara}>{item.para}</Typography> */}
+                <Typography
+                  className={classes.panelHeading}
+                  variant="h4"
+                  align="center"
+                >
+                  {item.heading}
+                </Typography>
+                <Typography className={classes.panelPara} align="center">
+                  {item.para}
+                </Typography>
               </div>
             </div>
           </div>
