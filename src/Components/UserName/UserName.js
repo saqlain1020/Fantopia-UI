@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserName = ({ badgeColor, name, media, ...props }) => {
+const UserName = ({ badgeColor, name, image, ...props }) => {
   const classes = useStyles();
 
   return (
@@ -63,7 +63,7 @@ const UserName = ({ badgeColor, name, media, ...props }) => {
             marginRight: 15,
           }}
         >
-          <Avatar src={media} style={{ width: "100%", height: "100%" }} />
+          <Avatar src={image} style={{ width: "100%", height: "100%" }} />
           <Typography className={classes.avatarText}>
             {props?.level || "✓"}
           </Typography>

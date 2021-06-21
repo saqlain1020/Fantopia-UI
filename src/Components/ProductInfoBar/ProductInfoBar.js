@@ -21,6 +21,7 @@ import {
 import CustomButton from "../CustomButton/CustomButton";
 import { useBuyOrderModal, useMakeBidModal } from "src/Hooks/useModal";
 import { useHistory } from "react-router-dom";
+import PutOnSale from './../PutOnSale/PutOnSale';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,6 +135,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
   const history = useHistory();
   const { openModal } = useBuyOrderModal();
   const { openModal: openBidModal } = useMakeBidModal();
+  const [saleState,setSaleState] = React.useState();
   const [auctionEndTime, setAuctionEndTime] = useState({
     days: 0,
     hours: 0,
@@ -220,6 +222,8 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
           </Button>
         </Grid> */}
       </Grid>
+      <br/>
+      <PutOnSale getState={setSaleState}/>
       {/* <div className={classes.valuesGrid}>
         <div>
           <Typography align="center">Last Sold For</Typography>

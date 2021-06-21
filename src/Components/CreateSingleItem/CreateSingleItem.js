@@ -30,6 +30,7 @@ import { useWeb3 } from "@react-dapp/wallet";
 import { useHistory } from "react-router";
 import tokenList from "src/Config/paymentTokens.json";
 import { NATIVE_ERC721_NAME } from "src/Config/constants";
+import PutOnSale from "../PutOnSale/PutOnSale";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,7 +117,6 @@ const useStyles = makeStyles((theme) => ({
   chooseFileLabel: {
     cursor: "pointer",
   },
-  // https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
   fileInput: {
     position: "absolute",
     width: "1px",
@@ -186,14 +186,10 @@ const CreateSingleItem = () => {
   const [royalty, setRoyalty] = useState(0);
   const [category, setCategory] = useState("Digital Art");
 
-  const [putOnSale, setPutOnSale] = useState(false);
-  const [currency, setCurrency] = useState("BNB");
-  const [startDate, setStartDate] = React.useState("");
-  const [endDate, setEndDate] = React.useState("");
-  const [saleKind, setSaleKind] = React.useState(0);
-  const [price, setPrice] = useState("");
-  const [collectionAddress, setCollectionAddress] =
-    useState(NATIVE_ERC721_ADDRESS);
+  const [saleState, setSaleState] = React.useState({});
+  const [collectionAddress, setCollectionAddress] = useState(
+    NATIVE_ERC721_ADDRESS
+  );
   const [selectedCollection, setSelectedCollection] = useState(
     COLLECTION_TYPE.NATIVE
   );
@@ -231,7 +227,7 @@ const CreateSingleItem = () => {
       shouldSignMint: false, //COLLECTION_TYPE.USER === selectedCollection,
     };
     let order;
-    if (putOnSale) {
+    if (saleState.putOnSale) {
       order = {
         name,
         category,
@@ -239,15 +235,17 @@ const CreateSingleItem = () => {
         verified: false,
         address: collectionAddress,
         account,
-        saleKind,
-        price,
-        paymentToken: currency === "BNB" ? null : currency,
+        saleKind: saleState.saleKind,
+        price: saleState.price,
+        paymentToken: saleState.currency === "BNB" ? null : saleState.currency,
         listingTime:
-          !startDate || startDate === ""
+          !saleState.startDate || saleState.startDate === ""
             ? parseInt(Date.now() / 1000)
-            : parseInt(startDate.getTime() / 1000),
+            : parseInt(saleState.startDate.getTime() / 1000),
         expirationTime:
-          !endDate || endDate === "" ? 0 : parseInt(endDate.getTime() / 1000),
+          !saleState.endDate || saleState.endDate === ""
+            ? 0
+            : parseInt(saleState.endDate.getTime() / 1000),
       };
     }
     console.log({ metadata, order });
@@ -255,7 +253,6 @@ const CreateSingleItem = () => {
       if (tokenId) history.push(`/collection/${collectionAddress}/${tokenId}`);
     });
   };
-
   return (
     <form className={classes.root} onSubmit={handleCreateItem}>
       <div className={classes.left}>
@@ -263,138 +260,22 @@ const CreateSingleItem = () => {
           order={{
             order: {
               expirationTime:
-                !endDate || endDate === ""
+                !saleState.endDate || saleState.endDate === ""
                   ? 0
-                  : parseInt(endDate.getTime() / 1000),
+                  : parseInt(saleState.endDate.getTime() / 1000),
             },
           }}
-          data={{ media, name, category, price, currency }}
+          data={{
+            media,
+            name,
+            category,
+            price: saleState.price,
+            currency: saleState.currency,
+          }}
         />
         <Divider />
         <div style={{ padding: 10 }}>
-          <div className={classes.switches}>
-            <Typography variant="h6">Put on Sale</Typography>
-            <IOSSwitch onClick={() => setPutOnSale(!putOnSale)} />
-          </div>
-          <Grid container spacing={1}>
-            {putOnSale && (
-              <>
-                <Grid item xs={4}>
-                  <div
-                    className={
-                      saleKind === 0 ? classes.saleBtnsActive : classes.saleBtns
-                    }
-                    onClick={() => setSaleKind(0)}
-                  >
-                    <LocalOfferOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Fixed
-                        <br />
-                        price
-                      </b>
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={4}>
-                  <div
-                    className={
-                      saleKind === 1 ? classes.saleBtnsActive : classes.saleBtns
-                    }
-                    onClick={() => setSaleKind(1)}
-                  >
-                    <TimelapseOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Timed
-                        <br />
-                        auction
-                      </b>
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={4}>
-                  <div
-                    className={
-                      saleKind === 2 ? classes.saleBtnsActive : classes.saleBtns
-                    }
-                    onClick={() => setSaleKind(2)}
-                  >
-                    <AllInclusiveOutlinedIcon />
-                    <Typography align="center">
-                      <b>
-                        Unlimited
-                        <br />
-                        auction
-                      </b>
-                    </Typography>
-                  </div>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                    fullWidth
-                    InputProps={{
-                      endAdornment: (
-                        <Select
-                          required
-                          variant="standard"
-                          color="secondary"
-                          defaultValue="bnb"
-                          className={classes.select}
-                          value={currency}
-                          onChange={(e) => setCurrency(e.target.value)}
-                        >
-                          {saleKind === 0 ? (
-                            <MenuItem value="BNB">BNB</MenuItem>
-                          ) : null}
-                          {tokenList.map((e) => {
-                            return (
-                              <MenuItem value={e.address}>{e.symbol}</MenuItem>
-                            );
-                          })}
-                        </Select>
-                      ),
-                    }}
-                    variant="outlined"
-                    placeholder="Enter price"
-                  />
-                  <Typography>
-                    Service Fee <b>2.5%</b>
-                    {/* You will recieve <b>0.29 BNB</b> */}
-                  </Typography>
-                </Grid>
-              </>
-            )}
-            {saleKind === 1 && (
-              <>
-                <Grid item xs={12}>
-                  <Typography>
-                    <b>Starting date </b>{" "}
-                    <small> (Don't pick to start after listing)</small>
-                  </Typography>
-                  <DateTimePicker
-                    value={startDate}
-                    onChange={(e) => setStartDate(e)}
-                    className={classes.datePicker}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography>
-                    <b>Expiration date </b>{" "}
-                  </Typography>
-                  <DateTimePicker
-                    required
-                    value={endDate}
-                    onChange={(e) => setEndDate(e)}
-                    className={classes.datePicker}
-                  />
-                </Grid>
-              </>
-            )}
-          </Grid>
+          <PutOnSale getState={setSaleState} />
           {/* <div className={classes.switches}>
             <Typography variant="h6">Unlock upon purchase</Typography>
             <IOSSwitch />

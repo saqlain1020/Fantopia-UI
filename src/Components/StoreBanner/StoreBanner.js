@@ -154,6 +154,14 @@ const StoreBanner = () => {
           >
             Follow+
           </Button>
+          <Button
+            // className={classes.followBtn}
+            // variant="outlined"
+            color="secondary"
+            style={{margin:"auto",display:"block",fontSize:20,padding:10,marginTop:10}}
+          >
+            Pending Nfts
+          </Button>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
           <Typography className={classes.valueDetail}>Items Created</Typography>

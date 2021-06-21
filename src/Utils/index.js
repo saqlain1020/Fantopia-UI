@@ -2,6 +2,7 @@ import { ethers } from "ethers";
 import BigNumber from "bignumber.js";
 import paymentTokens from "src/Config/paymentTokens.json";
 import { ZERO_ADDRESS } from "src/Config/contracts";
+import { PROFILE_EDIT_MESSAGE } from "src/Config/constants";
 
 export const readFile = (file) => {
   return new Promise((resolve, reject) => {
@@ -100,4 +101,8 @@ export const getHighestBid = (orders) => {
 
 export const isAddress = (value) => {
   return ethers.utils.isAddress(value);
+};
+
+export const getEditProfileMessage = (address) => {
+  return `${PROFILE_EDIT_MESSAGE} - ${address}`;
 };

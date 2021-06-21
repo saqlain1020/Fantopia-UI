@@ -9,6 +9,13 @@ import {
 import React, { useState, useEffect } from "react";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import InstagramIcon from "@material-ui/icons/Instagram";
+import { useCreateUser, useUpdateeUser } from "src/Hooks/useUser";
+import { useWeb3 } from "@react-dapp/wallet";
+import CustomButton from "../CustomButton/CustomButton";
+import { useWaleltSign } from "src/Hooks/useWalletSign";
+import { getEditProfileMessage } from "src/Utils";
+import { STATE } from "src/Config/enums";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,30 +36,74 @@ const useStyles = makeStyles((theme) => ({
     padding: "15px 35px",
     background: theme.palette.primary.vibrant,
     fontWeight: 700,
+    width: 290,
   },
   linkAccName: {
     color: theme.customColors.lightBlack,
   },
-  headingDiv: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
+  btn: {
+    color: theme.customColors.whiteBtn,
+    borderRadius: 20,
+    paddingTop: 15,
+    paddingBottom: 15,
+    fontSize: 16,
+    fontWeight: 600,
+    boxShadow: "none",
+    width: 200,
+    // marginLeft: "auto",
+    display: "block",
   },
 }));
 
-const AccountProfileForm = () => {
+const AccountProfileForm = ({ user, coverPic, profilePic }) => {
   const classes = useStyles();
+  const { create, creating } = useCreateUser();
+  const { update, updating } = useUpdateeUser();
+  const { sign, signState } = useWaleltSign();
+
+  const { account } = useWeb3();
   const [name, setName] = useState("");
-  const [shorlUrl, setShorlUrl] = useState("");
+  const [shortUrl, setShorlUrl] = useState("");
   const [bio, setBio] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
 
-  const handleSubmit = () => {};
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setShorlUrl(user.shortUrl);
+      setBio(user.bio);
+      setEmail(user.email);
+      setWebsite(user.website);
+    }
+  }, [user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (creating) return;
+
+    const _user = {
+      name,
+      shortUrl,
+      bio,
+      email,
+      website,
+      address: account,
+      profilePic,
+      coverPic,
+    };
+
+    const signature = await sign(getEditProfileMessage(account));
+    console.log(signature, _user);
+    if (signature) {
+      user ? update(_user) : create({ ..._user, signature });
+    }
+  };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit}>
-      <Grid container spacing={3} >
+      <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.mainHeading}>
             Profile Settings
@@ -75,7 +126,7 @@ const AccountProfileForm = () => {
             variant="outlined"
             placeholder="Short URL"
             color="secondary"
-            value={shorlUrl}
+            value={shortUrl}
             onChange={(e) => setShorlUrl(e.target.value)}
           />
         </Grid>
@@ -143,8 +194,9 @@ const AccountProfileForm = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+              flexFlow: "column",
             }}
           >
             <Button
@@ -152,23 +204,46 @@ const AccountProfileForm = () => {
               variant="contained"
               color="primary"
               className={classes.twitterBtn}
+              style={{ marginBottom: 10 }}
             >
               <TwitterIcon fontSize="small" />
               &nbsp;&nbsp; Link your Twitter Account
             </Button>
-            <Typography className={classes.linkAccName}>
-              Linked Account: <b>@dghunterss</b>
-            </Typography>
-          </div>
-          <Grid item xs={12}>
+
             <Button
-              className={classes.btn}
-              variant="outlined"
-              color="secondary"
+              variant="contained"
+              color="primary"
+              className={classes.twitterBtn}
+              style={{
+                background:
+                  "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
+              }}
             >
-              Save Changes!
+              <InstagramIcon fontSize="small" />
+              &nbsp;&nbsp; Link your Instagram Account
             </Button>
-          </Grid>
+          </div>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography className={classes.linkAccName}>
+            Linked Account: <b>@dghunterss</b>
+          </Typography>
+        </Grid>
+        <Grid item md={3} xs={12}>
+          <CustomButton
+            type="submit"
+            className={classes.btn}
+            variant="outlined"
+            color="secondary"
+            loading={creating || updating}
+          >
+            Save Changes!
+          </CustomButton>
+        </Grid>
+        <Grid item md={3} xs={12}>
+          <div style={{ margin: 20, color: "red" }}>
+            {signState === STATE.FAILED ? "Signature Failed!" : null}
+          </div>
         </Grid>
       </Grid>
     </form>

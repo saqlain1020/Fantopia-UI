@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { getUser, postUser } from "../Api";
+import { getUser, postUser, updateUser } from "../Api";
 import { useWeb3 } from "@react-dapp/wallet";
 
 export const useCreateUser = () => {
-  const [isCreating, setIsCreating] = useState(false);
+  const [creating, setCreating] = useState(false);
 
   const create = async (user) => {
-    setIsCreating(true);
+    setCreating(true);
 
     try {
       await postUser(user);
@@ -14,21 +14,26 @@ export const useCreateUser = () => {
       console.log(e);
     }
 
-    setIsCreating(false);
+    setCreating(false);
   };
 
-  return { isCreating, create };
+  return { creating, create };
 };
 
-export const useUser = () => {
-  const [user, setUser] = useState(undefined);
-  const { account } = useWeb3();
+export const useUpdateeUser = () => {
+  const [updating, setUpdating] = useState(false);
 
-  const fetchUser = async () => {
-    setUser(await getUser(account));
+  const update = async (user) => {
+    setUpdating(true);
+
+    try {
+      await updateUser(user);
+    } catch (e) {
+      console.log(e);
+    }
+
+    setUpdating(false);
   };
 
-  if (account) fetchUser();
-
-  return user;
+  return { updating, update };
 };

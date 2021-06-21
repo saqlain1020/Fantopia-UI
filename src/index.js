@@ -9,6 +9,8 @@ import Theme from "src/Theme/LightTheme.js";
 import DarkTheme from "src/Theme/Theme.js";
 import { WalletProvider } from "@react-dapp/wallet";
 import { ModalProvider } from "./Providers/ModalProvider";
+import { Provider } from "react-redux";
+import store from "./State";
 
 let item = localStorage.getItem("theme");
 if (item === "light") item = true;
@@ -22,7 +24,9 @@ ReactDOM.render(
       <BrowserRouter>
         <ThemeProvider theme={item ? Theme : DarkTheme}>
           <ModalProvider>
-            <App />
+            <Provider store={store}>
+              <App />
+            </Provider>
           </ModalProvider>
         </ThemeProvider>
       </BrowserRouter>

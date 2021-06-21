@@ -9,6 +9,7 @@ import CreateItem from "./Screens/CreateItem/CreateItem";
 import Home from "./Screens/Home/Home";
 import Product from "./Screens/Product/Product";
 import ProfileStore from "./Screens/ProfileStore/ProfileStore";
+import ShortUrl from "./Screens/ShortUrl/ShortUrl";
 
 const Routes = () => {
   return (
@@ -22,6 +23,7 @@ const Routes = () => {
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />
       <Route path="/Charts" component={Charts} />
+      <Route path="/:shortUrl" component={ShortUrl} />
     </Switch>
   );
 };

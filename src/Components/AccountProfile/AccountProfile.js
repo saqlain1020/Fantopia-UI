@@ -1,5 +1,5 @@
 import { Button, Grid, makeStyles, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
@@ -8,6 +8,7 @@ import AccountProfileForm from "../AccountProfileForm/AccountProfileForm";
 import AccountChangePassword from "../AccountChangePassword/AccountChangePassword";
 import UserName from "../UserName/UserName";
 import StorefrontOutlinedIcon from "@material-ui/icons/StorefrontOutlined";
+import { useUser } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   topHeading: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     height: 200,
   },
   profile2: {
+    cursor: "pointer",
     margin: 5,
     borderRadius: 10,
     display: "flex",
@@ -78,6 +80,32 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountProfile = ({ history }) => {
   const classes = useStyles();
+  const avatarUpload = React.useRef();
+  const coverUpload = React.useRef();
+  const [profilePic, setProfilePic] = useState(null);
+  const [coverPic, setCoverPic] = useState(null);
+
+  const [profilePicUrl, setProfilePicUrl] = useState("");
+  const [coverPicUrl, setCoverPicUrl] = useState("");
+
+  const avatarChange = (e) => {
+    setProfilePic(e.target.files[0]);
+    setProfilePicUrl(URL.createObjectURL(e.target.files[0]));
+  };
+  const coverChange = (e) => {
+    setCoverPic(e.target.files[0]);
+    setCoverPicUrl(URL.createObjectURL(e.target.files[0]));
+  };
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    setProfilePic(user.profilePic);
+    setCoverPic(user.coverPic);
+    setProfilePicUrl(user.profilePic);
+    setCoverPicUrl(user.coverPic);
+  }, [user]);
+  console.log(coverPicUrl);
   return (
     <div style={{ marginTop: 50 }}>
       <div className={classes.headingDiv}>
@@ -99,7 +127,12 @@ const AccountProfile = ({ history }) => {
       </div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12}>
-          <div className={classes.profile1}>
+          <div
+            className={classes.profile1}
+            style={{
+              backgroundImage: `url(${coverPicUrl})`,
+            }}
+          >
             <div
               style={{
                 position: "relative",
@@ -108,12 +141,15 @@ const AccountProfile = ({ history }) => {
                 transform: "scale(2.2)",
               }}
             >
-              <UserName noName />
+              <UserName image={profilePicUrl} noName />
             </div>
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className={classes.profile2}>
+          <div
+            className={classes.profile2}
+            onClick={() => avatarUpload.current.click()}
+          >
             <PersonOutlineOutlinedIcon className={classes.userIcon} />
             <Typography className={classes.changeText}>
               Change Avatar
@@ -124,7 +160,10 @@ const AccountProfile = ({ history }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className={classes.profile2}>
+          <div
+            className={classes.profile2}
+            onClick={() => coverUpload.current.click()}
+          >
             <WallpaperOutlinedIcon className={classes.imageIcon} />
             <Typography className={classes.changeText}>Change Cover</Typography>
             <Typography className={classes.sizeText}>
@@ -133,19 +172,37 @@ const AccountProfile = ({ history }) => {
           </div>
         </Grid>
         <Grid item xs={12}>
-          <AccountProfileForm />
+          <AccountProfileForm
+            user={user}
+            coverPic={coverPic}
+            profilePic={profilePic}
+          />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Button className={classes.btn} variant="outlined" color="secondary">
             Save Changes!
           </Button>
-        </Grid>
+        </Grid> */}
       </Grid>
       {/* <Typography className={classes.topHeading}>Account</Typography>
       <Typography variant="h4" className={classes.heading}>
         Change Password
       </Typography>
       <AccountChangePassword /> */}
+      <input
+        ref={avatarUpload}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={avatarChange}
+      />
+      <input
+        ref={coverUpload}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={coverChange}
+      />
     </div>
   );
 };
