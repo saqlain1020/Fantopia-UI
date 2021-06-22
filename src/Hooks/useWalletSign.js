@@ -10,8 +10,9 @@ export const useWaleltSign = () => {
 
   const sign = async (hash, pauseSuccessState) => {
     try {
+      const value = ethers.utils.arrayify(hash);
+      console.log(value);
       setSignState(STATE.BUSY);
-      console.log("hello");
       const sig = await web3.eth.personal.sign(hash, account);
       console.log(sig);
 

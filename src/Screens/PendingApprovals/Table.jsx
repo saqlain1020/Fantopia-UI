@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: theme.customShadows.light,
     color: theme.palette.secondary.main,
+    background: theme.palette.primary.contrastText
   },
   bg: {
-    background: theme.palette.secondary.vibrant,
+    background: theme.palette.secondary.light,
     height: 100,
     width: 150,
     borderRadius: 15,

@@ -18,7 +18,7 @@ export const useLoadUser = () => {
 
 export const useUser = () => {
   return {
-    loadingUser: useSelector((state) => state.application.loadingUser),
-    user: useSelector((state) => state.application.user),
+    loadingUser: useSelector((state) => state.application?.loadingUser),
+    user: useSelector((state) => state.application?.user),
   };
 };

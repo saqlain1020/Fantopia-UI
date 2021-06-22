@@ -77,9 +77,10 @@ const useStyles = makeStyles((theme) => ({
 const PutOnSale = ({ getState }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    price: "0",
+    price: "",
     currency: "BNB",
     saleKind: 0,
+    putOnSale: false,
   });
   React.useEffect(() => {
     getState(state);
@@ -164,7 +165,7 @@ const PutOnSale = ({ getState }) => {
                       required
                       variant="standard"
                       color="secondary"
-                      defaultValue="bnb"
+                      defaultValue="BNB"
                       className={classes.select}
                       value={state.currency}
                       onChange={(e) =>

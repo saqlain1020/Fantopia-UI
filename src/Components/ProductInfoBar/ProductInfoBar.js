@@ -19,9 +19,17 @@ import {
   getTokenSymbol,
 } from "src/Utils";
 import CustomButton from "../CustomButton/CustomButton";
-import { useBuyOrderModal, useMakeBidModal } from "src/Hooks/useModal";
+import {
+  useBuyOrderModal,
+  useCancelOrderModal,
+  useMakeBidModal,
+} from "src/Hooks/useModal";
 import { useHistory } from "react-router-dom";
-import PutOnSale from './../PutOnSale/PutOnSale';
+import PutOnSale from "./../PutOnSale/PutOnSale";
+import { useCreateOrder } from "src/Hooks/useOrder";
+import { useUser } from "src/State/hooks";
+import { useWeb3 } from "@react-dapp/wallet";
+import { STATE } from "src/Config/enums";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +76,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 15,
     padding: "5px 0px",
     background: theme.palette.secondary.vibrant,
+  },
+  cancelBtn: {
+    color: theme.customColors.white,
+    fontWeight: 600,
+    fontSize: 24,
+    borderRadius: 15,
+    padding: "5px 0px",
+    background: "red",
+    "&:hover": {
+      background: "red",
+    },
   },
   btnOutlined: {
     borderRadius: 10,
@@ -133,15 +152,49 @@ const useStyles = makeStyles((theme) => ({
 const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
   const classes = useStyles();
   const history = useHistory();
+  const { user } = useUser();
+  const { account } = useWeb3();
   const { openModal } = useBuyOrderModal();
+  const { openModal: openCancelModal } = useCancelOrderModal();
   const { openModal: openBidModal } = useMakeBidModal();
-  const [saleState,setSaleState] = React.useState();
+  const [saleState, setSaleState] = React.useState();
   const [auctionEndTime, setAuctionEndTime] = useState({
     days: 0,
     hours: 0,
     minutes: 0,
     seconds: 0,
   });
+
+  const { create, createState } = useCreateOrder();
+
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    if (createState === STATE.BUSY) return;
+
+    const order = {
+      address: metadata.address,
+      tokenId: metadata.tokenId,
+      account: account,
+      saleKind: saleState.saleKind,
+      price: saleState.price,
+      paymentToken: saleState.currency === "BNB" ? null : saleState.currency,
+      listingTime:
+        !saleState.startDate || saleState.startDate === ""
+          ? parseInt(Date.now() / 1000)
+          : parseInt(saleState.startDate.getTime() / 1000),
+      expirationTime:
+        !saleState.endDate || saleState.endDate === ""
+          ? 0
+          : parseInt(saleState.endDate.getTime() / 1000),
+      name: metadata.name,
+      collectionName: "",
+      category: metadata.category,
+      verified: user?.verified,
+    };
+
+    const success = await create(order);
+    // if(success)
+  };
 
   useEffect(() => {
     if (order) {
@@ -155,7 +208,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
       <Typography variant="h4" className={classes.mainHeading}>
         {metadata?.name}
       </Typography>
-      <Typography variant="h6">One Of a Kind</Typography>
+      {/* <Typography variant="h6">One Of a Kind</Typography> */}
       {order &&
         (order.order.saleKind === 0 ? (
           <div className={classes.price}>
@@ -222,8 +275,34 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
           </Button>
         </Grid> */}
       </Grid>
-      <br/>
-      <PutOnSale getState={setSaleState}/>
+      <br />
+      <form onSubmit={handleCreate}>
+        {!order && <PutOnSale getState={setSaleState} />}
+        {saleState?.putOnSale && (
+          <CustomButton
+            fullWidth
+            variant="contained"
+            color="secondary"
+            type="submit"
+            className={classes.btn2}
+            disabled={!saleState.putOnSale}
+            loading={createState === STATE.BUSY}
+          >
+            Create Order
+          </CustomButton>
+        )}
+      </form>
+      {order?.order.maker === account && (
+        <CustomButton
+          fullWidth
+          variant="contained"
+          color="secondary"
+          className={classes.cancelBtn}
+          onClick={() => openCancelModal(order)}
+        >
+          Cancel Order
+        </CustomButton>
+      )}
       {/* <div className={classes.valuesGrid}>
         <div>
           <Typography align="center">Last Sold For</Typography>

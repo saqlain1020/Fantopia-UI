@@ -7,6 +7,7 @@ import MintCollectoinSteps from "../Modals/MintCollectionSteps/MintCollectoinSte
 import EditItem from "../Modals/EditItem/EditItem";
 import MakeBid from "../Modals/MakeBid/MakeBid";
 import BuyOrder from "../Modals/BuyOrder/BuyOrder";
+import CancelOrder from "../Modals/CancelOrder/CancelOrder";
 
 export const ModalContext = createContext({
   modal: MODAL_TYPE.NONE,
@@ -34,6 +35,8 @@ export const ModalProvider = ({ children }) => {
         return <MakeBid payload={modalPayload} />;
       case MODAL_TYPE.BUY_NOW:
         return <BuyOrder payload={modalPayload} />;
+      case MODAL_TYPE.CANCEL_ORDER:
+        return <CancelOrder payload={modalPayload} />;
       default:
         return null;
     }

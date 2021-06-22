@@ -70,10 +70,35 @@ export const useCreateOrder = () => {
       };
       await postOrder(orderObj);
       setSignState(STATE.SUCCEED);
+      return true;
     }
   };
 
   return { create, createState: signState };
+};
+
+export const useCancelOrder = (or) => {
+  const [cancelState, setCancelState] = useState(STATE.IDLE);
+  const exchange = useExchange();
+
+  const { account } = useWeb3();
+
+  const cancel = async (order, sig) => {
+    setCancelState(STATE.BUSY);
+
+    let orderHash;
+    try {
+      orderHash = await exchange.methods
+        .cancelOrder(order.order, sig)
+        .send({ from: account });
+      setCancelState(STATE.SUCCEED);
+    } catch (e) {
+      console.log(e);
+      setCancelState(STATE.FAILED);
+    }
+  };
+
+  return { cancel, cancelState };
 };
 
 // also used for bid
@@ -149,7 +174,6 @@ export const useOrder = (address, tokenId) => {
   const [loading, setLoading] = useState(false);
 
   let fetchOrder = async () => {
-    console.log("fetching....");
     setLoading(true);
     const _order = await getOrder(address, tokenId);
     setOrder(_order && Object.keys(_order).length === 0 ? null : _order);

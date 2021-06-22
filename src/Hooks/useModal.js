@@ -31,6 +31,10 @@ export const useBuyOrderModal = () => {
   return useModal(MODAL_TYPE.BUY_NOW);
 };
 
+export const useCancelOrderModal = () => {
+  return useModal(MODAL_TYPE.CANCEL_ORDER);
+};
+
 export const useMakeBidModal = () => {
   return useModal(MODAL_TYPE.MAKE_BID);
 };

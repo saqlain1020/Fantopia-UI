@@ -24,7 +24,7 @@ const Routes = () => {
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />
       <Route path="/Charts" component={Charts} />
-      <Route path="/Pending-Approvals" component={PendingApprovals} />
+      <Route path="/pending-approvals" component={PendingApprovals} />
       <Route path="/:shortUrl" component={ShortUrl} />
     </Switch>
   );
