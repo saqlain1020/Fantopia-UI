@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: 24,
     borderRadius: 15,
+    margin: "20px 0px",
     padding: "5px 0px",
     background: "red",
     "&:hover": {
@@ -193,7 +194,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
     };
 
     const success = await create(order);
-    // if(success)
+    if (success) fetchOrder();
   };
 
   useEffect(() => {
@@ -287,6 +288,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             className={classes.btn2}
             disabled={!saleState.putOnSale}
             loading={createState === STATE.BUSY}
+            style={{ margin: "20px 0px" }}
           >
             Create Order
           </CustomButton>

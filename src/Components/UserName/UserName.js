@@ -74,9 +74,9 @@ const UserName = ({ badgeColor, name, image, ...props }) => {
           <Typography variant="h6" className={classes.name}>
             <b>{name ? name : "User Name"}</b>
           </Typography>
-          <Typography className={classes.value}>
+          {/* <Typography className={classes.value}>
             <b>143 BNB</b>
-          </Typography>
+          </Typography> */}
         </div>
       )}
     </div>

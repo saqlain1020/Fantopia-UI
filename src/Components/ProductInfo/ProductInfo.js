@@ -11,6 +11,8 @@ import DislikeIco from "src/Assets/Icons/Dislike.png";
 import ProductInfoTabs from "../ProductInfoTabs/ProductInfoTabs";
 import Vid from "src/Assets/Videos/vid.mp4";
 import clsx from "clsx";
+import { useReactions, usePostReaction } from "src/Hooks/useSocialInfo";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
@@ -74,6 +76,18 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductInfo = ({ media, order }) => {
   const classes = useStyles();
+  const { address, tokenId } = useParams();
+  const { reactions, loadingReactions, fetchReactions } = useReactions(
+    address,
+    tokenId
+  );
+  const { postReaction, postingReaction } = usePostReaction(address, tokenId);
+
+  const _postReaction = async (type) => {
+    if (postingReaction) return;
+    await postReaction(type);
+    await fetchReactions();
+  };
 
   return (
     <div>
@@ -81,90 +95,114 @@ const ProductInfo = ({ media, order }) => {
       <img src={media} className={classes.bg}></img>
       {/* <video controls={true} controlsList="nodownload" autoPlay loop src={Vid}className={classes.bg}/> */}
       <div className={classes.reactsDiv}>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("like")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={LikeIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              12,642
+              {reactions?.like}
             </Typography>
             <Typography className={classes.valueHeading}>LIKES</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("love")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={LoveIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              8,913
+              {reactions?.love}
             </Typography>
             <Typography className={classes.valueHeading}>LOVES</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("dislike")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={DislikeIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              034
+              {reactions?.dislike}
             </Typography>
             <Typography className={classes.valueHeading}>DISLIKES</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("happy")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={HappyIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              356
+              {reactions?.happy}
             </Typography>
             <Typography className={classes.valueHeading}>HAPPY</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("funny")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={FunnyIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              944
+              {reactions?.funny}
             </Typography>
             <Typography className={classes.valueHeading}>FUNNY</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("wow")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={WowIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              706
+              {reactions?.wow}
             </Typography>
             <Typography className={classes.valueHeading}>WOW!</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn, classes.reactBorder)}>
+        <Button
+          className={clsx(classes.btn, classes.reactBorder)}
+          onClick={() => _postReaction("angry")}
+        >
           <div className={`${classes.react}`}>
             <center>
               <img alt="reaction" src={AngryIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              801
+              {reactions?.angry}
             </Typography>
             <Typography className={classes.valueHeading}>ANGRY</Typography>
           </div>
         </Button>
-        <Button className={clsx(classes.btn)}>
+        <Button
+          className={clsx(classes.btn)}
+          onClick={() => _postReaction("sad")}
+        >
           <div className={classes.react}>
             <center>
               <img alt="reaction" src={SadIco} width="35px" />
             </center>
             <Typography variant="h5" className={classes.value}>
-              12,642
+              {reactions?.sad}
             </Typography>
             <Typography className={classes.valueHeading}>SAD</Typography>
           </div>
