@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
   td: {
     color: theme.customColors.whiteTable,
   },
-  link:{
-    color:"inherit",
-    textDecoration:"none",
+  link: {
+    color: "inherit",
+    textDecoration: "none",
   },
   approveBtn: {
     background: "green",
@@ -77,12 +77,8 @@ const ChartsTable = () => {
               <TableCell className={classes.th} align="center">
                 No.
               </TableCell>
-              <TableCell className={classes.th} >
-                Nft
-              </TableCell>
-              <TableCell className={classes.th} >
-                Creator
-              </TableCell>
+              <TableCell className={classes.th}>Nft</TableCell>
+              <TableCell className={classes.th}>Creator</TableCell>
               <TableCell className={classes.th} align="center">
                 Actions
               </TableCell>
@@ -95,11 +91,15 @@ const ChartsTable = () => {
                   {item.no}
                 </TableCell>
                 <TableCell className={classes.td}>
-                  <Link to={item.nftLink} className={classes.link}>{item.nftName}</Link>
+                  <Link to={item.nftLink} className={classes.link}>
+                    {item.nftName}
+                  </Link>
                 </TableCell>
 
-                <TableCell className={classes.td} >
-                  <Link to={item.nftLink} className={classes.link}>{item.creatorName}</Link>
+                <TableCell className={classes.td}>
+                  <Link to={item.nftLink} className={classes.link}>
+                    {item.creatorName}
+                  </Link>
                 </TableCell>
                 <TableCell className={classes.td} align="center">
                   <TextField
