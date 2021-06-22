@@ -124,6 +124,11 @@ const Theme = createMuiTheme({
         backgroundColor: "rgba(36,227,173,0.3)",
       },
     },
+    MuiSelect: {
+      root: {
+        color: "white",
+      },
+    },
   },
   customShadows: {
     light: "0px 0px 20px rgba(255,255,255,.06)",

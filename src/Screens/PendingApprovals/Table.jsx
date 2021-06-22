@@ -10,6 +10,8 @@ import {
   TableRow,
   TextField,
   Button,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 
 import data from "./data";
@@ -63,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
       background: "red",
     },
   },
+  select:{
+      marginLeft: "auto",
+      display:"block",
+      maxWidth:"fit-content",
+      marginBottom:10,
+  }
 }));
 
 const ChartsTable = () => {
@@ -70,6 +78,11 @@ const ChartsTable = () => {
 
   return (
     <Container maxWidth="xl">
+      <Select defaultValue="collection" className={classes.select}>
+        <MenuItem value="collection">Collection</MenuItem>
+        <MenuItem value="collection1">Collection 1</MenuItem>
+        <MenuItem value="collection2">Collection 2</MenuItem>
+      </Select>
       <TableContainer className={classes.root}>
         <Table>
           <TableHead>
