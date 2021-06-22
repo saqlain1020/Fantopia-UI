@@ -3,9 +3,7 @@ import { getUser } from "src/Api";
 
 const initialState = {
   loadingUser: false,
-  user: {
-    name: "TESTING",
-  },
+  user: {},
 };
 
 export const loadUser = createAsyncThunk(

@@ -247,7 +247,7 @@ const CreateSingleItem = () => {
             ? 0
             : parseInt(saleState.endDate.getTime() / 1000),
       };
-    }
+      }
     console.log({ metadata, order });
     openMintModal({ metadata, order }, (tokenId) => {
       if (tokenId) history.push(`/collection/${collectionAddress}/${tokenId}`);
@@ -361,7 +361,7 @@ const CreateSingleItem = () => {
             <TextField
               select
               variant="outlined"
-              defaultValue="disabled"
+              defaultValue="Digital Art"
               fullWidth
               value={category}
               onClick={(e) => setCategory(e.target.value)}

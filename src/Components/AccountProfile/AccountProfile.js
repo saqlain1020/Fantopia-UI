@@ -100,10 +100,10 @@ const AccountProfile = ({ history }) => {
   const { user } = useUser();
 
   useEffect(() => {
-    setProfilePic(user.profilePic);
-    setCoverPic(user.coverPic);
-    setProfilePicUrl(user.profilePic);
-    setCoverPicUrl(user.coverPic);
+    setProfilePic(user?.profilePic);
+    setCoverPic(user?.coverPic);
+    setProfilePicUrl(user?.profilePic);
+    setCoverPicUrl(user?.coverPic);
   }, [user]);
   console.log(coverPicUrl);
   return (
@@ -130,7 +130,9 @@ const AccountProfile = ({ history }) => {
           <div
             className={classes.profile1}
             style={{
-              backgroundImage: `url(${coverPicUrl})`,
+              backgroundImage: coverPicUrl && `url(${coverPicUrl})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
             }}
           >
             <div
