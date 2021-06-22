@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.primary.vibrant,
     fontWeight: 700,
     width: 290,
+    "&:hover": {
+      background: theme.palette.primary.vibrant,
+      color: theme.customColors.white,
+    },
   },
   linkAccName: {
     color: theme.customColors.lightBlack,
