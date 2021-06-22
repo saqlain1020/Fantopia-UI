@@ -7,6 +7,7 @@ import Charts from "./Screens/Charts/Charts";
 import Collection from "./Screens/Collection/Collection";
 import CreateItem from "./Screens/CreateItem/CreateItem";
 import Home from "./Screens/Home/Home";
+import PendingApprovals from "./Screens/PendingApprovals/PendingApprovals";
 import Product from "./Screens/Product/Product";
 import ProfileStore from "./Screens/ProfileStore/ProfileStore";
 import ShortUrl from "./Screens/ShortUrl/ShortUrl";
@@ -23,6 +24,7 @@ const Routes = () => {
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />
       <Route path="/Charts" component={Charts} />
+      <Route path="/Pending-Approvals" component={PendingApprovals} />
       <Route path="/:shortUrl" component={ShortUrl} />
     </Switch>
   );
