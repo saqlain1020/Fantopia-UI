@@ -64,11 +64,21 @@ const HomeTopCreations = () => {
       </Tabs>
       <Container maxWidth="lg" disableGutters>
         <div className="flex">
-          <div className={classes.grid}>
+          {/* <div className={classes.grid}> */}
+          <Grid container spacing={2}>
             {tab === 0
-              ? saleOrders?.results?.map((e) => <CreationCard order={e} />)
-              : auctionOrders?.results?.map((e) => <CreationCard order={e} />)}
-          </div>
+              ? saleOrders?.results?.map((e) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <CreationCard order={e} />
+                  </Grid>
+                ))
+              : auctionOrders?.results?.map((e) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <CreationCard order={e} />
+                  </Grid>
+                ))}
+          </Grid>
+          {/* </div> */}
         </div>
       </Container>
     </Container>
