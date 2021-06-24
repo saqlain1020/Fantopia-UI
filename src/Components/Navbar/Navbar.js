@@ -12,7 +12,7 @@ import Profile from "./Components/Profile";
 import Notifications from "../Notifications/Notifications";
 import { useWalletModal, useWeb3 } from "@react-dapp/wallet";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
-
+import UserName from './../UserName/UserName';
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
       // borderWidth: "0px !important",
       // borderColor:"red !important",
     },
+
     [theme.breakpoints.down("sm")]: {
       width: 100,
     },
@@ -114,7 +115,8 @@ const Navbar = (props) => {
       </div>
       <Notifications />
       <div>
-        <Profile />
+        {/* <Profile /> */}
+        <UserName noName  onClick={() => props.history.push("/Account/profile")}/>
       </div>
       <ThemeSwitch/>
     </div>

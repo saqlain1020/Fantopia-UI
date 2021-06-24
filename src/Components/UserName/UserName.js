@@ -3,6 +3,7 @@ import { Avatar, Badge, makeStyles, Typography } from "@material-ui/core";
 import HexPng from "src/Assets/Images/hex.png";
 import SmallHexPng from "src/Assets/Images/smallhex.png";
 import PropTypes from "prop-types";
+import VerifyIco from "src/Assets/Icons/verifyIcon.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     fontSize: 10,
     color: theme.palette.primary.main,
-    background: theme.palette.secondary.main,
+    // background: theme.palette.secondary.main,
     width: 15,
     height: 15,
     textAlign: "center",
@@ -33,11 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserName = ({ badgeColor, name, image, ...props }) => {
+const UserName = ({ badgeColor, name, image,onClick, ...props }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={onClick}>
       <Badge
         overlap="circle"
         anchorOrigin={{
@@ -65,7 +66,14 @@ const UserName = ({ badgeColor, name, image, ...props }) => {
         >
           <Avatar src={image} style={{ width: "100%", height: "100%" }} />
           <Typography className={classes.avatarText}>
-            {props?.level || "✓"}
+            {/* {props?.level || "✓"} */}
+            {props?.level || (
+              <img
+                src={VerifyIco}
+                width="110%"
+                style={{ transform: "translateX(-10%)" }}
+              />
+            )}
           </Typography>
         </div>
       </Badge>
