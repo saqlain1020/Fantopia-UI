@@ -63,11 +63,12 @@ const HomeTopCreations = () => {
       </Tabs>
       <Container maxWidth="lg" disableGutters>
         <div className="flex">
-          <div className={classes.grid}>
+          {/* <div className={classes.grid}> */}
+          <Grid container spacing={2}>
             {tab === 0
               ? orders?.results?.map((e) => <CreationCard order={e} />)
               : orders?.results?.map((e) => <CreationCard order={e} />)}
-          </div>
+          </Grid>
         </div>
       </Container>
     </Container>
