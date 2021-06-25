@@ -24,7 +24,7 @@ import {
   useCancelOrderModal,
   useMakeBidModal,
 } from "src/Hooks/useModal";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import PutOnSale from "./../PutOnSale/PutOnSale";
 import { useCreateOrder } from "src/Hooks/useOrder";
 import { useUser } from "src/State/hooks";
@@ -152,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
   const classes = useStyles();
+  const { buynow } = useParams();
   const history = useHistory();
   const { user } = useUser();
   const { account } = useWeb3();
@@ -166,7 +167,28 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
     seconds: 0,
   });
 
+  const [buynowTriggered, setBuynowTriggered] = useState(false);
   const { create, createState } = useCreateOrder();
+
+  useEffect(() => {
+    if (
+      buynow === "buynow" &&
+      order &&
+      !buynowTriggered &&
+      (order?.order.saleKind === 0 || order?.order.maker !== account)
+    )
+      openModal(order, () => {
+        setBuynowTriggered(true);
+        fetchOrder();
+      });
+  }, [order]);
+
+  useEffect(() => {
+    if (order) {
+      const time = getAuctionEndTime(order.order.expirationTime);
+      if (time) setAuctionEndTime(time);
+    }
+  }, [order]);
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -197,13 +219,6 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
     if (success) fetchOrder();
   };
 
-  useEffect(() => {
-    if (order) {
-      const time = getAuctionEndTime(order.order.expirationTime);
-      if (time) setAuctionEndTime(time);
-    }
-  }, [order]);
-
   return (
     <div className={classes.root}>
       <Typography variant="h4" className={classes.mainHeading}>
@@ -226,7 +241,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         ) : (
           <div className={classes.price}>
             <Typography variant="h6" className={classes.bold}>
-              Highest Bid
+              {order?.bids.length > 0 ? "Highest Bid" : "Minimum Bid"}
             </Typography>
             <Typography variant="h3" className={classes.bold}>
               <span>
@@ -252,7 +267,11 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             variant="outlined"
             color="secondary"
             className={classes.btn}
-            disabled={!order || order?.order.saleKind !== 0}
+            disabled={
+              !order ||
+              order?.order.saleKind !== 0 ||
+              order?.order.maker === account
+            }
             onClick={() => openModal(order, fetchOrder)}
           >
             Buy Now
@@ -264,7 +283,11 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             variant="contained"
             color="secondary"
             className={classes.btn2}
-            disabled={!order || order?.order.saleKind === 0}
+            disabled={
+              !order ||
+              order?.order.saleKind === 0 ||
+              order?.order.maker === account
+            }
             onClick={() => openBidModal(order, fetchOrder)}
           >
             Make Offer
@@ -277,33 +300,37 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         </Grid> */}
       </Grid>
       <br />
-      <form onSubmit={handleCreate}>
-        {!order && <PutOnSale getState={setSaleState} />}
-        {saleState?.putOnSale && (
-          <CustomButton
-            fullWidth
-            variant="contained"
-            color="secondary"
-            type="submit"
-            className={classes.btn2}
-            disabled={!saleState.putOnSale}
-            loading={createState === STATE.BUSY}
-            style={{ margin: "20px 0px" }}
-          >
-            Create Order
-          </CustomButton>
-        )}
-      </form>
-      {order?.order.maker === account && (
-        <CustomButton
-          fullWidth
-          variant="contained"
-          color="secondary"
-          className={classes.cancelBtn}
-          onClick={() => openCancelModal(order)}
-        >
-          Cancel Order
-        </CustomButton>
+      {metadata?.owner === account && (
+        <>
+          <form onSubmit={handleCreate}>
+            {!order && <PutOnSale getState={setSaleState} />}
+            {!order && saleState?.putOnSale && (
+              <CustomButton
+                fullWidth
+                variant="contained"
+                color="secondary"
+                type="submit"
+                className={classes.btn2}
+                disabled={!saleState.putOnSale}
+                loading={createState === STATE.BUSY}
+                style={{ margin: "20px 0px" }}
+              >
+                Create Order
+              </CustomButton>
+            )}
+          </form>
+          {order?.order.maker === account && (
+            <CustomButton
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.cancelBtn}
+              onClick={() => openCancelModal(order)}
+            >
+              Cancel Order
+            </CustomButton>
+          )}
+        </>
       )}
       {/* <div className={classes.valuesGrid}>
         <div>

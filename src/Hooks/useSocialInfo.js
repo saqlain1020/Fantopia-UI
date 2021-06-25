@@ -69,7 +69,7 @@ export const usePostReaction = (address, tokenId) => {
   const postReaction = async (reactionType) => {
     setPostingReaction(true);
     await _postReaction(address, tokenId, {
-      useAddress: account,
+      userAddress: account,
       reactionType,
     });
     setPostingReaction(false);

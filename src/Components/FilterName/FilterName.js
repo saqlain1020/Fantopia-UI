@@ -24,10 +24,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FilterName = ({ name, items = [], type = "checkbox", value }) => {
+const FilterName = ({
+  name,
+  selected,
+  onSelect,
+  items = [],
+  type = "checkbox",
+  value,
+}) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
 
   return (
     <>
@@ -36,17 +42,15 @@ const FilterName = ({ name, items = [], type = "checkbox", value }) => {
           {type === "checkbox" && (
             <Checkbox
               color="secondary"
-              checked={checked}
-              onChange={(e, v) => setChecked(v)}
+              checked={selected}
+              onChange={onSelect}
               className={classes.checkbox}
             />
           )}
           {type === "radio" && (
             <Radio
-              checked={checked}
-              onClick={() => {
-                setChecked(!checked);
-              }}
+              checked={selected}
+              onChange={onSelect}
               color="secondary"
               className={classes.checkbox}
             />
@@ -54,7 +58,7 @@ const FilterName = ({ name, items = [], type = "checkbox", value }) => {
 
           <Typography
             variant="h6"
-            onClick={() => setChecked(!checked)}
+            onClick={onSelect}
             style={{ cursor: "pointer" }}
           >
             <b>{name ? name : "Filter"} </b>

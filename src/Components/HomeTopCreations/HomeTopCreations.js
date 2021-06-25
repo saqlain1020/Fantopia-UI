@@ -7,7 +7,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import React from "react";
-import { useAuctionOrders, useFixedPriceOrders } from "src/Hooks/useOrder";
+import { useOrders } from "src/Hooks/useOrder";
 import CreationCard from "../CreationCard/CreationCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +38,7 @@ const HomeTopCreations = () => {
   const classes = useStyles();
   const [tab, setTab] = React.useState(0);
 
-  const { orders: saleOrders } = useFixedPriceOrders();
-  const { orders: auctionOrders } = useAuctionOrders();
+  const { orders } = useOrders();
 
   return (
     <Container maxWidth="xl">
@@ -66,8 +65,8 @@ const HomeTopCreations = () => {
         <div className="flex">
           <div className={classes.grid}>
             {tab === 0
-              ? saleOrders?.results?.map((e) => <CreationCard order={e} />)
-              : auctionOrders?.results?.map((e) => <CreationCard order={e} />)}
+              ? orders?.results?.map((e) => <CreationCard order={e} />)
+              : orders?.results?.map((e) => <CreationCard order={e} />)}
           </div>
         </div>
       </Container>

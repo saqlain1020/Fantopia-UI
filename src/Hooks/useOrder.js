@@ -188,32 +188,47 @@ export const useOrder = (address, tokenId) => {
   return { order, loading, fetchOrder };
 };
 
-export const useFixedPriceOrders = () => {
-  return useOrders(0);
-};
-
-export const useAuctionOrders = () => {
-  return useOrders(1);
-};
-
-const useOrders = (saleKind) => {
+export const useOrders = (filter, sort, page) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const _orders = await getOrders(filter, sort, page);
+      setOrders(_orders);
+      console.log(_orders);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
   useEffect(() => {
-    const fetchOrders = async () => {
-      setLoading(true);
-      try {
-        const _orders = await getOrders(saleKind);
-        setOrders(_orders);
-        console.log(_orders);
-      } catch (e) {
-        console.log(e);
-      }
-      setLoading(false);
-    };
     fetchOrders();
-  }, []);
+  }, [filter, sort, page]);
 
   return { orders, loading };
 };
+
+// export const useHomeOrders = () => {
+//   const [trendingOrders, setTrendingOrders] = useState(null);
+//   const [highestPriceOrders, setHighestPriceOrders] = useState(null);
+//   const [lowestPriceOrders, setLowestPriceOrders] = useState(null);
+
+//   const fetchOrders = async () => {
+//     setLoading(true);
+//     try {
+//       const _orders = await getOrders(filter, sort);
+//       setOrders(_orders);
+//       console.log(_orders);
+//     } catch (e) {
+//       console.log(e);
+//     }
+//     setLoading(false);
+//   };
+//   useEffect(() => {
+//     fetchOrders();
+//   }, [filter, sort]);
+
+//   return { orders, loading };
+// };

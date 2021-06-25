@@ -5,6 +5,7 @@ import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
 import { useCancelOrder } from "src/Hooks/useOrder";
 import { useWaleltSign } from "src/Hooks/useWalletSign";
+import { splitSignature } from "ethers/lib/utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,7 +26,7 @@ const CancelOrder = ({ payload }) => {
   }, []);
 
   useEffect(() => {
-    if (signState === STATE.SUCCEED) cancel(payload, signature);
+    if (signState === STATE.SUCCEED) cancel(payload, splitSignature(signature));
   }, [signState]);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const CancelOrder = ({ payload }) => {
       <Step
         heading="Cancel"
         para="Cancel Order"
-        onClick={() => cancel(payload, signature)}
+        onClick={() => cancel(payload, splitSignature(signature))}
         state={cancelState}
       />
 

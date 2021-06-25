@@ -20,7 +20,10 @@ export const getOrderHistory = async (address, tokenId) => {
   return response.data;
 };
 
-export const getOrders = async (type) => {
-  const response = await marketplaceApi.get(`orders?type=${type}`);
+export const getOrders = async (filter, sort, page = 1, limit = 10) => {
+  const response = await marketplaceApi.post(
+    `orders/filter?page=${page}&limit=${limit}&${sort ? `sortby=${sort}` : ""}`,
+    filter
+  );
   return response.data;
 };

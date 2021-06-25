@@ -18,6 +18,7 @@ import { convertToLowerValue, getTokenSymbol } from "src/Utils";
 import { useParams } from "react-router-dom";
 import { useComments, usePostComment } from "src/Hooks/useSocialInfo";
 import CustomButton from "../CustomButton/CustomButton";
+import { useUser } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,7 @@ const ProductInfoTabs = ({ order }) => {
   const [comment, setComment] = useState("");
   const { address, tokenId } = useParams();
   const { orders, loading } = useOrderHistory(address, tokenId);
+  const { user } = useUser();
 
   const { comments, loadingComments, fetchComments } = useComments(
     address,
@@ -173,7 +175,7 @@ const ProductInfoTabs = ({ order }) => {
                 placeholder="Comment"
                 style={{ marginTop: 10 }}
                 fullWidth
-                disabled={postingComment}
+                disabled={!user?.name || postingComment}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
@@ -183,10 +185,10 @@ const ProductInfoTabs = ({ order }) => {
                   color="secondary"
                   style={{ marginTop: 20 }}
                   onClick={handleOnSend}
-                  disabled={postingComment}
+                  disabled={!user?.name || postingComment}
                   loading={postingComment}
                 >
-                  Send
+                  {user?.name ? "Send" : "First edit your profile to comment!"}
                 </CustomButton>
               </div>
             </>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Button,
   CircularProgress,
   Grid,
   makeStyles,
@@ -12,7 +13,8 @@ import CreationCard from "../CreationCard/CreationCard";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FilterBar from "../FilterBar/FilterBar";
-import { useAuctionOrders, useFixedPriceOrders } from "src/Hooks/useOrder";
+import { useOrders } from "src/Hooks/useOrder";
+import PageSelector from "../PageSelector/PageSelector";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,8 +44,16 @@ const useStyles = makeStyles((theme) => ({
 
 const CategoriesCreators = () => {
   const classes = useStyles();
-  const { orders, loading } = useFixedPriceOrders();
-  const { orders: auctionOrders } = useAuctionOrders();
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState({
+    verified: false,
+    category: ["digitalArt", "photos", "videos", "music"],
+    minPrice: "",
+    maxPrice: "",
+    saleKind: 0,
+  });
+  const [sortBy, setSortBy] = useState("recentlyAdded");
+  const { orders, loading } = useOrders(filter, sortBy, page);
 
   return (
     <div className={classes.root}>
@@ -67,26 +77,29 @@ const CategoriesCreators = () => {
         ))}
       </Grid> */}
       <div className={classes.productsGrid}>
-        <CategoriesFilterBar />
+        <CategoriesFilterBar
+          setFilter={setFilter}
+          filter={filter}
+          setSortBy={setSortBy}
+          sortBy={sortBy}
+        />
         {/* <FilterBar/> */}
         <Grid container>
           {loading ? (
             <CircularProgress />
           ) : (
-            [...(orders?.results ?? []), ...(auctionOrders?.results ?? [])].map(
-              (e) => (
-                <Grid item xs={12} sm={12} md={4} lg={3}>
-                  <CreationCard order={e} />
-                </Grid>
-              )
-            )
+            orders?.results?.map((e) => (
+              <Grid item xs={12} sm={12} md={4} lg={3}>
+                <CreationCard order={e} />
+              </Grid>
+            ))
           )}
           <Grid item xs={12}>
-            <Typography variant="h6" align="center">
-              <ChevronLeftIcon className={classes.dropIcon} />{" "}
-              {/* <b>Displaying 1 of 20 of 2,000</b>{" "} */}
-              <ChevronRightIcon className={classes.dropIcon} />
-            </Typography>
+            <PageSelector
+              pages={orders.totalPages}
+              selectedPage={page}
+              selectPage={setPage}
+            />
           </Grid>
         </Grid>
       </div>

@@ -242,7 +242,19 @@ const CreationCard = (props) => {
             >
               {/* <Typography className={classes.valueText}>0.02 BNB</Typography> */}
               {order && (
-                <Button variant="contained" className={classes.bidBtn}>
+                <Button
+                  variant="contained"
+                  className={classes.bidBtn}
+                  onClick={() =>
+                    history.push(
+                      `/collection/${
+                        data && data.address
+                          ? `${data?.address}/${data?.tokenId}`
+                          : `${metadata?.address}/${metadata?.tokenId}`
+                      }`
+                    )
+                  }
+                >
                   Buy Now
                 </Button>
               )}
