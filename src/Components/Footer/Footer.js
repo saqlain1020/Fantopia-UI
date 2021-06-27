@@ -10,6 +10,7 @@ import {
 import React from "react";
 import { LANGUAGES } from "src/Config/localization";
 import { useChangeLanguage, useLang } from "src/State/hooks";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,13 +112,7 @@ const Footer = () => {
               className={classes.input}
               placeholder="Your - Email"
             />
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() =>
-                change(lang === LANGUAGES.en ? LANGUAGES.kr : LANGUAGES.en)
-              }
-            >
+            <Button variant="contained" color="secondary">
               Subscribe
             </Button>
           </div>
@@ -138,6 +133,9 @@ const Footer = () => {
               <i className="fab fa-telegram-plane"></i>
             </IconButton>
           </div>
+        </Grid>
+        <Grid item xs={12}>
+          <LanguageSelect />
         </Grid>
       </Grid>
     </Container>
