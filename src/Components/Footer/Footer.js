@@ -8,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,9 @@ const Footer = () => {
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <LanguageSelect/>
+        </Grid>
         <Grid item xs={12} sm={6}>
           <Grid container spacing={10}>
             <Grid item>
