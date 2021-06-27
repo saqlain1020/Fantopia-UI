@@ -1,9 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getUser } from "src/Api";
+import { LANGUAGES } from "src/Config/localization";
 
 const initialState = {
   loadingUser: false,
   user: {},
+  lang: LANGUAGES.en,
 };
 
 export const loadUser = createAsyncThunk(
@@ -22,6 +24,11 @@ export const loadUser = createAsyncThunk(
 const applicationSlice = createSlice({
   name: "application",
   initialState: initialState,
+  reducers: {
+    changeLanguage: (state, action) => {
+      state.lang = action.payload;
+    },
+  },
   extraReducers: {
     [loadUser.pending]: (state) => {
       state.loadingUser = true;
@@ -35,5 +42,7 @@ const applicationSlice = createSlice({
     },
   },
 });
+
+export const { changeLanguage } = applicationSlice.actions;
 
 export default applicationSlice.reducer;

@@ -32,7 +32,7 @@ export const useERC20Approval = (address, balance) => {
       const bal = await token.methods.allowance(account, EXCHANGE).call();
       const approveBal = new BigNumber(bal);
       setApprovedBalance(approveBal);
-      setIsApproved(approveBal >= new BigNumber(balance ? balance : 0));
+      setIsApproved(approveBal.gte(new BigNumber(balance ? balance : 0)));
     } catch (e) {
       console.log(e);
     }

@@ -8,6 +8,7 @@ import EditItem from "../Modals/EditItem/EditItem";
 import MakeBid from "../Modals/MakeBid/MakeBid";
 import BuyOrder from "../Modals/BuyOrder/BuyOrder";
 import CancelOrder from "../Modals/CancelOrder/CancelOrder";
+import LoadingModal from "../Modals/LoadingModal/LoadingModal";
 
 export const ModalContext = createContext({
   modal: MODAL_TYPE.NONE,
@@ -18,6 +19,7 @@ export const ModalProvider = ({ children }) => {
   const [modal, setModal] = useState(MODAL_TYPE.NONE);
   const [modalPayload, setModalPayload] = useState(undefined);
   const [onModalClose, setOnModalClose] = useState(undefined);
+  const [hideClose, setHideClose] = useState(false);
 
   const renderModal = () => {
     switch (modal) {
@@ -37,6 +39,8 @@ export const ModalProvider = ({ children }) => {
         return <BuyOrder payload={modalPayload} />;
       case MODAL_TYPE.CANCEL_ORDER:
         return <CancelOrder payload={modalPayload} />;
+      case MODAL_TYPE.LOADING_MODAL:
+        return <LoadingModal payload={modalPayload} />;
       default:
         return null;
     }
@@ -45,7 +49,7 @@ export const ModalProvider = ({ children }) => {
     <ModalContext.Provider
       value={{
         modal: modal,
-        setModal: (modalType, payload, onClose, close) => {
+        setModal: (modalType, payload, onClose, close, _hideClose) => {
           // if this is an close modal event
           if (close) {
             if (onModalClose) onModalClose(payload);
@@ -56,12 +60,14 @@ export const ModalProvider = ({ children }) => {
             setOnModalClose(() => onClose);
             setModalPayload(payload);
             setModal(modalType);
+            setHideClose(_hideClose);
           }
         },
       }}
     >
       {children}
       <ModalManager
+        hideClose={hideClose}
         open={modal !== MODAL_TYPE.NONE}
         close={() => {
           setModal(MODAL_TYPE.NONE);

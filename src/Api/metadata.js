@@ -17,3 +17,5 @@ export const getMetadata = async (address, tokenId) => {
   const response = await metadataApi.get(`${address}/${tokenId}`);
   return response.data;
 };
+
+// export const approveTokenMint =()

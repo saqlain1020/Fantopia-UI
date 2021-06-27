@@ -10,8 +10,44 @@ import {
 } from "../Api";
 
 export const useCollectionList = () => {
+  const [loading, setLoading] = useState(false);
   const [userCollections, setUserCollections] = useState([]);
   const [celebrityCollections, setCelebrityCollections] = useState([]);
+  const { account } = useWeb3();
+
+  const fetchUserCollection = async () => {
+    try {
+      setLoading(true);
+      const _col = await getUserCollections(account);
+      setUserCollections(_col);
+      setLoading(false);
+    } catch (e) {
+      console.log("USER COL ", e);
+    }
+  };
+
+  useEffect(() => {
+    const fetchCelebrityCollection = async () => {
+      setLoading(true);
+      setCelebrityCollections(await getCelebrityCollections());
+      setLoading(false);
+    };
+    fetchCelebrityCollection();
+  }, []);
+
+  useEffect(() => {
+    if (account) fetchUserCollection();
+  }, [account]);
+  return {
+    userCollections,
+    celebrityCollections,
+    loading,
+    fetchUserCollection,
+  };
+};
+
+export const useUserCollections = () => {
+  const [userCollections, setUserCollections] = useState([]);
   const { account } = useWeb3();
 
   const fetchUserCollection = async () => {
@@ -24,16 +60,9 @@ export const useCollectionList = () => {
   };
 
   useEffect(() => {
-    const fetchCelebrityCollection = async () => {
-      setCelebrityCollections(await getCelebrityCollections());
-    };
-    fetchCelebrityCollection();
-  }, []);
-
-  useEffect(() => {
     if (account) fetchUserCollection();
   }, [account]);
-  return { userCollections, celebrityCollections, fetchUserCollection };
+  return { userCollections, fetchUserCollection };
 };
 
 export const useCollection = (value) => {
@@ -61,7 +90,7 @@ export const useCollection = (value) => {
   return { collection, loading };
 };
 
-export const useCollectionTokens = (address) => {
+export const useCollectionTokens = (address, pending = false) => {
   const [tokens, setTokens] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -69,10 +98,10 @@ export const useCollectionTokens = (address) => {
     const fetch = async () => {
       setLoading(true);
 
-      const _tokens = await getCollectionTokens(address);
+      const _tokens = await getCollectionTokens(address, pending);
       setTokens(_tokens);
 
-      setLoading(true);
+      setLoading(false);
     };
 
     if (address) fetch(address);

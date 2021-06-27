@@ -34,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserName = ({ badgeColor, name, image,onClick, ...props }) => {
+const UserName = ({ badgeColor, name, image, onClick, ...props }) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root} onClick={onClick}>
       <Badge
@@ -58,6 +57,7 @@ const UserName = ({ badgeColor, name, image,onClick, ...props }) => {
       >
         <div
           style={{
+            cursor: "pointer",
             position: "relative",
             width: 40,
             height: 40,

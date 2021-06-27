@@ -5,9 +5,12 @@ import {
   Tabs,
   Typography,
   Grid,
+  CircularProgress,
 } from "@material-ui/core";
 import React from "react";
-import { useOrders } from "src/Hooks/useOrder";
+import { LOCALE } from "src/Config/localization";
+import { useTopCreationOrders } from "src/Hooks/useOrder";
+import { useLang } from "src/State/hooks";
 import CreationCard from "../CreationCard/CreationCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -35,15 +38,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeTopCreations = () => {
+  const lang = useLang();
   const classes = useStyles();
   const [tab, setTab] = React.useState(0);
-
-  const { orders } = useOrders();
+  const { orders, loading } = useTopCreationOrders(
+    tab === 0 ? 0 : 1,
+    tab === 2 ? "highestValue" : tab === 3 ? "mostAffordable" : "recentlyAdded",
+    1
+  );
 
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" className={classes.mainHeading}>
-        Top Ranked Creations
+        {LOCALE.TOP_RANKED_COLLECTION[lang]}
       </Typography>
       <Tabs
         value={tab}
@@ -55,22 +62,26 @@ const HomeTopCreations = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label="Fixed Price Sales" />
+        <Tab label="Fixed Price" />
         <Tab label="Auctions" />
-        <Tab label="Most Viewed" />
-        <Tab label="Lowest Price" />
         <Tab label="Highest Price" />
+        <Tab label="Most Affordable" />
       </Tabs>
-      <Container maxWidth="lg" disableGutters>
-        <div className="flex">
-          {/* <div className={classes.grid}> */}
-          <Grid container spacing={2}>
-            {tab === 0
-              ? orders?.results?.map((e) => <CreationCard order={e} />)
-              : orders?.results?.map((e) => <CreationCard order={e} />)}
+      <Grid container>
+        {loading ? (
+          <Grid>
+            <center>
+              <CircularProgress />
+            </center>
           </Grid>
-        </div>
-      </Container>
+        ) : (
+          orders?.results?.map((e) => (
+            <Grid item xs={12} sm={12} md={4} lg={3}>
+              <CreationCard order={e} />
+            </Grid>
+          ))
+        )}
+      </Grid>
     </Container>
   );
 };

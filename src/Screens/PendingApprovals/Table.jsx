@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   makeStyles,
@@ -16,12 +16,16 @@ import {
 
 import data from "./data";
 import { Link } from "react-router-dom";
+import {
+  useCollectionTokens,
+  useUserCollections,
+} from "src/Hooks/useCollection";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     boxShadow: theme.customShadows.light,
     color: theme.palette.secondary.main,
-    background: theme.palette.primary.contrastText
+    background: theme.palette.primary.contrastText,
   },
   bg: {
     background: theme.palette.secondary.light,
@@ -66,23 +70,35 @@ const useStyles = makeStyles((theme) => ({
       background: "red",
     },
   },
-  select:{
-      marginLeft: "auto",
-      display:"block",
-      maxWidth:"fit-content",
-      marginBottom:10,
-  }
+  select: {
+    marginLeft: "auto",
+    display: "block",
+    maxWidth: "fit-content",
+    marginBottom: 10,
+  },
 }));
 
 const ChartsTable = () => {
   const classes = useStyles();
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const { userCollections } = useUserCollections();
+  const { tokens, loading } = useCollectionTokens(selectedCollection, true);
+
+  useEffect(() => {
+    if (userCollections.length > 0)
+      setSelectedCollection(userCollections[0].address);
+  }, [userCollections]);
 
   return (
     <Container maxWidth="xl">
-      <Select defaultValue="collection" className={classes.select}>
-        <MenuItem value="collection">Collection</MenuItem>
-        <MenuItem value="collection1">Collection 1</MenuItem>
-        <MenuItem value="collection2">Collection 2</MenuItem>
+      <Select
+        onChange={(e) => setSelectedCollection(e.target.value)}
+        value={selectedCollection}
+        className={classes.select}
+      >
+        {userCollections.map((e) => (
+          <MenuItem value={e.address}>{e.name}</MenuItem>
+        ))}
       </Select>
       <TableContainer className={classes.root}>
         <Table>
@@ -99,20 +115,20 @@ const ChartsTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((item, index) => (
+            {tokens.map((item, index) => (
               <TableRow>
                 <TableCell className={classes.td} align="center">
-                  {item.no}
+                  {index + 1}
                 </TableCell>
                 <TableCell className={classes.td}>
                   <Link to={item.nftLink} className={classes.link}>
-                    {item.nftName}
+                    {item.name}
                   </Link>
                 </TableCell>
 
                 <TableCell className={classes.td}>
                   <Link to={item.nftLink} className={classes.link}>
-                    {item.creatorName}
+                    {item.owner}
                   </Link>
                 </TableCell>
                 <TableCell className={classes.td} align="center">

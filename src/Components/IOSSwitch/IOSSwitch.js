@@ -6,7 +6,7 @@ const IOSSwitch = withStyles((theme) => ({
     height: 26,
     padding: 0,
     margin: theme.spacing(1),
-    overflow:"visible",
+    overflow: "visible",
   },
   switchBase: {
     padding: 1,
@@ -30,7 +30,7 @@ const IOSSwitch = withStyles((theme) => ({
     height: 22,
   },
   track: {
-    height:"100%",
+    height: "100%",
     borderRadius: 26 / 2,
     border: `1px solid ${theme.palette.grey[400]}`,
     backgroundColor: theme.palette.grey[50],
@@ -39,9 +39,10 @@ const IOSSwitch = withStyles((theme) => ({
   },
   checked: {},
   focusVisible: {},
-}))(({ classes, ...props }) => {
+}))(({ classes, checked, ...props }) => {
   return (
     <Switch
+      checked={checked}
       focusVisibleClassName={classes.focusVisible}
       disableRipple
       classes={{

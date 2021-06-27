@@ -16,6 +16,7 @@ import CustomButton from "../CustomButton/CustomButton";
 import { useWaleltSign } from "src/Hooks/useWalletSign";
 import { getEditProfileMessage } from "src/Utils";
 import { STATE } from "src/Config/enums";
+import { useLoadUser } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
   const { create, creating } = useCreateUser();
   const { update, updating } = useUpdateeUser();
   const { sign, signState } = useWaleltSign();
+  const loadUser = useLoadUser();
 
   const { account } = useWeb3();
   const [name, setName] = useState("");
@@ -102,6 +104,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
     console.log(signature, _user);
     if (signature) {
       user ? update(_user) : create({ ..._user, signature });
+      loadUser();
     }
   };
 
@@ -173,11 +176,11 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant="h6" className={classes.mainHeading}>
             Twitter Feed
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>
@@ -203,7 +206,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
               flexFlow: "column",
             }}
           >
-            <Button
+            {/* <Button
               type="submit"
               variant="contained"
               color="primary"
@@ -212,7 +215,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
             >
               <TwitterIcon fontSize="small" />
               &nbsp;&nbsp; Link your Twitter Account
-            </Button>
+            </Button> */}
 
             <Button
               variant="contained"

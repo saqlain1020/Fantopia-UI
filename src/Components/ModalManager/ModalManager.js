@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ModalManager = ({ open, close, ...props }) => {
+const ModalManager = ({ open, close, hideClose = false, ...props }) => {
   const classes = useStyles();
   return (
     <Dialog
@@ -45,11 +45,13 @@ const ModalManager = ({ open, close, ...props }) => {
         className: classes.paper,
       }}
     >
-      <CloseIcon
-        className={classes.closeIcon}
-        fontSize="small"
-        onClick={close}
-      />
+      {!hideClose && (
+        <CloseIcon
+          className={classes.closeIcon}
+          fontSize="small"
+          onClick={close}
+        />
+      )}
 
       <div className={classes.root}>{props.children}</div>
     </Dialog>

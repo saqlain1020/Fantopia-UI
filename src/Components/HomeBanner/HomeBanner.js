@@ -17,6 +17,9 @@ import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { Carousel } from "3d-react-carousal";
 import clsx from "clsx";
+import { LOCAL, LOCALE } from "src/Config/localization";
+import { useLang } from "src/State/hooks";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   btnSelected: {
+    cursor: "pointer",
     color: theme.palette.secondary.main,
     background: theme.palette.primary.main,
     fontWeight: "700",
@@ -57,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     transition: "all 200ms ease-out",
   },
   btn: {
+    cursor: "pointer",
     color: theme.customColors.white,
     background: "transparent",
     fontWeight: "700",
@@ -133,10 +138,13 @@ const RightArrow = (props) => {
 };
 
 const HomeBanner = () => {
+  const lang = useLang();
   const classes = useStyles();
   const [selection, setSelection] = React.useState(1);
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const history = useHistory();
 
   const slides = [ad1, ad2, ad3, ad4, ad5].map((e) => (
     <div>
@@ -179,17 +187,23 @@ const HomeBanner = () => {
             <div>
               <Typography
                 className={selection === 1 ? classes.btnSelected : classes.btn}
-                onClick={() => setSelection(1)}
+                onClick={() => {
+                  setSelection(1);
+                  history.push(`createitem`);
+                }}
               >
-                Create
+                {LOCALE.CREATE[lang]}
               </Typography>
             </div>
             <div>
               <Typography
                 className={selection === 2 ? classes.btnSelected : classes.btn}
-                onClick={() => setSelection(2)}
+                onClick={() => {
+                  setSelection(2);
+                  history.push(`explore`);
+                }}
               >
-                Collect
+                {LOCALE.COLLECT[lang]}
               </Typography>
             </div>
           </div>

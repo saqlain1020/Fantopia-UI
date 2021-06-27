@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import { LANGUAGES } from "src/Config/localization";
+import { useChangeLanguage, useLang } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +52,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+  const change = useChangeLanguage();
+  const lang = useLang();
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -107,7 +111,13 @@ const Footer = () => {
               className={classes.input}
               placeholder="Your - Email"
             />
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() =>
+                change(lang === LANGUAGES.en ? LANGUAGES.kr : LANGUAGES.en)
+              }
+            >
               Subscribe
             </Button>
           </div>

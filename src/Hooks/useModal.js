@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MODAL_TYPE } from "src/Config/enums";
 import { ModalContext } from "../Providers/ModalProvider";
 
 export const useModal = (modalType) => {
   const { modal, setModal } = useContext(ModalContext);
-  const openModal = (payload, onClose) => {
-    setModal(modalType, payload, onClose);
+  const openModal = (payload, onClose, hideClose) => {
+    setModal(modalType, payload, onClose, null, hideClose);
   };
 
   return { isModalOpen: modal !== MODAL_TYPE.NONE, openModal, modal };
@@ -37,6 +37,15 @@ export const useCancelOrderModal = () => {
 
 export const useMakeBidModal = () => {
   return useModal(MODAL_TYPE.MAKE_BID);
+};
+
+export const useLoadingModal = (loading) => {
+  const { openModal } = useModal(
+    loading ? MODAL_TYPE.LOADING_MODAL : MODAL_TYPE.NONE
+  );
+  useEffect(() => {
+    openModal(null, null, true);
+  }, [loading]);
 };
 
 export const useCloseModal = () => {

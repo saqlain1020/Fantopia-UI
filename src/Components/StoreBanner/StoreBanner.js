@@ -11,13 +11,15 @@ import Twitter from "src/Assets/Icons/Twitter.png";
 import Youtube from "src/Assets/Icons/Youtube.png";
 import Instagram from "src/Assets/Icons/Instagram.png";
 import UserName from "../UserName/UserName";
+import { useUser } from "src/State/hooks";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.dark,
     borderRadius: 20,
-    overflow:"hidden",
-    paddingBottom:20,
+    overflow: "hidden",
+    paddingBottom: 20,
   },
   bg: {
     background: theme.palette.secondary.dark,
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.customColors.veryLightBlack,
     fontWeight: 600,
     paddingBottom: 10,
-    fontSize:12,
+    fontSize: 12,
     justifyContent: "center",
   },
   followBtn: {
@@ -57,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
     height: 65,
     fontWeight: 600,
     fontSize: 22,
-    display:"block",
-    margin:"auto",
+    display: "block",
+    margin: "auto",
     // left: "calc(50% - 100px)",
     color: theme.customColors.white,
     borderRadius: 15,
@@ -71,20 +73,22 @@ const useStyles = makeStyles((theme) => ({
   },
   rightGrid: {
     display: "flex",
-    marginTop:10,
+    marginTop: 10,
     justifyContent: "space-evenly",
     maxWidth: 500,
     marginLeft: "auto",
     marginRight: "auto",
-    "& img":{
-      width:30,
-      height:30,
-    }
+    "& img": {
+      width: 30,
+      height: 30,
+    },
   },
 }));
 
 const StoreBanner = () => {
   const classes = useStyles();
+  const { user } = useUser();
+  const history = useHistory();
 
   const copy = (id) => {
     var configId = document.querySelector(id);
@@ -107,12 +111,19 @@ const StoreBanner = () => {
 
   const handleCopy = () => {
     copy("#unique_user_id");
-    alert("copied")
+    alert("copied");
   };
 
   return (
     <div className={classes.root}>
-      <div className={classes.bg}>
+      <div
+        className={classes.bg}
+        style={{
+          background: `url(${user?.coverPic})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
+      >
         <div
           style={{
             position: "relative",
@@ -121,7 +132,7 @@ const StoreBanner = () => {
             transform: "scale(3)",
           }}
         >
-          <UserName noName />
+          <UserName name={user?.name} image={user?.profilePic} noName />
         </div>
       </div>
       <Grid
@@ -131,13 +142,10 @@ const StoreBanner = () => {
       >
         <Grid item xs={12}>
           <Typography variant="h4" className={classes.value}>
-            Marina Valentine
+            {user?.name}
           </Typography>
           <Typography className={classes.idValue}>
-            <span id="unique_user_id">
-              0xb5e5993512385aca01ec292DeF80f3C906d4314e
-            </span>{" "}
-            &nbsp;
+            <span id="unique_user_id">{user?.address}</span> &nbsp;
             <img
               alt="copy"
               src={CopyIcon}
@@ -158,7 +166,14 @@ const StoreBanner = () => {
             // className={classes.followBtn}
             // variant="outlined"
             color="secondary"
-            style={{margin:"auto",display:"block",fontSize:20,padding:10,marginTop:10}}
+            style={{
+              margin: "auto",
+              display: "block",
+              fontSize: 20,
+              padding: 10,
+              marginTop: 10,
+            }}
+            onClick={() => history.push("pending-approvals")}
           >
             Pending Nfts
           </Button>
@@ -192,7 +207,7 @@ const StoreBanner = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-        <Typography variant="h6" className={classes.value}>
+          <Typography variant="h6" className={classes.value}>
             Share link to this page
           </Typography>
           <div className={classes.rightGrid}>

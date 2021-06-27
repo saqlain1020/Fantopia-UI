@@ -186,13 +186,16 @@ const CreationCard = (props) => {
           className={props.gift ? classes.imgGift : classes.img}
           src={data?.media ?? metadata?.image}
           onClick={() =>
-            history.push(
-              `/collection/${
-                data && data.address
-                  ? `${data?.address}/${data?.tokenId}`
-                  : `${metadata?.address}/${metadata?.tokenId}`
-              }`
-            )
+            {
+              if(data?.address || metadata)
+              history.push(
+                `/collection/${
+                  data && data.address
+                    ? `${data?.address}/${data?.tokenId}`
+                    : `${metadata?.address}/${metadata?.tokenId}`
+                }`
+              )
+            }
           }
         />
         {data && data.price ? (
@@ -308,10 +311,10 @@ const CreationCard = (props) => {
             </div>
           </Grid>
           <Grid item xs={4}>
-            <Typography align="center" className={classes.ratingValue}>
+            {/* <Typography align="center" className={classes.ratingValue}>
               1 of 1<br />
               <img alt="like" src={HeartIcon} />
-            </Typography>
+            </Typography> */}
           </Grid>
         </Grid>
       )}

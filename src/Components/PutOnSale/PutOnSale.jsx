@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PutOnSale = ({ getState }) => {
+const PutOnSale = ({ getState, disabled }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     price: "",
@@ -90,11 +90,13 @@ const PutOnSale = ({ getState }) => {
       <div className={classes.switches}>
         <Typography variant="h6">Put on Sale</Typography>
         <IOSSwitch
+          checked={disabled ? false : state.putOnSale}
+          disabled={disabled}
           onClick={() => setState({ ...state, putOnSale: !state.putOnSale })}
         />
       </div>
       <Grid container spacing={1}>
-        {state.putOnSale && (
+        {!disabled && state.putOnSale && (
           <>
             <Grid item xs={4}>
               <div

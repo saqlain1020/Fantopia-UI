@@ -5,6 +5,8 @@ import { Typography } from "@material-ui/core";
 import ViewQuiltTwoToneIcon from "@material-ui/icons/ViewQuiltTwoTone";
 import ImageTwoToneIcon from "@material-ui/icons/ImageTwoTone";
 import LocalOfferTwoToneIcon from "@material-ui/icons/LocalOfferTwoTone";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Features = () => {
   const classes = useStyles();
+  const lang = useLang();
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -36,12 +39,10 @@ const Features = () => {
               align="center"
               style={{ marginBottom: 10 }}
             >
-              <b>Set up your wallet</b>
+              <b>{LOCALE.SETUP_WALLET[lang]}</b>
             </Typography>
             <Typography align="center">
-              Once you’ve set up your wallet of choice, connect it to OpenSea by
-              clicking the wallet icon in the top right corner. Learn about the
-              <a href="#"> wallets we support.</a>
+              {LOCALE.SETUP_WALLET_TEXT[lang]}
             </Typography>
           </div>
         </Grid>
@@ -53,12 +54,10 @@ const Features = () => {
               align="center"
               style={{ marginBottom: 10 }}
             >
-              <b>Create your collection</b>
+              <b>{LOCALE.CREATE_COLLECTION[lang]}</b>
             </Typography>
             <Typography align="center">
-              Click <a href="#">Create</a> and set up your collection. Add
-              social links, a description, profile & banner images, and set a
-              secondary sales fee.
+              {LOCALE.CREATE_COLLECTION_TEXT[lang]}
             </Typography>
           </div>
         </Grid>
@@ -70,13 +69,9 @@ const Features = () => {
               align="center"
               style={{ marginBottom: 10 }}
             >
-              <b>Add your NFTs</b>
+              <b>{LOCALE.ADD_NFT[lang]}</b>
             </Typography>
-            <Typography align="center">
-              Upload your work (image, video, audio, or 3D art), add a title and
-              description, and customize your NFTs with properties, stats, and
-              unlockable content.
-            </Typography>
+            <Typography align="center">{LOCALE.ADD_NFT_TEXT[lang]}</Typography>
           </div>
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
@@ -87,12 +82,10 @@ const Features = () => {
               align="center"
               style={{ marginBottom: 10 }}
             >
-              <b>List them for sale</b>
+              <b>{LOCALE.LIST_FOR_SALE[lang]}</b>
             </Typography>
             <Typography align="center">
-              Choose between auctions, fixed-price listings, and declining-price
-              listings. You choose how you want to sell your NFTs, and we help
-              you sell them!
+              {LOCALE.LIST_FOR_SALE_TEXT[lang]}
             </Typography>
           </div>
         </Grid>

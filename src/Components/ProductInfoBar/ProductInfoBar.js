@@ -27,9 +27,10 @@ import {
 import { useHistory, useParams } from "react-router-dom";
 import PutOnSale from "./../PutOnSale/PutOnSale";
 import { useCreateOrder } from "src/Hooks/useOrder";
-import { useUser } from "src/State/hooks";
+import { useLang, useUser } from "src/State/hooks";
 import { useWeb3 } from "@react-dapp/wallet";
 import { STATE } from "src/Config/enums";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -151,6 +152,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
+  const lang = useLang();
   const classes = useStyles();
   const { buynow } = useParams();
   const history = useHistory();
@@ -229,7 +231,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         (order.order.saleKind === 0 ? (
           <div className={classes.price}>
             <Typography variant="h6" className={classes.bold}>
-              On Sale For
+              {LOCALE.ON_SALE_FOR[lang]}
             </Typography>
             <Typography variant="h3" className={classes.bold}>
               <span>
@@ -267,14 +269,14 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             variant="outlined"
             color="secondary"
             className={classes.btn}
-            disabled={
-              !order ||
-              order?.order.saleKind !== 0 ||
-              order?.order.maker === account
-            }
+            // disabled={
+            //   !order ||
+            //   order?.order.saleKind !== 0 ||
+            //   order?.order.maker === account
+            // }
             onClick={() => openModal(order, fetchOrder)}
           >
-            Buy Now
+            {LOCALE.BUY_NOW[lang]}
           </CustomButton>
         </Grid>
         <Grid item xs={6}>
@@ -290,7 +292,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             }
             onClick={() => openBidModal(order, fetchOrder)}
           >
-            Make Offer
+            {LOCALE.MAKE_OFFER[lang]}
           </Button>
         </Grid>
         {/* <Grid item xs={12} className="flex">
@@ -315,7 +317,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
                 loading={createState === STATE.BUSY}
                 style={{ margin: "20px 0px" }}
               >
-                Create Order
+                {LOCALE.CREATE_ORDER[lang]}
               </CustomButton>
             )}
           </form>
@@ -327,7 +329,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
               className={classes.cancelBtn}
               onClick={() => openCancelModal(order)}
             >
-              Cancel Order
+              {LOCALE.CANCEL_ORDER[lang]}
             </CustomButton>
           )}
         </>
@@ -352,7 +354,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         </div>
        </div> */}
       <Typography variant="h6" className={classes.ownByText}>
-        Owned By:
+        {LOCALE.OWNER[lang]}
       </Typography>
       <ProfileName
         title={
@@ -365,7 +367,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         }
       />
       <Typography variant="h6" className={classes.createdByText}>
-        Created By:
+        {LOCALE.CREATOR[lang]}
       </Typography>
       <ProfileName
         title={
@@ -398,10 +400,10 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
           className={classes.createdByText}
           style={{ marginRight: 18 }}
         >
-          View Collection
+          {LOCALE.VIEW_COLLECTION[lang]}
         </Typography>
       </div>
-      <div>
+      {/* <div>
         <Typography variant="h6" align="center">
           <b>Share link to this page</b>
         </Typography>
@@ -414,12 +416,12 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
           <img width="35px" src={Patreon} alt="Patreon" />
           <img width="35px" src={Discord} alt="Discord" />
         </div>
-      </div>
+      </div> */}
       <Typography className={classes.categories}>
-        Categories: <span>{metadata?.category}</span>
+        {LOCALE.CATEGORIES[lang]}: <span>{metadata?.category}</span>
       </Typography>
       <Typography className={classes.idText}>
-        <b>Contact Address: </b>{" "}
+        <b>{LOCALE.CONTRACT_ADDRESS[lang]}: </b>{" "}
         <span>
           {metadata
             ? `${metadata.address.substring(
@@ -433,7 +435,7 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         </span>
       </Typography>
       <Typography className={classes.idText}>
-        <b>Token ID: </b> <span>{metadata?.tokenId}</span>
+        <b>{LOCALE.TOKEN_ID[lang]}: </b> <span>{metadata?.tokenId}</span>
       </Typography>
     </div>
   );

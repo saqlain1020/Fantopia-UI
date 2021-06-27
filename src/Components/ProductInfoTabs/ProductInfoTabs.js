@@ -18,7 +18,8 @@ import { convertToLowerValue, getTokenSymbol } from "src/Utils";
 import { useParams } from "react-router-dom";
 import { useComments, usePostComment } from "src/Hooks/useSocialInfo";
 import CustomButton from "../CustomButton/CustomButton";
-import { useUser } from "src/State/hooks";
+import { useLang, useUser } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,11 +62,12 @@ const commentData = [
 
 const ProductInfoTabs = ({ order }) => {
   const classes = useStyles();
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(order?.bids?.length !== 0 ? 0 : 1);
   const [comment, setComment] = useState("");
   const { address, tokenId } = useParams();
   const { orders, loading } = useOrderHistory(address, tokenId);
   const { user } = useUser();
+  const lang = useLang();
 
   const { comments, loadingComments, fetchComments } = useComments(
     address,
@@ -89,7 +91,7 @@ const ProductInfoTabs = ({ order }) => {
             background: "rgba(0,0,0,0.05)",
           }}
           fullWidth
-          label="Bids"
+          label={LOCALE.BIDS[lang]}
           className={tab === 0 ? classes.tabActive : ""}
           onClick={() => setTab(0)}
         />
@@ -99,7 +101,7 @@ const ProductInfoTabs = ({ order }) => {
             background: "rgba(0,0,0,0.05)",
           }}
           fullWidth
-          label="Comments"
+          label={LOCALE.COMMENTS[lang]}
           className={tab === 1 ? classes.tabActive : ""}
           onClick={() => setTab(1)}
         />
@@ -110,7 +112,7 @@ const ProductInfoTabs = ({ order }) => {
             background: "rgba(0,0,0,0.05)",
           }}
           fullWidth
-          label="Owner History"
+          label={LOCALE.OWNER_HISTORY[lang]}
           className={tab === 2 ? classes.tabActive : ""}
           onClick={() => setTab(2)}
         />
@@ -126,7 +128,7 @@ const ProductInfoTabs = ({ order }) => {
         /> */}
       </div>
       <div>
-        {tab === 1 && (
+        {tab === 0 && (
           <>
             {order?.bids?.map((item, index) => (
               <div key={index}>
@@ -135,7 +137,7 @@ const ProductInfoTabs = ({ order }) => {
                     <UserName noName level={item.rating} />
                   </div>
                   <Typography style={{ marginLeft: 20 }}>
-                    {`Bid of ${convertToLowerValue(
+                    {`${LOCALE.BID[lang]} ${convertToLowerValue(
                       item.order.basePrice
                     )} ${getTokenSymbol(item.order.paymentToken)} by ${
                       item.order.maker
@@ -149,7 +151,9 @@ const ProductInfoTabs = ({ order }) => {
         )}
         {tab === 1 &&
           (loadingComments ? (
-            <CircularProgress />
+            <center>
+              <CircularProgress />
+            </center>
           ) : (
             <>
               {comments?.map((item, index) => (
@@ -172,7 +176,7 @@ const ProductInfoTabs = ({ order }) => {
                 rows={2}
                 variant="standard"
                 color="secondary"
-                placeholder="Comment"
+                placeholder={LOCALE.COMMENTS[lang]}
                 style={{ marginTop: 10 }}
                 fullWidth
                 disabled={!user?.name || postingComment}
@@ -188,7 +192,9 @@ const ProductInfoTabs = ({ order }) => {
                   disabled={!user?.name || postingComment}
                   loading={postingComment}
                 >
-                  {user?.name ? "Send" : "First edit your profile to comment!"}
+                  {user?.name
+                    ? LOCALE.COMMENTS[lang]
+                    : LOCALE.SETUP_PROFILE_MESSAGE[lang]}
                 </CustomButton>
               </div>
             </>
@@ -196,7 +202,9 @@ const ProductInfoTabs = ({ order }) => {
         {tab === 3 && (
           <>
             {loading ? (
-              <CircularProgress />
+              <center>
+                <CircularProgress />
+              </center>
             ) : (
               orders?.results?.map((item, index) => (
                 <div key={index}>
@@ -217,10 +225,10 @@ const ProductInfoTabs = ({ order }) => {
           </>
         )}
 
-        <Typography className={classes.pagination}>
+        {/* <Typography className={classes.pagination}>
           <ChevronLeftIcon />
           Displaying 1 of 20 of 20,000 <ChevronRightIcon />
-        </Typography>
+        </Typography> */}
       </div>
     </div>
   );
