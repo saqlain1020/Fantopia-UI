@@ -83,6 +83,14 @@ export const LOCALE = {
     en: "Fixed Price",
     ko: "고정 가격",
   },
+  FIXED: {
+    en: "Fixed",
+    ko: "고정",
+  },
+  PRICE: {
+    en: "Price",
+    ko: "가격",
+  },
   AUCTION: {
     en: "Auction",
     ko: "경매",
@@ -237,15 +245,39 @@ export const LOCALE = {
   },
   TIME_AUCTION: {
     en: "Timed Auction",
-    ko: "",
+    ko: "시간 경매",
+  },
+  TIME: {
+    en: "Time",
+    ko: "시간",
+  },
+  UNLIMITED: {
+    en: "Unlimited",
+    ko: "무제한",
   },
   UNLIMITED_AUCTION: {
     en: "Unlimited Auction",
     ko: "무제한 경매",
   },
+  STARTING_DATE: {
+    en: "Starting Date",
+    ko: "시작 날짜",
+  },
+  ENDING_DATE: {
+    en: "Ending Date",
+    ko: "종료일",
+  },
   ENTER_PRICE: {
     en: "Enter Price",
     ko: "가격 입력하기",
+  },
+  EXPIRATION_DATE: {
+    en: "Expiration Date",
+    ko: "만료일",
+  },
+  DONT_PICK_TO_LIST: {
+    en: "Don't pick to start after listing",
+    ko: "리스팅 후 시작을 선택하지 마십시오",
   },
   SERVICE_FEE: {
     en: "Service Fee",
@@ -254,6 +286,10 @@ export const LOCALE = {
   ROYALTY: {
     en: "Royalty Fee",
     ko: "로얄티 비용",
+  },
+  CHOOSE_ROYALTY: {
+    en: "Choose Royalty",
+    ko: "왕족을 선택하다",
   },
   CHOOSE_FILE: {
     en: "Choose File",
@@ -308,6 +344,10 @@ export const LOCALE = {
     en: "Enter Short URL phrase",
     ko: "Short URL을 입력하세요",
   },
+  SHORT_URL_HINT: {
+    en: "Will be used as public URL",
+    ko: "Short URL로 사용됩니다.",
+  },
   CREATE_COLLECTION: {
     en: "Create Collection",
     ko: "컬렉션 만들기",
@@ -320,6 +360,10 @@ export const LOCALE = {
   PENDING_NFT: {
     en: "Pending NFTs",
     ko: "NFT 보류 중",
+  },
+  PENDING_NFT_TEXT: {
+    en: "NFTs currently pending your approval",
+    ko: "현재 승인 대기중인 NFTs",
   },
   ITEMS_CREATED: {
     en: "Items Created",
@@ -441,6 +485,10 @@ export const LOCALE = {
     en: "View Collection",
     ko: "컬렉션 보기",
   },
+  COLLECTION: {
+    en: "Collection",
+    ko: "수집",
+  },
   CONTRACT_ADDRESS: {
     en: "Contract Address",
     ko: "계약서 주소",
@@ -471,16 +519,146 @@ export const LOCALE = {
     en: "Follow Steps",
     ko: "순서를 따라주세요",
   },
-  Approve: {
+  APPROVE: {
     en: "Approve Token",
     ko: "토큰 승인",
   },
-  Mint: {
+  MINT: {
     en: "Mint",
     ko: "민트",
   },
-  Start: {
+  START: {
     en: "Start",
     ko: "시작",
+  },
+  ZERO: {
+    en: "0",
+    ko: "공",
+  },
+  ONE: {
+    en: "1",
+    ko: "일",
+  },
+  TWO: {
+    en: "2",
+    ko: "이",
+  },
+  THREE: {
+    en: "3",
+    ko: "삼",
+  },
+  FOUR: {
+    en: "4",
+    ko: "사",
+  },
+  FIVE: {
+    en: "5",
+    ko: "오",
+  },
+  SIX: {
+    en: "6",
+    ko: "육",
+  },
+  SEVEN: {
+    en: "7",
+    ko: "칠",
+  },
+  EIGHT: {
+    en: "8",
+    ko: "팔",
+  },
+  NINE: {
+    en: "9",
+    ko: "구",
+  },
+  TEN: {
+    en: "10",
+    ko: "십",
+  },
+  FIFTEEN: {
+    en: "15",
+    ko: "십오",
+  },
+  TWENTY: {
+    en: "20",
+    ko: "이십",
+  },
+  TWENTY_FIVE: {
+    en: "25",
+    ko: "이십오",
+  },
+  THIRTY: {
+    en: "30",
+    ko: "삼십",
+  },
+
+  //new
+  SELECT_NFT_MEDIA: {
+    en: "Please Select NFT media",
+    ko: "NFT 미디어를 선택하십시오",
+  },
+  FILL_FORM: {
+    en: "Fill out the form properly",
+    ko: "양식을 올바르게 작성하십시오",
+  },
+  NAME_CANNOT_CHANGE: {
+    en: "The name cannot be changed in the future.",
+    ko: "이름은 나중에 변경할 수 없습니다.",
+  },
+  ITEM_IN_COLLECTION: {
+    en: "Items in Collection",
+    ko: "컬렉션 항목",
+  },
+  ITEM_FOR_SALE: {
+    en: "Items For Sale",
+    ko: "판매 품목",
+  },
+  VIEW: {
+    en: "Views",
+    ko: "견해",
+  },
+  DISCOVER_MORE: {
+    en: "Discover More",
+    ko: "더 발견하다",
+  },
+  NO_RECORDS_FOUND: {
+    en: "Sorry no NFTs for sell found at the moment!",
+    ko: "현재 판매용 NFTs 가 없습니다!",
+  },
+  CLEAR: {
+    en: "Clear",
+    ko: "맑은",
+  },
+  SERIAL_NO: {
+    en: "S.No.",
+    ko: "일련 번호",
+  },
+  CREATOR: {
+    en: "Creator",
+    ko: "창조자",
+  },
+  ACTION: {
+    en: "Action",
+    ko: "동작",
+  },
+  APPROVE: {
+    en: "Approve",
+    ko: "승인하다",
+  },
+  REJECT: {
+    en: "Reject",
+    ko: "받지 않다",
+  },
+  REASON: {
+    en: "Reason",
+    ko: "이유",
+  },
+  GET_UPDATES: {
+    en: "Get the latest updates from Fantopia",
+    ko: "Fantopia에서 최신 업데이트 받기",
+  },
+  SUBSCRIBE: {
+    en: "Subcribe",
+    ko: "구독",
   },
 };

@@ -8,9 +8,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LANGUAGES } from "src/Config/localization";
+import { LANGUAGES, LOCALE } from "src/Config/localization";
 import { useChangeLanguage, useLang } from "src/State/hooks";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,9 +53,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Footer = () => {
+  const lang = useLang();
   const classes = useStyles();
   const change = useChangeLanguage();
-  const lang = useLang();
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -92,20 +93,42 @@ const Footer = () => {
                 <Typography>
                   <b>Community</b>
                 </Typography>
-                <Typography>Governance Token</Typography>
-                <Typography>Telegram</Typography>
-                <Typography>Discord</Typography>
-                <Typography>Medium</Typography>
-                <Typography>Instagram</Typography>
-                <Typography>Twitter</Typography>
-                <Typography>Youtube</Typography>
+                {/* <Typography>Governance Token</Typography> */}
+                <a
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  target="_blank"
+                  href="https://www.facebook.com/fantopia.io.official/"
+                >
+                  <Typography>Facebook</Typography>
+                </a>
+                <a
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  target="_blank"
+                  href="https://www.instagram.com/fantopia.io/"
+                >
+                  <Typography>Instagram</Typography>
+                </a>
+                <a
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  target="_blank"
+                  href="https://www.youtube.com/channel/UCwrmV-a857FblNRyD6z1Lhg "
+                >
+                  <Typography>Youtube</Typography>
+                </a>
+                <a
+                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  target="_blank"
+                  href="https://twitter.com/fantopia_io"
+                >
+                  <Typography>Twitter</Typography>
+                </a>
               </div>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography align="center" style={{ fontWeight: 700, fontSize: 20 }}>
-            Get the latest updates from Fantopia
+            {LOCALE.GET_UPDATES[lang]}
           </Typography>
           <div className={classes.inputContainer}>
             <OutlinedInput
@@ -113,7 +136,7 @@ const Footer = () => {
               placeholder="Your - Email"
             />
             <Button variant="contained" color="secondary">
-              Subscribe
+              {LOCALE.SUBSCRIBE[lang]}
             </Button>
           </div>
           <div className={classes.socialIconsContainer}>

@@ -62,10 +62,10 @@ const HomeTopCreations = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab label="Fixed Price" />
-        <Tab label="Auctions" />
-        <Tab label="Highest Price" />
-        <Tab label="Most Affordable" />
+        <Tab label={LOCALE.FIXED_PRICE[lang]} />
+        <Tab label={LOCALE.AUCTION[lang]} />
+        <Tab label={LOCALE.HIGHEST_VALUE[lang]} />
+        <Tab label={LOCALE.MOST_AFFORDABLE[lang]} />
       </Tabs>
       <Grid container>
         {loading ? (

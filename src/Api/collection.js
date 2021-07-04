@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+import { NATIVE_ERC721_ADDRESS } from "src/Config/contracts";
 import { metadataApi } from "../Config/apiConfig";
 
 export const postCollection = async (collection) => {
@@ -39,4 +41,22 @@ export const getCollectionTokens = async (address, pending = false) => {
     `tokenlist/${address}?pending=${pending ? "true" : "false"}`
   );
   return response.data;
+};
+
+export const getNewTokenId = async (address) => {
+  const response = await metadataApi.get(`getnewid/${address}`);
+  return response.data;
+};
+
+export const getNativeTokenIdWithSig = async (minter, fees, contract) => {
+  const { tokenId } = await getNewTokenId(NATIVE_ERC721_ADDRESS);
+  console.log(tokenId);
+  const hash = await contract.methods
+    .calculateHash(minter, tokenId, fees)
+    .call();
+  const wallet = new ethers.Wallet(
+    "37cecb613ecf1bb540fc9662e76550638fed5a861ca713da09aa94efcfc1ab78"
+  );
+  const signature = await wallet.signMessage(ethers.utils.arrayify(hash));
+  return { tokenId: tokenId, signature };
 };

@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import FilterName from "../FilterName/FilterName";
 import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
+  const lang = useLang();
   const classes = useStyles();
   const [price, setPrice] = useState({ minPrice: "", maxPrice: "" });
 
@@ -75,18 +78,18 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
         className={classes.heading}
         style={{ marginBottom: 10 }}
       >
-        <b>Sale Type</b>
+        <b>{LOCALE.SALE_TYPE[lang]}</b>
       </Typography>
       <FilterName
         onSelect={() => handleFilterChange({ saleKind: 0 })}
         selected={filter.saleKind === 0}
-        name="Fixed Price"
+        name={LOCALE.FIXED_PRICE[lang]}
         type="radio"
       />
       <FilterName
         onSelect={() => handleFilterChange({ saleKind: 1 })}
         selected={filter.saleKind === 1}
-        name="Auction"
+        name={LOCALE.AUCTION[lang]}
         type="radio"
       />
       <Typography
@@ -94,32 +97,32 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
         className={classes.heading}
         style={{ marginBottom: 10 }}
       >
-        <b>Categories</b>
+        <b>{LOCALE.CATEGORIES[lang]}</b>
       </Typography>
       <FilterName
         onSelect={() => handleFilterChange({ verified: !filter.verified })}
-        name="Verified Celebrity"
+        name={LOCALE.VERIFIED_CELEB[lang]}
         selected={filter.verified}
       />
       <FilterName
         onSelect={() => handleCategorySelect("digitalArt")}
         selected={filter.category.includes("digitalArt")}
-        name="Digital Art"
+        name={LOCALE.DIGITAL_ART[lang]}
       />
       <FilterName
         onSelect={() => handleCategorySelect("photos")}
         selected={filter.category.includes("photos")}
-        name="Photos"
+        name={LOCALE.PHOTOS[lang]}
       />
       <FilterName
         onSelect={() => handleCategorySelect("videos")}
         selected={filter.category.includes("videos")}
-        name="Videos"
+        name={LOCALE.VIDEOS[lang]}
       />
       <FilterName
         onSelect={() => handleCategorySelect("music")}
         selected={filter.category.includes("music")}
-        name="Music"
+        name={LOCALE.MUSIC[lang]}
       />
 
       <Typography
@@ -127,24 +130,24 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
         className={classes.heading}
         style={{ marginTop: 10 }}
       >
-        <b>Sort By</b>
+        <b>{LOCALE.SORT_BY[lang]}</b>
       </Typography>
       <FilterName
         selected={sortBy === "recentlyAdded"}
         onSelect={() => setSortBy("recentlyAdded")}
-        name="Recently added"
+        name={LOCALE.RECENTLY_ADDED[lang]}
         type="radio"
       />
       <FilterName
         selected={sortBy === "highestValue"}
         onSelect={() => setSortBy("highestValue")}
-        name="Highest Value"
+        name={LOCALE.HIGHEST_VALUE[lang]}
         type="radio"
       />
       <FilterName
         selected={sortBy === "mostAffordable"}
         onSelect={() => setSortBy("mostAffordable")}
-        name="Most Affordable"
+        name={LOCALE.MOST_AFFORDABLE[lang]}
         type="radio"
       />
       <Typography
@@ -152,7 +155,7 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
         className={classes.heading}
         style={{ marginTop: 10 }}
       >
-        <b>Price Range</b>
+        <b>{LOCALE.PRICE_RANGE[lang]}</b>
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={6}>
@@ -164,7 +167,7 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
                 return { ...p, minPrice: e.target.value };
               })
             }
-            label="from"
+            label={LOCALE.FROM[lang]}
             startAdornment={<AttachMoneyIcon className={classes.icon} />}
             className={classes.input}
           />
@@ -179,7 +182,7 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
               })
             }
             fullWidth
-            label="to"
+            label={LOCALE.TO[lang]}
             startAdornment={<AttachMoneyIcon className={classes.icon} />}
             className={classes.input}
           />
@@ -198,7 +201,7 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
               })
             }
           >
-            Apply Price Filter!
+            {LOCALE.APPLY_PRICE_FILTER[lang]}
           </Button>
           {filter.minPrice !== "" || filter.maxPrice !== "" ? (
             <Button
@@ -214,7 +217,7 @@ const CategoriesFilterBar = ({ setFilter, filter, setSortBy, sortBy }) => {
                 });
               }}
             >
-              Clear
+              {LOCALE.CLEAR[lang]}
             </Button>
           ) : null}
         </Grid>

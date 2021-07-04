@@ -6,14 +6,13 @@ const LightTheme = createMuiTheme({
       // main: "#34DFF7",
       main: "#0C162F",
       mainWhite: "#EBEEF5",
-      
+
       dark: "#f9fafb",
       vibrant: "#1abcff",
     },
     secondary: {
       main: "#24E3AD",
       vibrant: "#24E3AD",
-      
     },
   },
   typography: {
@@ -72,7 +71,7 @@ const LightTheme = createMuiTheme({
         paddingLeft: 25,
         paddingRight: 25,
         fontSize: 18,
-        color: "#222"
+        color: "#222",
       },
     },
     MuiBadge: {
@@ -88,7 +87,7 @@ const LightTheme = createMuiTheme({
         color: "#24E3AD",
         "& fieldset": {
           // borderRadius: "15px",
-          borderRadius: "360px",          
+          borderRadius: "360px",
           borderColor: "#24E3AD !important",
           "& legend span": {
             // visibility:"initial"
@@ -97,12 +96,11 @@ const LightTheme = createMuiTheme({
         },
         fontWeight: 800,
       },
-      multiline:{
-        "& fieldset":{
-          borderRadius: "20px",          
-        }
-      }
-      
+      multiline: {
+        "& fieldset": {
+          borderRadius: "20px",
+        },
+      },
     },
     MuiTableCell: {
       head: {
@@ -116,11 +114,11 @@ const LightTheme = createMuiTheme({
         backgroundColor: "rgba(36,227,173,0.3)",
       },
     },
-    MuiSelect:{
-      root:{
+    MuiSelect: {
+      root: {
         // color: "red"
-      }
-    }
+      },
+    },
   },
   customShadows: {
     light: "0px 0px 20px rgba(0,0,0,.06)",

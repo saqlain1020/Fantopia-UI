@@ -1,6 +1,5 @@
-import { Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import Data from "./Data";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -74,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   discover: {
+    color: `${theme.palette.secondary.vibrant}`,
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -151,16 +151,16 @@ const HomeFeaturedCollections = () => {
       >
         {[
           {
-            ...trendingOrders,
-            image: hottestImage,
-            heading: LOCALE.TRENDING[lang],
-            para: LOCALE.TRENDING_TEXT[lang],
-          },
-          {
             ...highestPriceOrders,
             image: mostTalkedImage,
             heading: LOCALE.HIGHEST_VALUE[lang],
             para: LOCALE.HIGHEST_VALUE_TEXT[lang],
+          },
+          {
+            ...trendingOrders,
+            image: hottestImage,
+            heading: LOCALE.TRENDING[lang],
+            para: LOCALE.TRENDING_TEXT[lang],
           },
           {
             ...mostAffordable,
@@ -208,9 +208,9 @@ const HomeFeaturedCollections = () => {
           </Grid>
         ))}
       </Grid> */}
-      {/* <Typography variant="h6" className={classes.discover}>
-        Discover More <ChevronRightIcon />
-      </Typography> */}
+      <Typography variant="h6" className={classes.discover}>
+        {LOCALE.DISCOVER_MORE[lang]} <ChevronRightIcon />
+      </Typography>
     </Container>
   );
 };

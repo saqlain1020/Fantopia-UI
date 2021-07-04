@@ -15,6 +15,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import FilterBar from "../FilterBar/FilterBar";
 import { useOrders } from "src/Hooks/useOrder";
 import PageSelector from "../PageSelector/PageSelector";
+import { useLoadingModal } from "src/Hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,7 @@ const CategoriesCreators = () => {
   const [sortBy, setSortBy] = useState("recentlyAdded");
   const { orders, loading } = useOrders(filter, sortBy, page);
 
+  useLoadingModal(loading);
   return (
     <div className={classes.root}>
       {/* <Typography variant="h4">
@@ -85,15 +87,11 @@ const CategoriesCreators = () => {
         />
         {/* <FilterBar/> */}
         <Grid container>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            orders?.results?.map((e) => (
-              <Grid item xs={12} sm={12} md={4} lg={3}>
-                <CreationCard order={e} />
-              </Grid>
-            ))
-          )}
+          {orders?.results?.map((e) => (
+            <Grid item xs={12} sm={12} md={4} lg={3}>
+              <CreationCard order={e} />
+            </Grid>
+          ))}
           <Grid item xs={12}>
             <PageSelector
               pages={orders.totalPages}

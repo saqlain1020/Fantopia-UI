@@ -15,6 +15,8 @@ import AuctionTimer from "../AuctionTimer/AuctionTimer";
 import { useMetadata } from "src/Hooks/useToken";
 import { convertToLowerValue, getHighestBid, getTokenSymbol } from "src/Utils";
 import { useHistory } from "react-router-dom";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -172,6 +174,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreationCard = (props) => {
+  const lang = useLang();
   const { order, data } = props;
   const classes = useStyles();
   const history = useHistory();
@@ -185,18 +188,16 @@ const CreationCard = (props) => {
         <img
           className={props.gift ? classes.imgGift : classes.img}
           src={data?.media ?? metadata?.image}
-          onClick={() =>
-            {
-              if(data?.address || metadata)
+          onClick={() => {
+            if (data?.address || metadata)
               history.push(
                 `/collection/${
                   data && data.address
                     ? `${data?.address}/${data?.tokenId}`
                     : `${metadata?.address}/${metadata?.tokenId}`
                 }`
-              )
-            }
-          }
+              );
+          }}
         />
         {data && data.price ? (
           <Typography className={classes.dollarText}>
@@ -258,7 +259,7 @@ const CreationCard = (props) => {
                     )
                   }
                 >
-                  Buy Now
+                  {LOCALE.BUY_NOW[lang]}
                 </Button>
               )}
             </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import Step from "../Step";
 import { useMintERC721, useSignMintTokenId } from "../../Hooks/useMintToken";
@@ -21,39 +21,25 @@ const CollectionSteps = ({ payload }) => {
   const { approveState, isApproved, approve } = useERC721Approval(
     metadata.address
   );
-  const { sign, signState, signature, tokenId } = useSignMintTokenId(
-    metadata.address,
-    metadata.shouldSignMint
-  );
-  const { mint, mintState } = useMintERC721(metadata);
+
+  const { mint, mintState, tokenId } = useMintERC721(metadata);
   const { create, createState } = useCreateOrder();
   const closeModal = useCloseModal();
 
-  console.log(payload);
-
   useEffect(() => {
     if (!isApproved && approveState === STATE.SUCCEED) approve();
-    else if (
-      isApproved &&
-      approveState === STATE.SUCCEED &&
-      signState != STATE.SUCCEED
-    )
-      sign(metadata.fees);
+    else if (isApproved && approveState === STATE.SUCCEED) mint();
   }, [isApproved, approveState]);
 
   useEffect(() => {
-    if (signState === STATE.SUCCEED && mintState === STATE.IDLE)
-      mint(tokenId, signature);
-  }, [signState]);
+    if (mintState === STATE.SUCCEED && order && tokenId)
+      create({ ...order, tokenId });
+    else if (mintState === STATE.SUCCEED && tokenId) closeModal(tokenId);
+  }, [mintState, tokenId]);
 
   useEffect(() => {
-    if (mintState === STATE.SUCCEED && order) create({ ...order, tokenId });
-    else if (mintState === STATE.SUCCEED) closeModal(tokenId);
-  }, [mintState]);
-
-  useEffect(() => {
-    if (createState === STATE.SUCCEED) closeModal(tokenId);
-  }, [createState]);
+    if (createState === STATE.SUCCEED && tokenId) closeModal(tokenId);
+  }, [createState, tokenId]);
 
   return (
     <div className={classes.root}>
@@ -68,21 +54,11 @@ const CollectionSteps = ({ payload }) => {
         state={approveState}
       />
       <br />
-      {metadata.shouldSignMint && (
-        <>
-          <Step
-            heading="Sign Message"
-            para="Sign TokenId and Fees to Mint token"
-            onClick={() => sign(metadata.fees)}
-            state={signState}
-          />
-          <br />
-        </>
-      )}
+
       <Step
         heading="Mint"
         para="Minting Token"
-        onClick={() => mint(tokenId, signature)}
+        onClick={() => mint()}
         state={mintState}
       />
       {order && (
@@ -102,7 +78,6 @@ const CollectionSteps = ({ payload }) => {
         disabled={
           approveState === STATE.BUSY ||
           mintState === STATE.BUSY ||
-          signState === STATE.BUSY ||
           (order && createState === STATE.BUSY)
         }
         onClick={() => closeModal()}

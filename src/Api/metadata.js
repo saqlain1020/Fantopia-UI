@@ -18,4 +18,6 @@ export const getMetadata = async (address, tokenId) => {
   return response.data;
 };
 
-// export const approveTokenMint =()
+export const approveTokenMint = (metadata) => {
+  return metadataApi.post(`${metadata.address}/${metadata.tokenId}`, metadata);
+};

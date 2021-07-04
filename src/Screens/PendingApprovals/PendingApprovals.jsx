@@ -26,7 +26,7 @@ const PendingApprovals = () => {
         {LOCALE.PENDING_NFT[lang]}
       </Typography>
       <Typography align="center" variant="h5" className={classes.subHeading}>
-        Nfts currently pending your approval
+        {LOCALE.PENDING_NFT_TEXT[lang]}
       </Typography>
       <Table />
     </div>

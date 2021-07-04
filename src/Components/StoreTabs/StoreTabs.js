@@ -5,6 +5,8 @@ import { useUserCollections } from "src/Hooks/useCollection";
 import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
 import CollectionCard from "../CollectionCard/CollectionCard";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StoreTabs = () => {
+  const lang = useLang();
   const classes = useStyles();
   const [tab, setTab] = React.useState(0);
   const { userCollections } = useUserCollections();
@@ -44,9 +47,9 @@ const StoreTabs = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab icon="Collection" />
-        <Tab icon="On Sale" />
-        <Tab icon="Auctions" />
+        <Tab icon={LOCALE.COLLECTION[lang]} />
+        <Tab icon={LOCALE.ON_SALE[lang]} />
+        <Tab icon={LOCALE.AUCTION[lang]} />
       </Tabs>
       <Grid container>
         {userCollections.map((e) => (

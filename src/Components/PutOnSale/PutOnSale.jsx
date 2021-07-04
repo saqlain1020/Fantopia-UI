@@ -14,6 +14,8 @@ import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
 import DateTimePicker from "react-datetime-picker";
 import tokenList from "src/Config/paymentTokens.json";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -75,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PutOnSale = ({ getState, disabled }) => {
+  const lang = useLang();
   const classes = useStyles();
   const [state, setState] = React.useState({
     price: "",
@@ -88,7 +91,7 @@ const PutOnSale = ({ getState, disabled }) => {
   return (
     <div className={classes.root}>
       <div className={classes.switches}>
-        <Typography variant="h6">Put on Sale</Typography>
+        <Typography variant="h6">{LOCALE.PUT_ON_SALE[lang]}</Typography>
         <IOSSwitch
           checked={disabled ? false : state.putOnSale}
           disabled={disabled}
@@ -110,9 +113,9 @@ const PutOnSale = ({ getState, disabled }) => {
                 <LocalOfferOutlinedIcon />
                 <Typography align="center">
                   <b>
-                    Fixed
+                    {LOCALE.FIXED[lang]}
                     <br />
-                    price
+                    {LOCALE.PRICE[lang]}
                   </b>
                 </Typography>
               </div>
@@ -129,9 +132,9 @@ const PutOnSale = ({ getState, disabled }) => {
                 <TimelapseOutlinedIcon />
                 <Typography align="center">
                   <b>
-                    Timed
+                    {LOCALE.TIME[lang]}
                     <br />
-                    auction
+                    {LOCALE.AUCTION[lang]}
                   </b>
                 </Typography>
               </div>
@@ -148,9 +151,9 @@ const PutOnSale = ({ getState, disabled }) => {
                 <AllInclusiveOutlinedIcon />
                 <Typography align="center">
                   <b>
-                    Unlimited
+                    {LOCALE.UNLIMITED[lang]}
                     <br />
-                    auction
+                    {LOCALE.AUCTION[lang]}
                   </b>
                 </Typography>
               </div>
@@ -186,10 +189,11 @@ const PutOnSale = ({ getState, disabled }) => {
                   ),
                 }}
                 variant="outlined"
-                placeholder="Enter price"
+                placeholder={LOCALE.ENTER_PRICE[lang]}
               />
               <Typography>
-                Service Fee <b>2.5%</b>
+                {LOCALE.SERVICE_FEE[lang]}
+                <b>{LOCALE.FIVE[lang]}%</b>
                 {/* You will recieve <b>0.29 BNB</b> */}
               </Typography>
             </Grid>
@@ -197,8 +201,8 @@ const PutOnSale = ({ getState, disabled }) => {
               <>
                 <Grid item xs={12}>
                   <Typography>
-                    <b>Starting date </b>{" "}
-                    <small> (Don't pick to start after listing)</small>
+                    <b>{LOCALE.STAR[lang]}</b>{" "}
+                    <small> ({LOCALE.DONT_PICK_TO_LIST[lang]})</small>
                   </Typography>
                   <DateTimePicker
                     value={state.startDate}
@@ -208,7 +212,7 @@ const PutOnSale = ({ getState, disabled }) => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography>
-                    <b>Expiration date </b>{" "}
+                    <b>{LOCALE.EXPIRATION_DATE[lang]} </b>{" "}
                   </Typography>
                   <DateTimePicker
                     value={state.endDate}

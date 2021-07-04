@@ -35,6 +35,8 @@ import tokenList from "src/Config/paymentTokens.json";
 import { NATIVE_ERC721_NAME } from "src/Config/constants";
 import PutOnSale from "../PutOnSale/PutOnSale";
 import { useRequestMintApproval } from "src/Hooks/useMintToken";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -178,6 +180,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateSingleItem = () => {
+  const lang = useLang();
   const classes = useStyles();
   const { openModal } = useCreateCollectionModal();
   const {
@@ -217,10 +220,10 @@ const CreateSingleItem = () => {
     }
   };
 
-  const handleCreateItem = (e) => {
+  const handleCreateItem = async (e) => {
     e.preventDefault();
     if (!media) {
-      alert("Please Select NFT media!");
+      alert(LOCALE.SELECT_NFT_MEDIA[lang]);
       return;
     }
     const metadata = {
@@ -239,7 +242,8 @@ const CreateSingleItem = () => {
     };
 
     if (selectedCollection === COLLECTION_TYPE.CELEB) {
-      sendRequest(metadata);
+      const tokenId = await sendRequest(metadata);
+      history.push(`/collection/${collectionAddress}/${tokenId}`);
     } else {
       let order;
       if (saleState.putOnSale) {
@@ -302,7 +306,7 @@ const CreateSingleItem = () => {
             <IOSSwitch />
           </div> */}
           <div className={classes.switches}>
-            <Typography variant="h6">Royalty (Sug: 5-30%)</Typography>
+            <Typography variant="h6">{LOCALE.ROYALTY[lang]}</Typography>
             <TextField
               select
               defaultValue="0"
@@ -311,14 +315,15 @@ const CreateSingleItem = () => {
               onClick={(e) => setRoyalty(e.target.value)}
               required
             >
-              <MenuItem value="0">0</MenuItem>
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-              <MenuItem value="5">5</MenuItem>
-              <MenuItem value="10">10</MenuItem>
-              <MenuItem value="15">15</MenuItem>
-              <MenuItem value="20">20</MenuItem>
-              <MenuItem value="30">30</MenuItem>
+              <MenuItem value="0">{LOCALE.ZERO[lang]}</MenuItem>
+              <MenuItem value="1">{LOCALE.ONE[lang]}</MenuItem>
+              <MenuItem value="2">{LOCALE.TWO[lang]}</MenuItem>
+              <MenuItem value="5">{LOCALE.FIVE[lang]}</MenuItem>
+              <MenuItem value="10">{LOCALE.TEN[lang]}</MenuItem>
+              <MenuItem value="15">{LOCALE.FIFTEEN[lang]}</MenuItem>
+              <MenuItem value="20">{LOCALE.TWENTY[lang]}</MenuItem>
+              <MenuItem value="25">{LOCALE.TWENTY_FIVE[lang]}</MenuItem>
+              <MenuItem value="30">{LOCALE.THIRTY[lang]}</MenuItem>
             </TextField>
             {/* <TextField
               value={royalty}
@@ -346,7 +351,7 @@ const CreateSingleItem = () => {
                 name="file"
                 onChange={handleFilePick}
               />
-              Choose File
+              {LOCALE.CHOOSE_FILE[lang]}
             </Typography>
             <Typography style={{ fontSize: 12, fontWeight: 600 }}>
               PNG,GIF,WEBP,MP4 or MP3, Max 30mb
@@ -360,19 +365,19 @@ const CreateSingleItem = () => {
           className={classes.createBtn}
           loading={sending}
         >
-          Create Item
+          {LOCALE.CREATE_ITEM[lang]}
         </CustomButton>
       </div>
       <div className={classes.right}>
         <Typography variant="h5" style={{ marginBottom: 20 }}>
-          <b>Create a single NFT item</b>
+          <b>{LOCALE.CREATE_SINGLE_NFT[lang]}</b>
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
               color="secondary"
-              placeholder="Item Name"
+              placeholder={LOCALE.ITEM_NAME[lang]}
               fullWidth
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -392,10 +397,12 @@ const CreateSingleItem = () => {
               {/* <MenuItem value="disabled" disabled>
                 Category
               </MenuItem> */}
-              <MenuItem value="Digital Art">Digital Art</MenuItem>
-              <MenuItem value="Photos">Photos</MenuItem>
-              <MenuItem value="Videos">Videos</MenuItem>
-              <MenuItem value="Music">Music</MenuItem>
+              <MenuItem value="Digital Art">
+                {LOCALE.DIGITAL_ART[lang]}
+              </MenuItem>
+              <MenuItem value="Photos">{LOCALE.PHOTOS[lang]}</MenuItem>
+              <MenuItem value="Videos">{LOCALE.VIDEOS[lang]}</MenuItem>
+              <MenuItem value="Music">{LOCALE.MUSIC[lang]}</MenuItem>
             </TextField>
           </Grid>
           {/* <Grid item xs={12}>
@@ -410,7 +417,7 @@ const CreateSingleItem = () => {
               multiline
               rows={5}
               variant="outlined"
-              placeholder="Items Description"
+              placeholder={LOCALE.ITEM_DES[lang]}
               fullWidth
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -435,7 +442,7 @@ const CreateSingleItem = () => {
                 <TextField
                   {...params}
                   color="secondary"
-                  placeholder="Choose Celebrity collection"
+                  placeholder={LOCALE.CHOOSE_CELEB_COLLECTION[lang]}
                   variant="outlined"
                   disabled={selectedCollection !== COLLECTION_TYPE.CELEB}
                   onClick={() => setSelectedCollection(COLLECTION_TYPE.CELEB)}
@@ -460,7 +467,7 @@ const CreateSingleItem = () => {
               }}
             >
               <MenuItem value="disabled" disabled>
-                Choose Your Collection
+                {LOCALE.CHOOSE_YOUR_COLLECTION[lang]}
               </MenuItem>
               {userCollections.map((e) => (
                 <MenuItem value={e}>{e.name}</MenuItem>
@@ -481,7 +488,7 @@ const CreateSingleItem = () => {
             >
               <div>
                 <img src={SmileAddIcoDark} width="20px" alt="" />
-                <span>Create BEP-721</span>
+                <span>{LOCALE.CREATE_BEP721[lang]}</span>
               </div>
             </CustomButton>
             <CustomButton

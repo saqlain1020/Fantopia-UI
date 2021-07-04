@@ -14,13 +14,14 @@ export const useCreateERC721 = () => {
     try {
       const contract = await deploy(collection.name, collection.symbol);
       try {
-        await postCollection({
+        const data = {
           address: contract.options.address,
           userAddress: account,
           type: "ERC721",
-          // isCelebrity: true,
+          isCelebrity: true,
           ...collection,
-        });
+        };
+        await postCollection(data);
         setCreateState(STATE.SUCCESS);
       } catch (e) {
         console.log(e);

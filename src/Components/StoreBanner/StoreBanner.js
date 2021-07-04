@@ -11,8 +11,9 @@ import Twitter from "src/Assets/Icons/Twitter.png";
 import Youtube from "src/Assets/Icons/Youtube.png";
 import Instagram from "src/Assets/Icons/Instagram.png";
 import UserName from "../UserName/UserName";
-import { useUser } from "src/State/hooks";
+import { useLang, useUser } from "src/State/hooks";
 import { useHistory } from "react-router-dom";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const StoreBanner = () => {
+  const lang = useLang();
   const classes = useStyles();
   const { user } = useUser();
   const history = useHistory();
@@ -160,7 +162,7 @@ const StoreBanner = () => {
             variant="contained"
             color="secondary"
           >
-            Follow+
+             {LOCALE.FOLLOW[lang]}
           </Button>
           <Button
             // className={classes.followBtn}
@@ -175,18 +177,21 @@ const StoreBanner = () => {
             }}
             onClick={() => history.push("pending-approvals")}
           >
-            Pending Nfts
+            {LOCALE.PENDING_NFT[lang]}
           </Button>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
-          <Typography className={classes.valueDetail}>Items Created</Typography>
+          <Typography className={classes.valueDetail}>
+            {" "}
+            {LOCALE.ITEMS_CREATED[lang]}
+          </Typography>
           <Typography variant="h4" className={classes.value}>
             130
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
           <Typography className={classes.valueDetail}>
-            Items in Collection
+            {LOCALE.ITEM_IN_COLLECTION[lang]}
           </Typography>
           <Typography variant="h4" className={classes.value}>
             82
@@ -194,7 +199,7 @@ const StoreBanner = () => {
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
           <Typography className={classes.valueDetail}>
-            Items For Sale
+            {LOCALE.ITEM_FOR_SALE[lang]}
           </Typography>
           <Typography variant="h4" className={classes.value}>
             50
@@ -206,7 +211,7 @@ const StoreBanner = () => {
             5.7K
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography variant="h6" className={classes.value}>
             Share link to this page
           </Typography>
@@ -219,7 +224,7 @@ const StoreBanner = () => {
             <img src={Patreon} alt="Patreon" />
             <img src={Discord} alt="Discord" />
           </div>
-        </Grid>
+        </Grid> */}
       </Grid>
     </div>
   );

@@ -23,11 +23,11 @@ ReactDOM.render(
     <WalletProvider isBSC={true} chainId={42} isDarkMode={false}>
       <BrowserRouter>
         <ThemeProvider theme={item ? Theme : DarkTheme}>
-          <ModalProvider>
-            <Provider store={store}>
+          <Provider store={store}>
+            <ModalProvider>
               <App />
-            </Provider>
-          </ModalProvider>
+            </ModalProvider>
+          </Provider>
         </ThemeProvider>
       </BrowserRouter>
     </WalletProvider>

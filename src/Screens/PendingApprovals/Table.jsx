@@ -12,6 +12,7 @@ import {
   Button,
   Select,
   MenuItem,
+  CircularProgress,
 } from "@material-ui/core";
 
 import data from "./data";
@@ -20,6 +21,12 @@ import {
   useCollectionTokens,
   useUserCollections,
 } from "src/Hooks/useCollection";
+import { useLoadingModal } from "src/Hooks/useModal";
+import { useSignMintTokenId } from "src/Hooks/useMintToken";
+import CustomButton from "src/Components/CustomButton/CustomButton";
+import { STATE } from "src/Config/enums";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   approveBtn: {
+    display: "inline-flex",
     background: "green",
     color: "white",
     marginLeft: 10,
@@ -79,14 +87,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChartsTable = () => {
+  const lang = useLang();
   const classes = useStyles();
   const [selectedCollection, setSelectedCollection] = useState(null);
   const { userCollections } = useUserCollections();
-  const { tokens, loading } = useCollectionTokens(selectedCollection, true);
+  const { tokens, loading } = useCollectionTokens(
+    selectedCollection?.address,
+    true
+  );
+
+  useLoadingModal(loading);
 
   useEffect(() => {
-    if (userCollections.length > 0)
-      setSelectedCollection(userCollections[0].address);
+    if (userCollections.length > 0) setSelectedCollection(userCollections[0]);
   }, [userCollections]);
 
   return (
@@ -97,7 +110,7 @@ const ChartsTable = () => {
         className={classes.select}
       >
         {userCollections.map((e) => (
-          <MenuItem value={e.address}>{e.name}</MenuItem>
+          <MenuItem value={e}>{e.name}</MenuItem>
         ))}
       </Select>
       <TableContainer className={classes.root}>
@@ -105,56 +118,76 @@ const ChartsTable = () => {
           <TableHead>
             <TableRow>
               <TableCell className={classes.th} align="center">
-                No.
+                {LOCALE.SERIAL_NO[lang]}
               </TableCell>
               <TableCell className={classes.th}>Nft</TableCell>
-              <TableCell className={classes.th}>Creator</TableCell>
+              <TableCell className={classes.th}>
+                {LOCALE.CREATOR[lang]}
+              </TableCell>
               <TableCell className={classes.th} align="center">
-                Actions
+                {LOCALE.ACTION[lang]}
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tokens.map((item, index) => (
-              <TableRow>
-                <TableCell className={classes.td} align="center">
-                  {index + 1}
-                </TableCell>
-                <TableCell className={classes.td}>
-                  <Link to={item.nftLink} className={classes.link}>
-                    {item.name}
-                  </Link>
-                </TableCell>
-
-                <TableCell className={classes.td}>
-                  <Link to={item.nftLink} className={classes.link}>
-                    {item.owner}
-                  </Link>
-                </TableCell>
-                <TableCell className={classes.td} align="center">
-                  <TextField
-                    size="small"
-                    variant="outlined"
-                    placeholder="Royalty fee"
-                  />
-                  <Button variant="contained" className={classes.approveBtn}>
-                    Approve
-                  </Button>
-                  <TextField
-                    size="small"
-                    variant="outlined"
-                    placeholder="Reason"
-                  />
-                  <Button variant="contained" className={classes.rejectBtn}>
-                    Reject
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <Row item={item} index={index} collection={selectedCollection} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
     </Container>
+  );
+};
+
+const Row = ({ item, index, collection }) => {
+  const lang = useLang();
+  const classes = useStyles();
+  const { sign, signState } = useSignMintTokenId(collection.address);
+  const [royalty, setRoyalty] = useState(collection.royalty);
+
+  useEffect(() => {
+    setRoyalty(collection.royalty);
+  }, [collection]);
+
+  return (
+    <TableRow>
+      <TableCell className={classes.td} align="center">
+        {index + 1}
+      </TableCell>
+      <TableCell className={classes.td}>
+        <Link to={item.nftLink} className={classes.link}>
+          {item.name}
+        </Link>
+      </TableCell>
+
+      <TableCell className={classes.td}>
+        <Link to={item.nftLink} className={classes.link}>
+          {item.owner}
+        </Link>
+      </TableCell>
+      <TableCell className={classes.td} align="center">
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder={LOCALE.ROYALTY[lang]}
+          value={royalty}
+          onChange={(e) => setRoyalty(e.target.value)}
+        />
+        <Button
+          className={classes.approveBtn}
+          variant="contained"
+          onClick={() => sign(item.minter, item.tokenId, item.fees)}
+          loading={signState === STATE.BUSY}
+        >
+          {signState === STATE.BUSY ? <CircularProgress /> : LOCALE.APPROVE[lang]}
+        </Button>
+        <TextField size="small" variant="outlined" placeholder={LOCALE.REASON[lang]} />
+        <Button variant="contained" className={classes.rejectBtn}>
+          {signState === STATE.BUSY ? <CircularProgress /> : LOCALE.REJECT[lang]}
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };
 

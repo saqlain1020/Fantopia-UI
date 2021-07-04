@@ -1,6 +1,8 @@
 import React from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import { Grid } from "@material-ui/core";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -15,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ImageUpload = ({ image, setImage, setFile, required }) => {
+  const lang = useLang();
   const classes = useStyles();
   const ref = React.createRef();
 
@@ -44,16 +47,14 @@ const ImageUpload = ({ image, setImage, setFile, required }) => {
           />
         </Grid>
         <Grid item xs={8}>
-          <Typography>
-            We recommend an image of at least 400x400, Gifs work too.
-          </Typography>
+          <Typography>{LOCALE.RECOMMENDED_IMAGE_TEXT[lang]}</Typography>
           <Button
             color="secondary"
             variant="contained"
             className={classes.btn}
             onClick={handleClick}
           >
-            Choose file
+            {LOCALE.CHOOSE_FILE[lang]}
           </Button>
         </Grid>
       </Grid>

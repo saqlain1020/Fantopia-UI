@@ -8,7 +8,8 @@ import AccountProfileForm from "../AccountProfileForm/AccountProfileForm";
 import AccountChangePassword from "../AccountChangePassword/AccountChangePassword";
 import UserName from "../UserName/UserName";
 import StorefrontOutlinedIcon from "@material-ui/icons/StorefrontOutlined";
-import { useUser } from "src/State/hooks";
+import { useLang, useUser } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   topHeading: {
@@ -79,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountProfile = ({ history }) => {
+  const lang = useLang();
   const classes = useStyles();
   const avatarUpload = React.useRef();
   const coverUpload = React.useRef();
@@ -110,9 +112,9 @@ const AccountProfile = ({ history }) => {
     <div style={{ marginTop: 50 }}>
       <div className={classes.headingDiv}>
         <div>
-          <Typography className={classes.topHeading}>My Profile</Typography>
+          <Typography className={classes.topHeading}> {LOCALE.MY_PROFILE[lang]}</Typography>
           <Typography variant="h4" className={classes.heading}>
-            Profile Info
+            {LOCALE.PROFILE_INFO[lang]}
           </Typography>
         </div>
         {/* <div>
@@ -154,7 +156,7 @@ const AccountProfile = ({ history }) => {
           >
             <PersonOutlineOutlinedIcon className={classes.userIcon} />
             <Typography className={classes.changeText}>
-              Change Avatar
+            {LOCALE.CHANGE_AVATAR[lang]}
             </Typography>
             <Typography className={classes.sizeText}>
               110x110px size minimum
@@ -167,7 +169,7 @@ const AccountProfile = ({ history }) => {
             onClick={() => coverUpload.current.click()}
           >
             <WallpaperOutlinedIcon className={classes.imageIcon} />
-            <Typography className={classes.changeText}>Change Cover</Typography>
+            <Typography className={classes.changeText}> {LOCALE.CHANGE_COVER_TEXT[lang]}</Typography>
             <Typography className={classes.sizeText}>
               1184x300px size minimum
             </Typography>

@@ -9,6 +9,8 @@ import {
 import ImageUpload from "./ImageUpload";
 import { useCreateCollectionStepsModal } from "../../Hooks/useModal";
 import { Autocomplete } from "@material-ui/lab";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateCollection = ({ payload }) => {
+  const lang = useLang();
   const classes = useStyles();
   const { openModal } = useCreateCollectionStepsModal();
 
@@ -45,7 +48,7 @@ const CreateCollection = ({ payload }) => {
         payload // payload is the function to reload collections
       );
     } else {
-      setError("Fill out the form properly!");
+      setError(LOCALE.FILL_FORM[lang]);
     }
   };
   console.log(payload);
@@ -53,7 +56,7 @@ const CreateCollection = ({ payload }) => {
     <div className={classes.root}>
       <form onSubmit={handleCreate}>
         <Typography variant="h5" style={{ marginBottom: 20 }}>
-          <b>Collection</b>
+          <b>{LOCALE.CREATE_COLLECTION[lang]}</b>
         </Typography>
         {/* image choose */}
         <ImageUpload
@@ -65,48 +68,48 @@ const CreateCollection = ({ payload }) => {
         <Grid container spacing={2} style={{ marginTop: 10 }}>
           <Grid item xs={12}>
             <Typography>
-              <b>Display name </b>
-              <small>(required)</small>
+              <b>{LOCALE.DISPLAY_NAME[lang]} </b>
+              <small>({LOCALE.REQUIRED[lang]})</small>
             </Typography>
             <TextField
               value={name}
               onChange={(e) => setName(e.target.value)}
               size="small"
               // variant="outlined"
-              placeholder="Enter token name"
+              placeholder={LOCALE.DISPLAY_NAME_HINT[lang]}
               required
               fullWidth
             />
             <Typography>
-              <small>Token name cannot be changed in future</small>
+              <small>{LOCALE.NAME_CANNOT_CHANGE[lang]}</small>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              <b>Symbol </b>
-              <small>(required)</small>
+              <b>{LOCALE.SYMBOL[lang]} </b>
+              <small>({LOCALE.REQUIRED[lang]})</small>
             </Typography>
             <TextField
               value={symbol}
               onChange={(e) => setSymbol(e.target.value)}
               size="small"
               // variant="outlined"
-              placeholder="Enter token symbol"
+              placeholder={LOCALE.SYMBOL_HINT[lang]}
               required
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              <b>Description </b>
-              <small>(optional)</small>
+              <b>{LOCALE.DESCRIPTION[lang]} </b>
+              <small>({LOCALE.OPTIONAL[lang]})</small>
             </Typography>
             <TextField
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               size="small"
               // variant="outlined"
-              placeholder="Spread some words about your token collection"
+              placeholder={LOCALE.DESCRIPTION_HINT[lang]}
               multiline
               rows={3}
               fullWidth
@@ -114,8 +117,8 @@ const CreateCollection = ({ payload }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography style={{ marginBottom: "10px" }}>
-              <b>Royalty </b>
-              <small>(optional)</small>
+              <b>{LOCALE.ROYALTY[lang]} </b>
+              <small>({LOCALE.OPTIONAL[lang]})</small>
             </Typography>
             <Autocomplete
               options={["0", "1", "2", "5", "10", "15", "20", "30"]}
@@ -128,7 +131,7 @@ const CreateCollection = ({ payload }) => {
                 <TextField
                   {...params}
                   color="secondary"
-                  placeholder="Choose Royalty"
+                  placeholder={LOCALE.CHOOSE_ROYALTY[lang]}
                   variant="outlined"
                 />
               )}
@@ -136,7 +139,7 @@ const CreateCollection = ({ payload }) => {
           </Grid>
           <Grid item xs={12}>
             <Typography>
-              <b>Short url </b>
+              <b>{LOCALE.SHORT_URL[lang]}</b>
               <small></small>
             </Typography>
             <TextField
@@ -144,11 +147,11 @@ const CreateCollection = ({ payload }) => {
               onChange={(e) => setShortUrl(e.target.value)}
               size="small"
               // variant="outlined"
-              placeholder="Enter short url phrase"
+              placeholder={LOCALE.SHORT_URL_DES[lang]}
               fullWidth
             />
             <Typography>
-              <small>Will be used as public URL</small>
+              <small>{LOCALE.SHORT_URL_HINT[lang]}</small>
             </Typography>
           </Grid>
           {error ? <small className={classes.error}>{error}</small> : null}
@@ -160,7 +163,7 @@ const CreateCollection = ({ payload }) => {
               fullWidth
               className={classes.btn}
             >
-              Create Collection
+              {LOCALE.CREATE_COLLECTION[lang]}
             </Button>
           </Grid>
         </Grid>
