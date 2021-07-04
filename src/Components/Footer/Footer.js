@@ -95,28 +95,44 @@ const Footer = () => {
                 </Typography>
                 {/* <Typography>Governance Token</Typography> */}
                 <a
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "inherit",
+                  }}
                   target="_blank"
                   href="https://www.facebook.com/fantopia.io.official/"
                 >
                   <Typography>Facebook</Typography>
                 </a>
                 <a
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "inherit",
+                  }}
                   target="_blank"
                   href="https://www.instagram.com/fantopia.io/"
                 >
                   <Typography>Instagram</Typography>
                 </a>
                 <a
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "inherit",
+                  }}
                   target="_blank"
                   href="https://www.youtube.com/channel/UCwrmV-a857FblNRyD6z1Lhg "
                 >
                   <Typography>Youtube</Typography>
                 </a>
                 <a
-                  style={{ textDecoration: "none", cursor: "pointer" }}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "inherit",
+                  }}
                   target="_blank"
                   href="https://twitter.com/fantopia_io"
                 >
