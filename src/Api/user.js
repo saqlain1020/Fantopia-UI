@@ -32,3 +32,8 @@ export const updateUser = async (user) => {
 export const validateShortUrl = async (url) => {
   return appApi.get(`users/shortUrl?url=${url}`);
 };
+
+export const getOtpCode = async (account) => {
+  const response = await appApi.get(`users/verify/${account}`);
+  return response.data;
+};

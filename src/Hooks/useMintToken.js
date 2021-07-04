@@ -66,7 +66,7 @@ export const useMintERC721 = (data) => {
           .mint(account, id.toString(), v, r, s, data.fees, id.toString())
           .send({ from: account });
         await postMetadata({
-          tokenId,
+          tokenId: id,
           ...data,
           fees: data.fees,
         });

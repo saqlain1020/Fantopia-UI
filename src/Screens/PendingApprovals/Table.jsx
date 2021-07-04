@@ -15,7 +15,6 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 
-import data from "./data";
 import { Link } from "react-router-dom";
 import {
   useCollectionTokens,
@@ -120,7 +119,7 @@ const ChartsTable = () => {
               <TableCell className={classes.th} align="center">
                 {LOCALE.SERIAL_NO[lang]}
               </TableCell>
-              <TableCell className={classes.th}>Nft</TableCell>
+              <TableCell className={classes.th}>NFT</TableCell>
               <TableCell className={classes.th}>
                 {LOCALE.CREATOR[lang]}
               </TableCell>
@@ -180,11 +179,23 @@ const Row = ({ item, index, collection }) => {
           onClick={() => sign(item.minter, item.tokenId, item.fees)}
           loading={signState === STATE.BUSY}
         >
-          {signState === STATE.BUSY ? <CircularProgress /> : LOCALE.APPROVE[lang]}
+          {signState === STATE.BUSY ? (
+            <CircularProgress />
+          ) : (
+            LOCALE.APPROVE[lang]
+          )}
         </Button>
-        <TextField size="small" variant="outlined" placeholder={LOCALE.REASON[lang]} />
+        <TextField
+          size="small"
+          variant="outlined"
+          placeholder={LOCALE.REASON[lang]}
+        />
         <Button variant="contained" className={classes.rejectBtn}>
-          {signState === STATE.BUSY ? <CircularProgress /> : LOCALE.REJECT[lang]}
+          {signState === STATE.BUSY ? (
+            <CircularProgress />
+          ) : (
+            LOCALE.REJECT[lang]
+          )}
         </Button>
       </TableCell>
     </TableRow>

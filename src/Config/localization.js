@@ -661,4 +661,12 @@ export const LOCALE = {
     en: "Subcribe",
     ko: "구독",
   },
+  VERIFY_ACCOUNT: {
+    en: "Verify Account",
+    ko: "계정 확인",
+  },
+  BIO: {
+    en: "Bio",
+    ko: "바이오",
+  },
 };

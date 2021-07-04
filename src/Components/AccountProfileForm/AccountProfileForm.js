@@ -16,7 +16,9 @@ import CustomButton from "../CustomButton/CustomButton";
 import { useWaleltSign } from "src/Hooks/useWalletSign";
 import { getEditProfileMessage } from "src/Utils";
 import { STATE } from "src/Config/enums";
-import { useLoadUser } from "src/State/hooks";
+import { useLang, useLoadUser } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +63,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountProfileForm = ({ user, coverPic, profilePic }) => {
+  const lang = useLang();
   const classes = useStyles();
+  const history = useHistory();
   const { create, creating } = useCreateUser();
   const { update, updating } = useUpdateeUser();
   const { sign, signState } = useWaleltSign();
@@ -101,7 +105,6 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
     };
 
     const signature = await sign(getEditProfileMessage(account));
-    console.log(signature, _user);
     if (signature) {
       user ? update(_user) : create({ ..._user, signature });
       loadUser();
@@ -113,14 +116,14 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h6" className={classes.mainHeading}>
-            Profile Settings
+            {LOCALE.PROFILE_SETTING[lang]}
           </Typography>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Display Name"
+            placeholder={LOCALE.DISPLAY_NAME[lang]}
             color="secondary"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -131,7 +134,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Short URL"
+            placeholder={LOCALE.SHORT_URL[lang]}
             color="secondary"
             value={shortUrl}
             onChange={(e) => setShorlUrl(e.target.value)}
@@ -141,7 +144,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Bio"
+            placeholder={LOCALE.BIO[lang]}
             color="secondary"
             multiline
             rows={5}
@@ -155,7 +158,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
               <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Public Email"
+                placeholder={LOCALE.EMAIL[lang]}
                 color="secondary"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -165,7 +168,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
               <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Personal Website"
+                placeholder={LOCALE.PERSONAL_WEBSITE[lang]}
                 color="secondary"
                 value={website}
                 onChange={(e) => setWebsite(e.target.value)}
@@ -225,17 +228,18 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
                 background:
                   "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
               }}
+              onClick={() => history.push(`/otp`)}
             >
               <InstagramIcon fontSize="small" />
-              &nbsp;&nbsp; Link your Instagram Account
+              &nbsp;&nbsp; {LOCALE.VERIFY_ACCOUNT[lang]}
             </Button>
           </div>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Typography className={classes.linkAccName}>
             Linked Account: <b>@dghunterss</b>
           </Typography>
-        </Grid>
+        </Grid> */}
         <Grid item md={3} xs={12}>
           <CustomButton
             type="submit"
@@ -244,7 +248,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
             color="secondary"
             loading={creating || updating}
           >
-            Save Changes!
+            {LOCALE.SAVE_CHANGES[lang]}
           </CustomButton>
         </Grid>
         <Grid item md={3} xs={12}>

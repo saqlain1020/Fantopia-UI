@@ -181,9 +181,12 @@ export const useOrder = (address, tokenId) => {
 
   let fetchOrder = async () => {
     setLoading(true);
-    const _order = await getOrder(address, tokenId);
-    setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
-    console.log(_order);
+    try {
+      const _order = await getOrder(address, tokenId);
+      setOrder(_order && Object.keys(_order).length === 0 ? null : _order);
+    } catch (e) {
+      console.log(e);
+    }
     setLoading(false);
   };
 
