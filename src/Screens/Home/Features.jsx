@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     flexFlow: "column",
     color: theme.customColors.lightBlack,
+    border: `2px solid ${theme.palette.secondary.main}`,
+    padding:6,
+    borderRadius:10,
     "& a": {
       fontWeight: 700,
       color: theme.palette.secondary.main,
@@ -25,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
   },
   stepNumber: {
     position: "absolute",
-    top: 0,
-    left: 0,
+    top: 5,
+    left: 5,
     background: "white",
     color: "black",
     borderRadius: 360,
@@ -42,7 +45,7 @@ const Features = () => {
 
   return (
     <Container maxWidth="lg" className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
             <Typography variant="h5" className={classes.stepNumber}>
