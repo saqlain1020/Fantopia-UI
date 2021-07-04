@@ -117,21 +117,43 @@ const Footer = () => {
             </Button>
           </div>
           <div className={classes.socialIconsContainer}>
-            <IconButton>
-              <i className="fab fa-facebook-f"></i>
-            </IconButton>
-            <IconButton>
-              <i className="fab fa-twitter"></i>
-            </IconButton>
-            <IconButton>
-              <i className="fab fa-instagram"></i>
-            </IconButton>
-            <IconButton>
-              <i className="fab fa-linkedin-in"></i>
-            </IconButton>
-            <IconButton>
-              <i className="fab fa-telegram-plane"></i>
-            </IconButton>
+            <a
+              href="https://www.facebook.com/fantopia.io.official/"
+              className="a"
+              target="_blank"
+            >
+              <IconButton>
+                <i className="fab fa-facebook-f"></i>
+              </IconButton>
+            </a>
+
+            <a
+              className="a"
+              target="_blank"
+              href="https://twitter.com/fantopia_io"
+            >
+              <IconButton>
+                <i className="fab fa-twitter"></i>
+              </IconButton>
+            </a>
+            <a
+              className="a"
+              target="_blank"
+              href="https://www.instagram.com/fantopia.io/"
+            >
+              <IconButton>
+                <i className="fab fa-instagram"></i>
+              </IconButton>
+            </a>
+            <a
+              className="a"
+              target="_blank"
+              href="https://www.youtube.com/channel/UCwrmV-a857FblNRyD6z1Lhg"
+            >
+              <IconButton>
+                <i className="fab fa-youtube"></i>
+              </IconButton>
+            </a>
           </div>
         </Grid>
         <Grid item xs={12}>

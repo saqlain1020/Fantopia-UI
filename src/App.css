@@ -31,7 +31,9 @@ body {
 .MuiInput-underline:before{
   border-color: #24E3AD !important;
 }
-
+.a{
+  text-decoration: none;
+}
 /* .slick-arrow {
   transform: scale(3) !important;
   z-index: 1;
