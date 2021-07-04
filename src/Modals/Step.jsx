@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Step = ({ state, onClick, disabled, heading, para }) => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
@@ -66,7 +67,9 @@ const Step = ({ state, onClick, disabled, heading, para }) => {
             fullWidth
             className={classes.btn}
             onClick={onClick}
-            disabled={disabled || state !== STATE.FAILED}
+            disabled={
+              disabled !== undefined ? disabled : state !== STATE.FAILED
+            }
           >
             Start
           </Button>

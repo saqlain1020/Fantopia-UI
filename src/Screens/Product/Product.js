@@ -5,6 +5,7 @@ import ProductInfoBar from "src/Components/ProductInfoBar/ProductInfoBar";
 import { useParams } from "react-router-dom";
 import { useMetadata } from "src/Hooks/useToken";
 import { useOrder } from "src/Hooks/useOrder";
+import { useLoadingModal } from "src/Hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,7 +28,12 @@ const Product = () => {
   const classes = useStyles();
   const { address, tokenId } = useParams();
   const { metadata, loading } = useMetadata(address, tokenId);
-  const { order, fetchOrder } = useOrder(address, tokenId);
+  const {
+    order,
+    fetchOrder,
+    loading: orderLoading,
+  } = useOrder(address, tokenId);
+  useLoadingModal(loading || orderLoading);
   return (
     <div className={classes.container}>
       <div></div>

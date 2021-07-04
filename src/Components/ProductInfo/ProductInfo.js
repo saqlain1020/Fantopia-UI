@@ -14,6 +14,8 @@ import WaveBg from "src/Assets/Images/audio-wave.png";
 import clsx from "clsx";
 import { useReactions, usePostReaction } from "src/Hooks/useSocialInfo";
 import { useParams } from "react-router-dom";
+import { LOCALE } from "src/Config/localization";
+import { useLang } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   bg: {
@@ -79,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductInfo = ({ media, order }) => {
+  const lang = useLang();
   const classes = useStyles();
   const { address, tokenId } = useParams();
   const { reactions, loadingReactions, fetchReactions } = useReactions(
@@ -110,7 +113,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.like}
             </Typography>
-            <Typography className={classes.valueHeading}>LIKES</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.LIKES[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -124,7 +129,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.love}
             </Typography>
-            <Typography className={classes.valueHeading}>LOVES</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.LOVES[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -138,7 +145,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.dislike}
             </Typography>
-            <Typography className={classes.valueHeading}>DISLIKES</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.DISLIKES[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -152,7 +161,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.happy}
             </Typography>
-            <Typography className={classes.valueHeading}>HAPPY</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.HAPPY[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -166,7 +177,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.funny}
             </Typography>
-            <Typography className={classes.valueHeading}>FUNNY</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.FUNNY[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -180,7 +193,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.wow}
             </Typography>
-            <Typography className={classes.valueHeading}>WOW!</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.WOW[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -194,7 +209,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.angry}
             </Typography>
-            <Typography className={classes.valueHeading}>ANGRY</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.ANGRY[lang]}
+            </Typography>
           </div>
         </Button>
         <Button
@@ -208,7 +225,9 @@ const ProductInfo = ({ media, order }) => {
             <Typography variant="h5" className={classes.value}>
               {reactions?.sad}
             </Typography>
-            <Typography className={classes.valueHeading}>SAD</Typography>
+            <Typography className={classes.valueHeading}>
+              {LOCALE.SAD[lang]}
+            </Typography>
           </div>
         </Button>
       </div>

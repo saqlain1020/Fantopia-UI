@@ -15,6 +15,8 @@ import CreationCard from "src/Components/CreationCard/CreationCard";
 import { useParams } from "react-router-dom";
 import { useCollection, useCollectionTokens } from "src/Hooks/useCollection";
 import image from "src/Assets/Images/ad-1.png";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,11 +63,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Collection = () => {
   const classes = useStyles();
+  const lang = useLang();
   const [tab, setTab] = React.useState(0);
   const { address } = useParams();
   const { collection, loading: loadingCollection } = useCollection(address);
   const { tokens, loading } = useCollectionTokens(collection?.address);
-
   return (
     <div className={classes.root}>
       <div className={classes.bg}>
@@ -77,7 +79,7 @@ const Collection = () => {
             transform: "scale(3)",
           }}
         >
-          <UserName noName media={collection?.image} />
+          <UserName noName image={collection?.image} />
         </div>
       </div>
       <Container maxWidth="lg">
@@ -109,9 +111,9 @@ const Collection = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab icon="All" />
-        <Tab icon="On Sale" />
-        <Tab icon="On Auction" />
+        <Tab icon={LOCALE.ALL[lang]} />
+        <Tab icon={LOCALE.ON_SALE[lang]} />
+        <Tab icon={LOCALE.ON_AUCTION[lang]} />
       </Tabs>
       <Container maxWidth="lg" disableGutters>
         <Grid container>

@@ -5,6 +5,13 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useFeaturedCreationOrders } from "src/Hooks/useOrder";
+import { useHistory } from "react-router-dom";
+import { useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
+import hottestImage from "src/Assets/Images/hottest.jpg";
+import mostTalkedImage from "src/Assets/Images/most-talked.jpg";
+import mostValuedImage from "src/Assets/Images/most-valued.jpg";
 
 const useStyles = makeStyles((theme) => ({
   mainHeading: {
@@ -25,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-end",
-    overflow:"hidden",
+    overflow: "hidden",
     transition: "background-size 200ms ease-in-out",
     "&::after": {
       content: "''",
@@ -39,32 +46,32 @@ const useStyles = makeStyles((theme) => ({
       transformOrigin: "center",
       transition: "transform .2s ease-in-out",
     },
-    "&::before":{
+    "&::before": {
       content: "''",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    height:"100%",
-    width:"100%",
-    zIndex:1, 
-    // opacity:.3,
-    background: "linear-gradient(0deg , rgba(0,0,0,0.8),rgba(0,0,0,0),rgba(0,0,0,0))"
+      position: "absolute",
+      top: 0,
+      left: 0,
+      height: "100%",
+      width: "100%",
+      zIndex: 1,
+      // opacity:.3,
+      background:
+        "linear-gradient(0deg , rgba(0,0,0,0.8),rgba(0,0,0,0),rgba(0,0,0,0))",
     },
     "&:hover::after": {
       transform: "scale(1.1)",
     },
-    "& > div":{
-      zIndex:1,
-    }
+    "& > div": {
+      zIndex: 1,
+    },
   },
   panelHeading: {
     fontWeight: 700,
 
-    color:"white",
+    color: "white",
   },
-  panelPara:{
-    color:"white",
-
+  panelPara: {
+    color: "white",
   },
   discover: {
     display: "flex",
@@ -74,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "default",
   },
   slider: {
+    cursor: "pointer",
     "& .slick-slide": {
       transform: "scale(1) !important",
       opacity: "1 !important",
@@ -91,17 +99,21 @@ const useStyles = makeStyles((theme) => ({
     width: "fit-content",
     padding: 5,
     borderRadius: 10,
-    boxShadow: "-2px 2px 5px rgba(0,0,0,0.2)",
+    // boxShadow: "-2px 2px 5px rgba(0,0,0,0.2)",
   },
 }));
 
 const HomeFeaturedCollections = () => {
+  const lang = useLang();
   const classes = useStyles();
+  const history = useHistory();
+  const { highestPriceOrders, mostAffordable, trendingOrders } =
+    useFeaturedCreationOrders();
 
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" className={classes.mainHeading}>
-        Featured Collection
+        {LOCALE.FEATURED_COLLETION[lang]}
       </Typography>
       <Slider
         className={classes.slider}
@@ -137,8 +149,32 @@ const HomeFeaturedCollections = () => {
           },
         ]}
       >
-        {Data.map((item, index) => (
-          <div key={index}>
+        {[
+          {
+            ...trendingOrders,
+            image: hottestImage,
+            heading: LOCALE.TRENDING[lang],
+            para: LOCALE.TRENDING_TEXT[lang],
+          },
+          {
+            ...highestPriceOrders,
+            image: mostTalkedImage,
+            heading: LOCALE.HIGHEST_VALUE[lang],
+            para: LOCALE.HIGHEST_VALUE_TEXT[lang],
+          },
+          {
+            ...mostAffordable,
+            image: mostValuedImage,
+            heading: LOCALE.MOST_AFFORDABLE[lang],
+            para: LOCALE.MOST_AFFORDABLE_TEXT[lang],
+          },
+        ].map((item, index) => (
+          <div
+            key={index}
+            onClick={() =>
+              history.push(`collection/${item.address}/${item.tokenId}`)
+            }
+          >
             <div
               className={classes.panel}
               style={{ backgroundImage: `url(${item.image})` }}
@@ -172,9 +208,9 @@ const HomeFeaturedCollections = () => {
           </Grid>
         ))}
       </Grid> */}
-      <Typography variant="h6" className={classes.discover}>
+      {/* <Typography variant="h6" className={classes.discover}>
         Discover More <ChevronRightIcon />
-      </Typography>
+      </Typography> */}
     </Container>
   );
 };

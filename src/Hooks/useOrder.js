@@ -1,6 +1,7 @@
 import { splitSignature } from "@ethersproject/bytes";
 import { useWeb3 } from "@react-dapp/wallet";
 import { useEffect, useState } from "react";
+import { getMetadata } from "src/Api";
 import { getOrder, getOrders, postBid, postOrder } from "src/Api/order";
 import { PROTOCOL_FEE, RELAYER, RELAYER_FEE } from "src/Config/constants";
 import { EXCHANGE, ZERO_ADDRESS } from "src/Config/contracts";
@@ -120,6 +121,10 @@ export const useSignBuyOrder = () => {
     let buyOrderHash;
     buyOrderHash = await exchange.methods.hashOrder(buyOrder).call();
     const buySignature = await _sign(buyOrderHash, true);
+    if (!buySignature) {
+      setSignState(STATE.FAILED);
+      return;
+    }
     if (price) {
       const orderObj = {
         order: buyOrder,
@@ -127,7 +132,6 @@ export const useSignBuyOrder = () => {
         orderHash: buyOrderHash,
         tags: ["art"],
       };
-      console.log(orderObj);
       await postBid(orderObj);
     }
     setOrder({ buyOrder, buySignature, sellOrder, sellSignature });
@@ -143,6 +147,7 @@ export const useBuyOrder = () => {
 
   const buy = async (order) => {
     const { buyOrder, buySignature, sellOrder, sellSignature } = order;
+    console.log("Buy Order ", order);
     try {
       setBuyState(STATE.BUSY);
       await exchange.methods
@@ -150,7 +155,8 @@ export const useBuyOrder = () => {
           buyOrder,
           splitSignature(buySignature),
           sellOrder,
-          splitSignature(sellSignature)
+          splitSignature(sellSignature),
+          ZERO_ADDRESS
         )
         .send({
           from: buyOrder.maker,
@@ -210,25 +216,112 @@ export const useOrders = (filter, sort, page) => {
   return { orders, loading };
 };
 
-// export const useHomeOrders = () => {
-//   const [trendingOrders, setTrendingOrders] = useState(null);
-//   const [highestPriceOrders, setHighestPriceOrders] = useState(null);
-//   const [lowestPriceOrders, setLowestPriceOrders] = useState(null);
+export const useTopCreationOrders = (saleKind, sort, page) => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-//   const fetchOrders = async () => {
-//     setLoading(true);
-//     try {
-//       const _orders = await getOrders(filter, sort);
-//       setOrders(_orders);
-//       console.log(_orders);
-//     } catch (e) {
-//       console.log(e);
-//     }
-//     setLoading(false);
-//   };
-//   useEffect(() => {
-//     fetchOrders();
-//   }, [filter, sort]);
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const _orders = await getOrders(
+        {
+          verified: false,
+          category: ["digitalArt", "photos", "videos", "music"],
+          minPrice: "",
+          maxPrice: "",
+          saleKind: saleKind,
+        },
+        sort,
+        page
+      );
+      setOrders(_orders);
+      console.log(_orders);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, [saleKind, sort, page]);
 
-//   return { orders, loading };
-// };
+  return { orders, loading };
+};
+
+export const useFeaturedCreationOrders = () => {
+  const [loading, setLoading] = useState(false);
+  const [trendingOrders, setTrendingOrders] = useState(null);
+  const [highestPriceOrders, setHighestPriceOrders] = useState(null);
+  const [mostAffordable, setMostAffordable] = useState(null);
+
+  const fetchOrders = async () => {
+    setLoading(true);
+    try {
+      const _trending = await getOrders(
+        {
+          verified: false,
+          category: ["digitalArt", "photos", "videos", "music"],
+          minPrice: "",
+          maxPrice: "",
+          saleKind: 0,
+        },
+        "recentlyAdded",
+        1,
+        1
+      );
+      if (_trending?.results[0]) {
+        const _meta1 = await getMetadata(
+          _trending?.results[0].order.asset,
+          _trending?.results[0].order.assetId
+        );
+        setTrendingOrders(_meta1);
+      }
+      const _highestPrice = await getOrders(
+        {
+          verified: false,
+          category: ["digitalArt", "photos", "videos", "music"],
+          minPrice: "",
+          maxPrice: "",
+          saleKind: 0,
+        },
+        "highestValue",
+        1,
+        1
+      );
+      if (_highestPrice?.results[0]) {
+        const _meta2 = await getMetadata(
+          _highestPrice?.results[0].order.asset,
+          _highestPrice?.results[0].order.assetId
+        );
+        setHighestPriceOrders(_meta2);
+      }
+      const _mostAffordable = await getOrders(
+        {
+          verified: false,
+          category: ["digitalArt", "photos", "videos", "music"],
+          minPrice: "",
+          maxPrice: "",
+          saleKind: 0,
+        },
+        "mostAffordable",
+        1,
+        1
+      );
+      if (_mostAffordable?.results[0]) {
+        const _meta3 = await getMetadata(
+          _mostAffordable?.results[0].order.asset,
+          _mostAffordable?.results[0].order.assetId
+        );
+        setMostAffordable(_meta3);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  return { trendingOrders, highestPriceOrders, mostAffordable, loading };
+};

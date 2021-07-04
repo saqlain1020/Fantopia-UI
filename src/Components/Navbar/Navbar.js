@@ -12,7 +12,9 @@ import Profile from "./Components/Profile";
 import Notifications from "../Notifications/Notifications";
 import { useWalletModal, useWeb3 } from "@react-dapp/wallet";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
-import UserName from './../UserName/UserName';
+import UserName from "./../UserName/UserName";
+import { LOCALE } from "src/Config/localization";
+import { useLang, useUser } from "src/State/hooks";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.primary.main,
@@ -70,7 +72,9 @@ const Navbar = (props) => {
   const classes = useStyles();
   const { open, setOpen } = useWalletModal();
   const { account } = useWeb3();
-  console.log("Account: ", account);
+  const lang = useLang();
+  const { user } = useUser();
+
   return (
     <div className={classes.root}>
       <div>
@@ -89,19 +93,24 @@ const Navbar = (props) => {
         />
       </div>
       <div className={classes.linksContainer}>
-        <Link to="/Categories" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>Explore</Typography>
+        <Link to="/explore" style={{ textDecoration: "none" }}>
+          <Typography className={classes.links}>
+            {LOCALE.EXPLORE[lang]}
+          </Typography>
         </Link>
         <Link to="/CreateItem" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>Create</Typography>
+          <Typography className={classes.links}>
+            {LOCALE.CREATE[lang]}
+          </Typography>
         </Link>
         <Link to="/ProfileStore" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>My Items</Typography>
+          <Typography className={classes.links}>
+            {LOCALE.MY_PROFILE[lang]}
+          </Typography>
         </Link>
-        <Link to="/Activity" style={{ textDecoration: "none" }}>
-          <Typography className={classes.links}>Activity</Typography>
-        </Link>
-       
+        {/* <Link to="/Activity" style={{ textDecoration: "none" }}>
+          <Typography className={classes.links}>{LOCALE.ACCOUNT[lang]}</Typography>
+        </Link> */}
       </div>
       <div>
         <Button
@@ -116,9 +125,13 @@ const Navbar = (props) => {
       <Notifications />
       <div>
         {/* <Profile /> */}
-        <UserName noName  onClick={() => props.history.push("/Account/profile")}/>
+        <UserName
+          image={user?.profilePic}
+          noName
+          onClick={() => props.history.push("/Account/profile")}
+        />
       </div>
-      <ThemeSwitch/>
+      <ThemeSwitch />
     </div>
   );
 };

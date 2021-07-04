@@ -16,7 +16,10 @@ import LogoLight from "src/Assets/Images/logo_light.png";
 import LogoDark from "src/Assets/Images/logo_filled.png";
 import IOSSwitch from "../IOSSwitch/IOSSwitch";
 import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
-import { useCreateCollectionModal } from "../../Hooks/useModal";
+import {
+  useCreateCollectionModal,
+  useLoadingModal,
+} from "../../Hooks/useModal";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import TimelapseOutlinedIcon from "@material-ui/icons/TimelapseOutlined";
 import AllInclusiveOutlinedIcon from "@material-ui/icons/AllInclusiveOutlined";
@@ -31,6 +34,7 @@ import { useHistory } from "react-router";
 import tokenList from "src/Config/paymentTokens.json";
 import { NATIVE_ERC721_NAME } from "src/Config/constants";
 import PutOnSale from "../PutOnSale/PutOnSale";
+import { useRequestMintApproval } from "src/Hooks/useMintToken";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -176,8 +180,12 @@ const useStyles = makeStyles((theme) => ({
 const CreateSingleItem = () => {
   const classes = useStyles();
   const { openModal } = useCreateCollectionModal();
-  const { userCollections, celebrityCollections, fetchUserCollection } =
-    useCollectionList();
+  const {
+    userCollections,
+    celebrityCollections,
+    fetchUserCollection,
+    loading,
+  } = useCollectionList();
   const { openModal: openMintModal } = useMintTokenModal();
   const [media, setMedia] = useState(null);
   const [file, setFile] = useState(null);
@@ -194,9 +202,12 @@ const CreateSingleItem = () => {
     COLLECTION_TYPE.NATIVE
   );
   const [collectionName, setCollectionName] = useState("Fantopia");
+  const { sending, sendRequest } = useRequestMintApproval(collectionAddress);
 
   const history = useHistory();
   const { account } = useWeb3();
+
+  useLoadingModal(loading);
 
   const handleFilePick = async (e) => {
     const filename = e.target.files[0];
@@ -224,34 +235,41 @@ const CreateSingleItem = () => {
       category: category,
       minter: account,
       owner: account,
-      shouldSignMint: false, //COLLECTION_TYPE.USER === selectedCollection,
+      shouldSignMint: COLLECTION_TYPE.NATIVE === selectedCollection,
     };
-    let order;
-    if (saleState.putOnSale) {
-      order = {
-        name,
-        category,
-        collectionName,
-        verified: false,
-        address: collectionAddress,
-        account,
-        saleKind: saleState.saleKind,
-        price: saleState.price,
-        paymentToken: saleState.currency === "BNB" ? null : saleState.currency,
-        listingTime:
-          !saleState.startDate || saleState.startDate === ""
-            ? parseInt(Date.now() / 1000)
-            : parseInt(saleState.startDate.getTime() / 1000),
-        expirationTime:
-          !saleState.endDate || saleState.endDate === ""
-            ? 0
-            : parseInt(saleState.endDate.getTime() / 1000),
-      };
+
+    if (selectedCollection === COLLECTION_TYPE.CELEB) {
+      sendRequest(metadata);
+    } else {
+      let order;
+      if (saleState.putOnSale) {
+        order = {
+          name,
+          category,
+          collectionName,
+          verified: false,
+          address: collectionAddress,
+          account,
+          saleKind: saleState.saleKind,
+          price: saleState.price,
+          paymentToken:
+            saleState.currency === "BNB" ? null : saleState.currency,
+          listingTime:
+            !saleState.startDate || saleState.startDate === ""
+              ? parseInt(Date.now() / 1000)
+              : parseInt(saleState.startDate.getTime() / 1000),
+          expirationTime:
+            !saleState.endDate || saleState.endDate === ""
+              ? 0
+              : parseInt(saleState.endDate.getTime() / 1000),
+        };
       }
-    console.log({ metadata, order });
-    openMintModal({ metadata, order }, (tokenId) => {
-      if (tokenId) history.push(`/collection/${collectionAddress}/${tokenId}`);
-    });
+      console.log({ metadata, order });
+      openMintModal({ metadata, order }, (tokenId) => {
+        if (tokenId)
+          history.push(`/collection/${collectionAddress}/${tokenId}`);
+      });
+    }
   };
   return (
     <form className={classes.root} onSubmit={handleCreateItem}>
@@ -275,7 +293,10 @@ const CreateSingleItem = () => {
         />
         <Divider />
         <div style={{ padding: 10 }}>
-          <PutOnSale getState={setSaleState} />
+          <PutOnSale
+            disabled={selectedCollection === COLLECTION_TYPE.CELEB}
+            getState={setSaleState}
+          />
           {/* <div className={classes.switches}>
             <Typography variant="h6">Unlock upon purchase</Typography>
             <IOSSwitch />
@@ -337,6 +358,7 @@ const CreateSingleItem = () => {
           variant="contained"
           color="secondary"
           className={classes.createBtn}
+          loading={sending}
         >
           Create Item
         </CustomButton>

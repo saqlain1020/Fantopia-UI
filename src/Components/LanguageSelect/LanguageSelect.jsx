@@ -4,7 +4,7 @@ import ReactLanguageSelect from "react-languages-select";
 import LanguageIcon from "@material-ui/icons/Language";
 //import css module
 import "react-languages-select/css/react-languages-select.css";
-import { Typography } from "@material-ui/core";
+import { useChangeLanguage } from "src/State/hooks";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -42,8 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 const LanguageSelect = () => {
   const classes = useStyles();
-  const onSelect = (langCode) => {
-    console.log(langCode);
+  const change = useChangeLanguage();
+
+  const handleSelect = (lang) => {
+    change(lang);
   };
   return (
     <div className={classes.root}>
@@ -51,8 +53,9 @@ const LanguageSelect = () => {
       <ReactLanguageSelect
         defaultLanguage="en"
         className={classes.select}
-        languages={["en", "fr", "de", "it", "es"]}
-        onSelect={onSelect}
+        languages={["en", "ko"]}
+        customLabels={{ en: "English", ko: "한글" }}
+        onSelect={handleSelect}
       />
     </div>
   );

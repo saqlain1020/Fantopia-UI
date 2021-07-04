@@ -1,10 +1,13 @@
 import React from "react";
-import { makeStyles, Tab, Tabs } from "@material-ui/core";
+import { Grid, makeStyles, Tab, Tabs } from "@material-ui/core";
 import CreationCard from "../CreationCard/CreationCard";
+import { useUserCollections } from "src/Hooks/useCollection";
+import { useHistory } from "react-router-dom";
+import Slider from "react-slick";
+import CollectionCard from "../CollectionCard/CollectionCard";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-  },
+  root: {},
   tabs: {
     marginBottom: 20,
     background: theme.palette.primary.dark,
@@ -12,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
     marginRight: "auto",
     marginLeft: "auto",
-    
+
     borderRadius: 10,
   },
   grid: {
@@ -26,7 +29,9 @@ const useStyles = makeStyles((theme) => ({
 
 const StoreTabs = () => {
   const classes = useStyles();
-  const [tab, setTab] = React.useState(1);
+  const [tab, setTab] = React.useState(0);
+  const { userCollections } = useUserCollections();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -39,28 +44,17 @@ const StoreTabs = () => {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab icon="On Sale" />
         <Tab icon="Collection" />
-        <Tab icon="Created" />
-        <Tab icon="Liked" />
-        <Tab icon="Activity" />
-        <Tab icon="Following" label={<span>41</span>} />
-        <Tab icon="Followers" label={<span>921</span>} />
+        <Tab icon="On Sale" />
+        <Tab icon="Auctions" />
       </Tabs>
-      <div className="flex">
-        <div className={classes.grid}>
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-          <CreationCard />
-        </div>
-      </div>
+      <Grid container>
+        {userCollections.map((e) => (
+          <Grid item xs={12} sm={12} md={4} lg={3}>
+            <CollectionCard data={e} />
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 };

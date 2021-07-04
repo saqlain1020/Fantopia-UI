@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import { LANGUAGES } from "src/Config/localization";
+import { useChangeLanguage, useLang } from "src/State/hooks";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,13 +53,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const classes = useStyles();
+  const change = useChangeLanguage();
+  const lang = useLang();
 
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <LanguageSelect/>
-        </Grid>
         <Grid item xs={12} sm={6}>
           <Grid container spacing={10}>
             <Grid item>
@@ -132,6 +133,9 @@ const Footer = () => {
               <i className="fab fa-telegram-plane"></i>
             </IconButton>
           </div>
+        </Grid>
+        <Grid item xs={12}>
+          <LanguageSelect />
         </Grid>
       </Grid>
     </Container>

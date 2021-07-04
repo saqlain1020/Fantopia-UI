@@ -34,7 +34,9 @@ export const getCollectionByShortUrl = async (shortUrl) => {
   return response.data;
 };
 
-export const getCollectionTokens = async (address) => {
-  const response = await metadataApi.get(`tokenlist/${address}`);
+export const getCollectionTokens = async (address, pending = false) => {
+  const response = await metadataApi.get(
+    `tokenlist/${address}?pending=${pending ? "true" : "false"}`
+  );
   return response.data;
 };

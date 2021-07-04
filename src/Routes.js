@@ -22,7 +22,7 @@ const Routes = () => {
       <Route path="/collection/:address/:tokenId/:buynow" component={Product} />
       <Route path="/collection/:address/:tokenId" component={Product} />
       <Route path="/collection/:address" component={Collection} />
-      <Route path="/Categories" component={Categories} />
+      <Route path="/explore" component={Categories} />
       <Route path="/CreateItem" component={CreateItem} />
       <Route path="/Activity" component={Activity} />
       <Route path="/Charts" component={Charts} />

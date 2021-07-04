@@ -21,16 +21,20 @@ const useStyles = makeStyles((theme) => ({
 
 const MakeOffer = ({ payload }) => {
   const classes = useStyles();
-  const { approveState, isApproved, approve } = useERC20Approval(
-    payload.order.paymentToken
-  );
+  const { approveState, isApproved, approvedBalance, approve } =
+    useERC20Approval(payload.order.paymentToken, payload.order.basePrice);
   const { sign, signState } = useSignBuyOrder();
   const closeModal = useCloseModal();
   const [price, setPrice] = useState(0);
   const [priceErr, setPriceErr] = useState(null);
 
   useEffect(() => {
-    setPrice(getHighestBid(payload.bids) + 1);
+    const bid =
+      payload.bids.length === 0
+        ? convertToLowerValue(payload.order.basePrice) + 1
+        : getHighestBid(payload.bids) + 1;
+    setPrice(bid);
+    validatePrice(bid);
   }, []);
 
   useEffect(() => {
@@ -93,7 +97,7 @@ const MakeOffer = ({ payload }) => {
         heading="Sign Order"
         para="Sign Bid Order"
         onClick={() => signOrder()}
-        disabled={priceErr}
+        disabled={priceErr !== null}
         state={signState}
       />
       <br />

@@ -2,6 +2,8 @@ import { makeStyles, Paper, Typography } from "@material-ui/core";
 import React from "react";
 import DiscordIco from "src/Assets/Icons/discord.png";
 import TelegramIco from "src/Assets/Icons/telegram.png";
+import { LOCALE } from "src/Config/localization";
+import { useLang } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 10,
     background: theme.palette.primary.main,
     color: theme.palette.secondary.main,
-    boxShadow: "0px 1px 10px rgba(255,255,255,.2)"
+    boxShadow: "0px 1px 10px rgba(255,255,255,.2)",
   },
   iconContainer: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: 35,
-    "& img":{
-      width:"30px !important",
-    }
+    "& img": {
+      width: "30px !important",
+    },
   },
   text: {
     fontWeight: 700,
@@ -41,10 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
 const JoinCommunity = () => {
   const classes = useStyles();
+  const lang = useLang();
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.heading}>Join Our Community</Typography>
+      <Typography className={classes.heading}>
+        {LOCALE.JOIN_COMMUNITY[lang]}
+      </Typography>
       <Paper className={classes.grid}>
         <div
           className={classes.iconContainer}

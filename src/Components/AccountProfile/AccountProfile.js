@@ -115,7 +115,7 @@ const AccountProfile = ({ history }) => {
             Profile Info
           </Typography>
         </div>
-        <div>
+        {/* <div>
           <Button
             variant="contained"
             color="secondary"
@@ -123,7 +123,7 @@ const AccountProfile = ({ history }) => {
           >
             <StorefrontOutlinedIcon />
           </Button>
-        </div>
+        </div> */}
       </div>
       <Grid container>
         <Grid item xs={12} sm={12} md={12}>
@@ -131,8 +131,8 @@ const AccountProfile = ({ history }) => {
             className={classes.profile1}
             style={{
               backgroundImage: coverPicUrl && `url(${coverPicUrl})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover'
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
             }}
           >
             <div

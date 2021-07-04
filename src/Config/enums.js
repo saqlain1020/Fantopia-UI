@@ -7,6 +7,7 @@ export const MODAL_TYPE = {
   MAKE_BID: "MAKE_BID",
   BUY_NOW: "BUY_NOW",
   CANCEL_ORDER: "CANCEL_ORDER",
+  LOADING_MODAL: "LOADING_MODAL",
 };
 
 export const STATE = {
