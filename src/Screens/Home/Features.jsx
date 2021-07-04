@@ -11,6 +11,7 @@ import { LOCALE } from "src/Config/localization";
 const useStyles = makeStyles((theme) => ({
   root: {},
   wrapper: {
+    position: "relative",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -21,6 +22,17 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.secondary.main,
       textDecoration: "none",
     },
+  },
+  stepNumber: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    background: "white",
+    color: "black",
+    borderRadius: 360,
+    width: 30,
+    display: "flex",
+    justifyContent: "center",
   },
 }));
 
@@ -33,6 +45,9 @@ const Features = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
+            <Typography variant="h5" className={classes.stepNumber}>
+              <b>1</b>
+            </Typography>
             <AccountBalanceWalletTwoToneIcon fontSize="large" />
             <Typography
               variant="h6"
@@ -48,6 +63,9 @@ const Features = () => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
+            <Typography variant="h5" className={classes.stepNumber}>
+              <b>2</b>
+            </Typography>
             <ViewQuiltTwoToneIcon fontSize="large" />
             <Typography
               variant="h6"
@@ -63,6 +81,9 @@ const Features = () => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
+            <Typography variant="h5" className={classes.stepNumber}>
+              <b>3</b>
+            </Typography>
             <ImageTwoToneIcon fontSize="large" />
             <Typography
               variant="h6"
@@ -76,6 +97,9 @@ const Features = () => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <div className={classes.wrapper}>
+            <Typography variant="h5" className={classes.stepNumber}>
+              <b>4</b>
+            </Typography>
             <LocalOfferTwoToneIcon fontSize="large" />
             <Typography
               variant="h6"

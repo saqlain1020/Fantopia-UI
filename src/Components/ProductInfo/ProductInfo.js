@@ -10,6 +10,7 @@ import AngryIco from "src/Assets/Icons/Angry.png";
 import DislikeIco from "src/Assets/Icons/Dislike.png";
 import ProductInfoTabs from "../ProductInfoTabs/ProductInfoTabs";
 import Vid from "src/Assets/Videos/vid.mp4";
+import WaveBg from "src/Assets/Images/audio-wave.png";
 import clsx from "clsx";
 import { useReactions, usePostReaction } from "src/Hooks/useSocialInfo";
 import { useParams } from "react-router-dom";
@@ -20,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
   bg: {
     width: "calc(100% - 16px)",
     objectFit: "cover",
-    background: theme.palette.secondary.vibrant,
+    backgroundColor: theme.palette.secondary.vibrant,
+    backgroundImage: `url(${WaveBg})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
     height: "90vh",
     maxHeight: 750,
     borderRadius: 15,

@@ -11,6 +11,7 @@ import PendingApprovals from "./Screens/PendingApprovals/PendingApprovals";
 import Product from "./Screens/Product/Product";
 import ProfileStore from "./Screens/ProfileStore/ProfileStore";
 import ShortUrl from "./Screens/ShortUrl/ShortUrl";
+import Test from "./Screens/Test/Test";
 
 const Routes = () => {
   return (
@@ -26,6 +27,7 @@ const Routes = () => {
       <Route path="/Activity" component={Activity} />
       <Route path="/Charts" component={Charts} />
       <Route path="/pending-approvals" component={PendingApprovals} />
+      <Route path="/test" component={Test} />
       <Route path="/:shortUrl" component={ShortUrl} />
     </Switch>
   );
