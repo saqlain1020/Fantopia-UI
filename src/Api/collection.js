@@ -50,7 +50,6 @@ export const getNewTokenId = async (address) => {
 
 export const getNativeTokenIdWithSig = async (minter, fees, contract) => {
   const { tokenId } = await getNewTokenId(NATIVE_ERC721_ADDRESS);
-  console.log(tokenId);
   const hash = await contract.methods
     .calculateHash(minter, tokenId, fees)
     .call();
@@ -58,5 +57,5 @@ export const getNativeTokenIdWithSig = async (minter, fees, contract) => {
     "37cecb613ecf1bb540fc9662e76550638fed5a861ca713da09aa94efcfc1ab78"
   );
   const signature = await wallet.signMessage(ethers.utils.arrayify(hash));
-  return { tokenId: tokenId, signature };
+  return { id: tokenId, sig: signature };
 };

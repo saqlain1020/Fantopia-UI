@@ -65,7 +65,7 @@ const CollectionSteps = ({ payload }) => {
         <Step
           heading="Sign Order"
           para="Sign Sell Order"
-          onClick={() => create(order)}
+          onClick={() => create({ ...order, tokenId })}
           state={createState}
         />
       )}

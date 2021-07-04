@@ -38,37 +38,32 @@ export const useMintERC721 = (data) => {
   const [mintState, setMintState] = useState(STATE.IDLE);
   const { account } = useWeb3();
   const contract = useERC721(data.address);
+  const [tokenId, setTokenId] = useState(undefined);
 
   const mint = async (_tokenId, _signature) => {
     try {
       setMintState(STATE.BUSY);
       if (_tokenId && _signature) {
-        // const { v, r, s } = splitSignature(_signature);
-        // await contract.methods
-        //   .mint(account, _tokenId, v, r, s, data.fees, _tokenId)
-        //   .send({ from: account });
+        setTokenId(_tokenId);
+        const { v, r, s } = splitSignature(_signature);
+        await contract.methods
+          .mint(account, _tokenId, v, r, s, data.fees, _tokenId)
+          .send({ from: account });
       } else {
         // const newtokenId = await getNewTokenId(NATIVE_ERC721_ADDRESS);
         // await contract.methods
         //   .mint(account, data.fees, newtokenId)
         //   .send({ from: account });
-        const { tokenId, signature } = await getNativeTokenIdWithSig(
+        const { id, sig } = await getNativeTokenIdWithSig(
           account,
           data.fees,
           contract
         );
-        console.log(tokenId, signature);
-        const { v, r, s } = splitSignature(signature);
+        setTokenId(id);
+        const { v, r, s } = splitSignature(sig);
+
         await contract.methods
-          .mint(
-            account,
-            tokenId.toString(),
-            v,
-            r,
-            s,
-            data.fees,
-            tokenId.toString()
-          )
+          .mint(account, id.toString(), v, r, s, data.fees, id.toString())
           .send({ from: account });
         await postMetadata({
           tokenId,
@@ -76,6 +71,7 @@ export const useMintERC721 = (data) => {
           fees: data.fees,
         });
       }
+      console.log("success");
       setMintState(STATE.SUCCEED);
     } catch (e) {
       setMintState(STATE.FAILED);
@@ -83,7 +79,7 @@ export const useMintERC721 = (data) => {
     }
   };
 
-  return { mintState, mint };
+  return { mintState, tokenId, mint };
 };
 
 export const useRequestMintApproval = (address) => {
