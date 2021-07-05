@@ -51,7 +51,7 @@ export const useCreateOrder = () => {
       basePrice: saleKind === 2 ? 0 : web3.utils.toWei(price),
       reservePrice: saleKind === 2 ? web3.utils.toWei(price) : 0,
       listingTime: listingTime,
-      expirationTime: expirationTime,
+      expirationTime: saleKind === 0 ? expirationTime : expirationTime + 3600,
       salt: Date.now(),
     };
     let orderHash;

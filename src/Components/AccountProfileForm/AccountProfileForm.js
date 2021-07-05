@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Divider,
   Grid,
   makeStyles,
@@ -19,6 +20,7 @@ import { STATE } from "src/Config/enums";
 import { useLang, useLoadUser } from "src/State/hooks";
 import { LOCALE } from "src/Config/localization";
 import { useHistory } from "react-router-dom";
+import { useOTP } from "src/Hooks/useVerification";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +71,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
   const { create, creating } = useCreateUser();
   const { update, updating } = useUpdateeUser();
   const { sign, signState } = useWaleltSign();
+  const { getCode, loading } = useOTP();
   const loadUser = useLoadUser();
 
   const { account } = useWeb3();
@@ -106,8 +109,17 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
 
     const signature = await sign(getEditProfileMessage(account));
     if (signature) {
-      user ? update(_user) : create({ ..._user, signature });
+      user ? await update(_user) : await create({ ..._user, signature });
       loadUser();
+    }
+  };
+
+  const handleVerifyAccount = async () => {
+    if (user?.email) {
+      const code = await getCode();
+      history.push(`/otp`, code);
+    } else {
+      alert("Please first update your email to get verified!");
     }
   };
 
@@ -160,6 +172,7 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
                 variant="outlined"
                 placeholder={LOCALE.EMAIL[lang]}
                 color="secondary"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -228,10 +241,11 @@ const AccountProfileForm = ({ user, coverPic, profilePic }) => {
                 background:
                   "linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
               }}
-              onClick={() => history.push(`/otp`)}
+              onClick={() => handleVerifyAccount()}
             >
-              <InstagramIcon fontSize="small" />
-              &nbsp;&nbsp; {LOCALE.VERIFY_ACCOUNT[lang]}
+              {loading && <CircularProgress color="inherit" />}
+              {!loading && <InstagramIcon fontSize="small" />}
+              {!loading && ` ${LOCALE.VERIFY_ACCOUNT[lang]}`}
             </Button>
           </div>
         </Grid>

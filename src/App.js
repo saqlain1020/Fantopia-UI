@@ -3,9 +3,8 @@ import { useEagerConnect } from "@react-dapp/wallet";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";
 import Navbar from "./Components/Navbar/Navbar";
-import ThemeSwitch from "./Components/ThemeSwitch/ThemeSwitch";
 import Routes from "./Routes";
-import { useLoadUser, useUser } from "./State/hooks";
+import { useFetchNotifications, useLoadUser } from "./State/hooks";
 
 function App() {
   let item = localStorage.getItem("theme");
@@ -13,6 +12,7 @@ function App() {
   else item = false;
   useEagerConnect();
   useLoadUser();
+  // useFetchNotifications();
   return (
     <Container
       maxWidth="xl"

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
+import CustomButton from "src/Components/CustomButton/CustomButton";
+import { useOTP, useVerification } from "src/Hooks/useVerification";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,26 +43,66 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Otp = () => {
+  const history = useHistory();
   const classes = useStyles();
+  const [resendTime, setResendTime] = useState(0);
+  const { code, loading, getCode } = useOTP(history.location.state);
+
+  console.log(history.location.state);
+  const startTimer = async () => {
+    await getCode();
+    setResendTime(60);
+    let interval = setInterval(() => {
+      setResendTime((t) => {
+        if (t === 1) clearInterval(interval);
+        return --t;
+      });
+    }, 1000);
+  };
+
+  const getOtpText = () => {
+    let list = [];
+    if (code)
+      for (let i = 0; i < code.length; i++) {
+        list.push(<span className={classes.otpNum}>{code[i]}</span>);
+      }
+    return list;
+  };
 
   return (
     <div className={classes.root}>
       <Container maxWidth="lg">
-        <Typography variant="h2" align="center">
+        <Typography className="acmeFont" variant="h2" align="center">
           OTP
         </Typography>
         {/* <Typography align="center"  variant="h4"  className={classes.otpNumber}>123456</Typography> */}
-        <div className={classes.otpDiv}>
-          <span className={classes.otpNum}>1</span>
-          <span className={classes.otpNum}>2</span>
-          <span className={classes.otpNum}>3</span>
-          <span className={classes.otpNum}>4</span>
-          <span className={classes.otpNum}>5</span>
-          <span className={classes.otpNum}>6</span>
-        </div>
-        <Typography align="center" variant="h6" style={{ marginTop: 10 }}>
-          Subtext for otp
-        </Typography>
+        <div className={classes.otpDiv}>{getOtpText()}</div>
+        <center>
+          <CustomButton
+            loading={loading}
+            disabled={resendTime !== 0}
+            style={{ marginTop: 20 }}
+            onClick={() => startTimer()}
+          >
+            <Typography>
+              {resendTime === 0
+                ? "Resend Code"
+                : `Resend Code in ${resendTime} seconds`}
+            </Typography>
+          </CustomButton>
+          <Typography
+            align="center"
+            variant="h6"
+            style={{ marginTop: 10, width: "65%" }}
+          >
+            Send the above code to our{" "}
+            <a href="https://www.instagram.com/fantopia.io/" target="_blank">
+              Official Instagram Account
+            </a>{" "}
+            with your verified account, to get verified as a Celebrity and get
+            your verfication Badge
+          </Typography>
+        </center>
       </Container>
     </div>
   );

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserName = ({ badgeColor, name, image, onClick, ...props }) => {
+const UserName = ({ badgeColor, name, image, verified, onClick, ...props }) => {
   const classes = useStyles();
   return (
     <div className={classes.root} onClick={onClick}>
@@ -66,8 +66,7 @@ const UserName = ({ badgeColor, name, image, onClick, ...props }) => {
         >
           <Avatar src={image} style={{ width: "100%", height: "100%" }} />
           <Typography className={classes.avatarText}>
-            {/* {props?.level || "✓"} */}
-            {props?.level || (
+            {verified && (
               <img
                 src={VerifyIco}
                 width="110%"

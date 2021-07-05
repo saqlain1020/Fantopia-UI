@@ -201,7 +201,7 @@ const PutOnSale = ({ getState, disabled }) => {
               <>
                 <Grid item xs={12}>
                   <Typography>
-                    <b>{LOCALE.STAR[lang]}</b>{" "}
+                    <b>{LOCALE.STARTING_DATE[lang]}</b>{" "}
                     <small> ({LOCALE.DONT_PICK_TO_LIST[lang]})</small>
                   </Typography>
                   <DateTimePicker

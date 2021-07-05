@@ -503,7 +503,7 @@ export const LOCALE = {
     ko: "제의하기",
   },
   CANCEL_ORDER: {
-    en: "CANCEL_ORDER",
+    en: "CANCEL ORDER",
     ko: "주문 취소",
   },
   SEND: {

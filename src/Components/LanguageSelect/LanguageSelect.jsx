@@ -5,6 +5,7 @@ import LanguageIcon from "@material-ui/icons/Language";
 //import css module
 import "react-languages-select/css/react-languages-select.css";
 import { useChangeLanguage } from "src/State/hooks";
+import { LANGUAGE_KEY } from "src/Config/constants";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -51,7 +52,7 @@ const LanguageSelect = () => {
     <div className={classes.root}>
       <LanguageIcon />
       <ReactLanguageSelect
-        defaultLanguage="en"
+        defaultLanguage={localStorage.getItem(LANGUAGE_KEY) ?? "en"}
         className={classes.select}
         languages={["en", "ko"]}
         customLabels={{ en: "English", ko: "한글" }}

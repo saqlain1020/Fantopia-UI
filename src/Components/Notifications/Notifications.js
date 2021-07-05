@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Badge,
+  CircularProgress,
   IconButton,
   makeStyles,
   Popover,
@@ -8,12 +9,13 @@ import {
 } from "@material-ui/core";
 import NotificationsNoneOutlinedIcon from "@material-ui/icons/NotificationsNoneOutlined";
 import Noti from "./Noti";
+import { useNotifications } from "src/State/hooks";
 
 const useStyles = makeStyles((theme) => ({
   notiContainer: {
     padding: "16px 20px",
     color: theme.palette.secondary.main,
-    background: theme.palette.primary.main
+    background: theme.palette.primary.main,
   },
   headingContainer: {
     display: "flex",
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Notifications = () => {
   const classes = useStyles();
+  const { notifications, loading } = useNotifications();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -56,6 +59,7 @@ const Notifications = () => {
     <div>
       <IconButton onClick={handleClick}>
         <Badge variant="dot" color="primary">
+          {loading && <CircularProgress />}
           <NotificationsNoneOutlinedIcon style={{ color: "white" }} />
         </Badge>
       </IconButton>

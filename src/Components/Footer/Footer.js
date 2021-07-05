@@ -8,10 +8,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { LANGUAGES, LOCALE } from "src/Config/localization";
-import { useChangeLanguage, useLang } from "src/State/hooks";
+import { LOCALE } from "src/Config/localization";
+import { useLang } from "src/State/hooks";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () => {
   const lang = useLang();
   const classes = useStyles();
-  const change = useChangeLanguage();
 
   return (
     <Container maxWidth="lg" className={classes.root}>

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, makeStyles, Typography } from "@material-ui/core";
 import Step from "../Step";
-import { useMintERC721, useSignMintTokenId } from "../../Hooks/useMintToken";
+import { useMintERC721 } from "../../Hooks/useMintToken";
 import { useERC721Approval } from "../../Hooks/useApproval";
 import { useCloseModal } from "../../Hooks/useModal";
 import { STATE } from "src/Config/enums";
 import { useCreateOrder } from "src/Hooks/useOrder";
-import { NATIVE_ERC721_ADDRESS } from "src/Config/contracts";
 
 const useStyles = makeStyles((theme) => ({
   root: {
