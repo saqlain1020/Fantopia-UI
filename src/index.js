@@ -19,20 +19,40 @@ else item = false;
 console.warn = () => {};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <WalletProvider isBSC={true} chainId={42} isDarkMode={false}>
-      <BrowserRouter>
-        <ThemeProvider theme={item ? Theme : DarkTheme}>
-          <Provider store={store}>
-            <ModalProvider>
-              <App />
-            </ModalProvider>
-          </Provider>
-        </ThemeProvider>
-      </BrowserRouter>
-    </WalletProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+	<React.StrictMode>
+		<WalletProvider
+			isBSC={true}
+			chainId={42}
+			isDarkMode={false}
+			config={{
+				chainId: 56,
+				supportedChainIds: [56],
+				wrappedNative: {
+					address: "",
+					symbol: "WBNB",
+				},
+				usd: {
+					address: "",
+					symbol: "BUSD",
+				},
+				nativeUsdLp: {
+					address: "0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16",
+					symbol: "",
+				},
+			}}
+		>
+			<BrowserRouter>
+				<ThemeProvider theme={item ? Theme : DarkTheme}>
+					<Provider store={store}>
+						<ModalProvider>
+							<App />
+						</ModalProvider>
+					</Provider>
+				</ThemeProvider>
+			</BrowserRouter>
+		</WalletProvider>
+	</React.StrictMode>,
+	document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
