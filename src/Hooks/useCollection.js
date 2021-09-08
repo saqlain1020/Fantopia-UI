@@ -29,7 +29,9 @@ export const useCollectionList = () => {
   useEffect(() => {
     const fetchCelebrityCollection = async () => {
       setLoading(true);
-      setCelebrityCollections(await getCelebrityCollections());
+      try {
+        setCelebrityCollections(await getCelebrityCollections());
+      } catch (e) { console.log(e) }
       setLoading(false);
     };
     fetchCelebrityCollection();

@@ -359,6 +359,7 @@ const CreateSingleItem = () => {
           </div>
         </label>
         <CustomButton
+          wallet
           type="submit"
           variant="contained"
           color="secondary"

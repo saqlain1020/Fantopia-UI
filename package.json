@@ -3,19 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "3d-react-carousal": "^3.1.0",
     "@binance-chain/bsc-connector": "^1.0.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "@react-dapp/wallet": "0.0.16",
+    "@react-dapp/wallet": "0.0.17",
     "@reduxjs/toolkit": "^1.5.1",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.4",
+    "3d-react-carousal": "^3.1.0",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.1",
     "clsx": "^1.1.1",
+    "ethereum-multicall": "^2.7.0",
     "ethers": "^5.1.2",
     "node-sass": "^6.0.0",
     "react": "^17.0.1",
@@ -33,8 +34,7 @@
     "slick-carousel": "^1.8.1",
     "swiper": "^6.7.0",
     "web-vitals": "^1.0.1",
-    "web3": "^1.3.5",
-    "ethereum-multicall": "^2.7.0"
+    "web3": "^1.3.5"
   },
   "scripts": {
     "start": "react-scripts start",

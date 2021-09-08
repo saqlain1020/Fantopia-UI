@@ -16,17 +16,14 @@ let item = localStorage.getItem("theme");
 if (item === "light") item = true;
 else item = false;
 
-console.warn = () => {};
+console.warn = () => { };
 
 ReactDOM.render(
 	<React.StrictMode>
 		<WalletProvider
-			isBSC={true}
-			chainId={42}
-			isDarkMode={false}
 			config={{
-				chainId: 56,
-				supportedChainIds: [56],
+				chainId: 42,
+				supportedChainIds: [42],
 				wrappedNative: {
 					address: "",
 					symbol: "WBNB",
