@@ -72,16 +72,18 @@ export const useCollection = (value) => {
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
+      try {
+        let _collection;
+        _collection = isAddress(value)
+          ? await getCollection(value)
+          : await getCollectionByShortUrl(value);
 
-      let _collection;
-      _collection = isAddress(value)
-        ? await getCollection(value)
-        : await getCollectionByShortUrl(value);
-
-      console.log(_collection);
-      setCollection(_collection);
-
-      setLoading(true);
+        console.log(_collection);
+        setCollection(_collection);
+      } catch (e) {
+        console.log(e);
+      }
+      setLoading(false);
     };
 
     if (value) fetch(value);

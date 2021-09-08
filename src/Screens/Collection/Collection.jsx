@@ -17,6 +17,7 @@ import { useCollection, useCollectionTokens } from "src/Hooks/useCollection";
 import image from "src/Assets/Images/ad-1.png";
 import { useLang } from "src/State/hooks";
 import { LOCALE } from "src/Config/localization";
+import { useLoadingModal } from "src/Hooks/useModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,6 +69,7 @@ const Collection = () => {
   const { address } = useParams();
   const { collection, loading: loadingCollection } = useCollection(address);
   const { tokens, loading } = useCollectionTokens(collection?.address);
+  useLoadingModal(loadingCollection);
   return (
     <div className={classes.root}>
       <div className={classes.bg}>

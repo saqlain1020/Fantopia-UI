@@ -195,7 +195,7 @@ const CreateSingleItem = () => {
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
   const [royalty, setRoyalty] = useState(0);
-  const [category, setCategory] = useState("Digital Art");
+  const [category, setCategory] = useState("digitalArt");
 
   const [saleState, setSaleState] = React.useState({});
   const [collectionAddress, setCollectionAddress] = useState(
@@ -388,7 +388,7 @@ const CreateSingleItem = () => {
             <TextField
               select
               variant="outlined"
-              defaultValue="Digital Art"
+              defaultValue="digitalArt"
               fullWidth
               value={category}
               onClick={(e) => setCategory(e.target.value)}
@@ -397,12 +397,12 @@ const CreateSingleItem = () => {
               {/* <MenuItem value="disabled" disabled>
                 Category
               </MenuItem> */}
-              <MenuItem value="Digital Art">
+              <MenuItem value="digitalArt">
                 {LOCALE.DIGITAL_ART[lang]}
               </MenuItem>
-              <MenuItem value="Photos">{LOCALE.PHOTOS[lang]}</MenuItem>
-              <MenuItem value="Videos">{LOCALE.VIDEOS[lang]}</MenuItem>
-              <MenuItem value="Music">{LOCALE.MUSIC[lang]}</MenuItem>
+              <MenuItem value="photos">{LOCALE.PHOTOS[lang]}</MenuItem>
+              <MenuItem value="videos">{LOCALE.VIDEOS[lang]}</MenuItem>
+              <MenuItem value="music">{LOCALE.MUSIC[lang]}</MenuItem>
             </TextField>
           </Grid>
           {/* <Grid item xs={12}>

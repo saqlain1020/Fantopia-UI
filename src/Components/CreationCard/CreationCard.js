@@ -17,6 +17,7 @@ import { convertToLowerValue, getHighestBid, getTokenSymbol } from "src/Utils";
 import { useHistory } from "react-router-dom";
 import { useLang } from "src/State/hooks";
 import { LOCALE } from "src/Config/localization";
+import CATEGORIES from "src/Config/categories";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -224,7 +225,9 @@ const CreationCard = (props) => {
             </Typography>
             <Typography className={classes.titleType}>
               <FiberManualRecordOutlinedIcon className={classes.dotIcon} />{" "}
-              {data?.category ?? metadata?.category}
+              {data?.category
+                ? CATEGORIES[data?.category ?? "none"][lang]
+                : CATEGORIES[metadata?.category ?? "none"][lang]}
             </Typography>
             {/* {order?.order.saleKind !== 0 && (
               <Typography

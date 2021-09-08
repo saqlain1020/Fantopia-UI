@@ -52,11 +52,13 @@ const StoreTabs = () => {
         <Tab icon={LOCALE.AUCTION[lang]} />
       </Tabs>
       <Grid container>
-        {userCollections.map((e) => (
-          <Grid item xs={12} sm={12} md={4} lg={3}>
-            <CollectionCard data={e} />
-          </Grid>
-        ))}
+        {userCollections.length === 0
+          ? "No Collections Found"
+          : userCollections.map((e) => (
+              <Grid item xs={12} sm={12} md={4} lg={3}>
+                <CollectionCard data={e} />
+              </Grid>
+            ))}
       </Grid>
     </div>
   );

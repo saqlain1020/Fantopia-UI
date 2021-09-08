@@ -31,6 +31,7 @@ import { useLang, useUser } from "src/State/hooks";
 import { useWeb3 } from "@react-dapp/wallet";
 import { STATE } from "src/Config/enums";
 import { LOCALE } from "src/Config/localization";
+import CATEGORIES from "src/Config/categories";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -269,11 +270,11 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
             variant="outlined"
             color="secondary"
             className={classes.btn}
-            // disabled={
-            //   !order ||
-            //   order?.order.saleKind !== 0 ||
-            //   order?.order.maker === account
-            // }
+            disabled={
+              !order ||
+              order?.order.saleKind !== 0 ||
+              order?.order.maker === account
+            }
             onClick={() => openModal(order, fetchOrder)}
           >
             {LOCALE.BUY_NOW[lang]}
@@ -418,7 +419,8 @@ const ProductInfoBar = ({ metadata, order, fetchOrder }) => {
         </div>
       </div> */}
       <Typography className={classes.categories}>
-        {LOCALE.CATEGORIES[lang]}: <span>{metadata?.category}</span>
+        {LOCALE.CATEGORIES[lang]}:{" "}
+        <span>{CATEGORIES[metadata?.category ?? "none"][lang]}</span>
       </Typography>
       <Typography className={classes.idText}>
         <b>{LOCALE.CONTRACT_ADDRESS[lang]}: </b>{" "}
