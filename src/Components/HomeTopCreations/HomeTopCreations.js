@@ -69,10 +69,16 @@ const HomeTopCreations = () => {
       </Tabs>
       <Grid container>
         {loading ? (
-          <Grid>
-            <center>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            >
+            <Grid item xs={3}>
               <CircularProgress />
-            </center>
+            </Grid>
           </Grid>
         ) : (
           orders?.results?.map((e) => (

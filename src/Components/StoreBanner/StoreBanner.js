@@ -162,7 +162,7 @@ const StoreBanner = () => {
             variant="contained"
             color="secondary"
           >
-             {LOCALE.FOLLOW[lang]}
+            {LOCALE.FOLLOW[lang]}
           </Button>
           <Button
             // className={classes.followBtn}
@@ -179,6 +179,20 @@ const StoreBanner = () => {
           >
             {LOCALE.PENDING_NFT[lang]}
           </Button>
+          <Button
+            // className={classes.followBtn}
+            // variant="outlined"
+            color="secondary"
+            style={{
+              margin: "auto",
+              display: "block",
+              fontSize: 20,
+              padding: 10,
+              marginTop: 10,
+            }}
+          >
+            {LOCALE.PENDING_NFT[lang]}
+          </Button>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
           <Typography className={classes.valueDetail}>
@@ -186,7 +200,7 @@ const StoreBanner = () => {
             {LOCALE.ITEMS_CREATED[lang]}
           </Typography>
           <Typography variant="h4" className={classes.value}>
-            130
+            0
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
@@ -194,7 +208,7 @@ const StoreBanner = () => {
             {LOCALE.ITEM_IN_COLLECTION[lang]}
           </Typography>
           <Typography variant="h4" className={classes.value}>
-            82
+            0
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
@@ -202,13 +216,13 @@ const StoreBanner = () => {
             {LOCALE.ITEM_FOR_SALE[lang]}
           </Typography>
           <Typography variant="h4" className={classes.value}>
-            50
+            0
           </Typography>
         </Grid>
         <Grid item xs={12} className={classes.itemValueDiv}>
           <Typography className={classes.valueDetail}>Views</Typography>
           <Typography variant="h4" className={classes.value}>
-            5.7K
+            0
           </Typography>
         </Grid>
         {/* <Grid item xs={12}>

@@ -172,7 +172,8 @@ const HomeFeaturedCollections = () => {
           <div
             key={index}
             onClick={() =>
-              history.push(`collection/${item.address}/${item.tokenId}`)
+              // history.push(`collection/${item.address}/${item.tokenId}`)
+              history.push(`categories`)
             }
           >
             <div
